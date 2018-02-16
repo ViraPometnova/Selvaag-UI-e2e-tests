@@ -1,4 +1,4 @@
-import {ElementArrayFinder, ElementFinder, promise} from 'protractor';
+import {ElementArrayFinder, ElementFinder, promise, protractor} from 'protractor';
 import {browser} from "protractor";
 import {ExpectedConditions} from "protractor";
 
@@ -16,6 +16,10 @@ declare module 'protractor/built/element' {
         waitAndClick(): promise.Promise<void>;
 
         hasClass(clazz: string): Promise<boolean>;
+
+        isWebElementDisplayed(): promise.Promise<boolean>;
+
+        isWebElementPresent(): promise.Promise<boolean>;
     }
 }
 
@@ -55,14 +59,27 @@ ElementArrayFinder.prototype.getByText = function (compareText) {
 // };
 
 /**
- * Clear the input field and send text
+ * Clear the input field and send text.
  * @param  {string} text
  */
 ElementFinder.prototype.clearAndSendKeys = function (text: string) {
     let self = this;
-    return self.clear().then(function () {
-        self.sendKeys(text);
-    });
+    return self.sendKeys('')
+        .then(() => {
+            self.clear().sendKeys(text);
+        });
+};
+
+ElementFinder.prototype.isWebElementDisplayed = function () {
+    let self = this;
+    return browser.wait(ExpectedConditions.visibilityOf(self), 3000)
+        .then(() => true, () => false);
+};
+
+ElementFinder.prototype.isWebElementPresent = function () {
+    let self = this;
+    return browser.wait(ExpectedConditions.presenceOf(self), 3000)
+        .then(() => true, () => false);
 };
 
 /**

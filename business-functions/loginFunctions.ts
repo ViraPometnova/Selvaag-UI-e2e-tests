@@ -7,6 +7,6 @@ export class LoginFunctions {
     static async login(username: string, password: string) {
         await loginPage.setUsername(username);
         await loginPage.setPassword(password);
-        await loginPage.clickLoginButton();
+        return await loginPage.clickLoginButton();
     }
 }

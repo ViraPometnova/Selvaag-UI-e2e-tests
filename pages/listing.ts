@@ -12,14 +12,14 @@ export class ListingPage {
     }
 
     isLoadMoreLinkPresent() {
-        return this.loadMoreLink.isPresent();
+        return this.loadMoreLink.isWebElementPresent();
     }
 
     isSearchInputDisplayed() {
-        return this.searchInput.isDisplayed();
+        return this.searchInput.isWebElementDisplayed();
     }
 
     isAdvancedSearchLinkDisplayed() {
-        return this.advancedSearchLink.isDisplayed();
+        return this.advancedSearchLink.isWebElementDisplayed();
     }
 }

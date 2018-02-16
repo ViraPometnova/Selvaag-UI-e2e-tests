@@ -23,8 +23,8 @@ Feature: Facility
     Then facility <facilityName> is created
 
     Examples:
-      | facilityName |
-      | TestFacility |
+      | facilityName  |
+      | Test Facility |
 
   @CucumberScenario
   Scenario Outline: Edit Facility
@@ -37,7 +37,7 @@ Feature: Facility
 
     Examples:
       | oldFacilityName | newFacilityName |
-      | TestFacility    | Test Facility   |
+      | Test Facility   | [New Name]      |
 
 
 

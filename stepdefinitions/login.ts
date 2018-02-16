@@ -7,7 +7,7 @@ const {When, Then, Given} = require("cucumber"),
     loginAssertions: LoginAssertions = new LoginAssertions();
 
 Given(/^User is on login page$/, async () => {
-    await loginAssertions.checkLoginPageIsDisplayed();
+    await loginAssertions.checkLoginPageisWebElementDisplayed();
 });
 
 When(/^types username (.*?)$/, async (username: string) => {
@@ -23,7 +23,7 @@ When(/^performs log in$/, async () => {
 });
 
 Then(/^User is left on login page$/, async () => {
-    await loginAssertions.checkLoginPageIsDisplayed();
+    await loginAssertions.checkLoginPageisWebElementDisplayed();
 });
 
 Then(/^Login action is available$/, async () => {

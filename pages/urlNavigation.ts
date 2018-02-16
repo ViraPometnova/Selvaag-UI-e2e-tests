@@ -4,11 +4,11 @@ import {config} from "../config/config";
 const baseUrl = config.baseUrl;
 
 export class UrlNavigation {
-    openFacilitiesUrl() {
+    static openFacilitiesUrl() {
         browser.get(baseUrl + 'admin/facilities');
     }
 
-    openAdminUrl() {
+    static openAdminUrl() {
         browser.get(baseUrl + 'admin');
     }
 }

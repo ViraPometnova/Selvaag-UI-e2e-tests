@@ -26,7 +26,7 @@ export class LoginPage {
     }
 
     isTitleDisplayed() {
-        return this.title.isDisplayed();
+        return this.title.isWebElementDisplayed();
     }
 
     getPageTitle() {

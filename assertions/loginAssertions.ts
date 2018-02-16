@@ -5,7 +5,7 @@ const loginPage: LoginPage = new LoginPage();
 
 export class LoginAssertions {
 
-    async checkLoginPageIsDisplayed() {
+    async checkLoginPageisWebElementDisplayed() {
         assert.isTrue(await loginPage.isTitleDisplayed(), 'Login page title is not displayed');
         assert.equal(await loginPage.getPageTitle(), 'Selvaag BUL Guarantees', 'Login page title is not equal to expected');
     }

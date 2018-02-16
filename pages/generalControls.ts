@@ -10,10 +10,10 @@ export class GeneralControls {
     }
 
     clickSubmitButton() {
-        this.submitButton.waitAndClick();
+        return this.submitButton.waitAndClick();
     }
 
     clickCancelButton() {
-        this.cancelButton.waitAndClick();
+        return this.cancelButton.waitAndClick();
     }
 }
