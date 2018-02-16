@@ -37,7 +37,7 @@ Feature: Facility
 
     Examples:
       | oldFacilityName | newFacilityName |
-      | Test Facility   | [New Name]      |
+      | Test Facility   | New Facility    |
 
 
 
