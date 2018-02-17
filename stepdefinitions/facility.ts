@@ -8,7 +8,7 @@ const {When, Then} = require("cucumber"),
     facilityAssertions: FacilityAssertions = new FacilityAssertions();
 
 When(/^performs new facility creation$/, async () => {
-    await facilityPage.clickAddFacilityButton();
+    await facilityPage.clickAddButton();
 });
 
 When(/^types facility name (.*?)$/, async (name: string) => {

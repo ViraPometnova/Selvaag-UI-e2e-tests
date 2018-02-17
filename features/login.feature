@@ -1,6 +1,5 @@
 Feature: Log in Selvaag
 
-  @CucumberScenario
   Scenario Outline: Log in with invalid credentials
     Given User is on login page
     And types username <username>
@@ -13,7 +12,6 @@ Feature: Log in Selvaag
       | something | anything |
       |           |          |
 
-  @CucumberScenario
   Scenario Outline: Log in with valid credentials
     Given User is on login page
     And types username <username>

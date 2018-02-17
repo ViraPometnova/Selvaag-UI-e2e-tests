@@ -1,6 +1,5 @@
 Feature: Facility
 
-  @CucumberScenario
   Scenario Outline: Facility is not created
     Given User is logged in with <username> and <password>
     And opens admin page
@@ -14,7 +13,6 @@ Feature: Facility
       | username | password | facilityName     |
       | admin    | admin    | NotSavedFacility |
 
-  @CucumberScenario
   Scenario Outline: New Facility is created
     Given User is on facilities page
     And performs new facility creation
@@ -26,7 +24,6 @@ Feature: Facility
       | facilityName  |
       | Test Facility |
 
-  @CucumberScenario
   Scenario Outline: Edit Facility
     Given User is on facilities page
     And opens facility <oldFacilityName> to edit

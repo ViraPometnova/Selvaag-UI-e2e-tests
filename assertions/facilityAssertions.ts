@@ -6,11 +6,11 @@ const facilityPage: FacilityPage = new FacilityPage();
 export class FacilityAssertions {
 
     async checkFacilityIsCreated(name: string) {
-        assert.isTrue(await facilityPage.isFacilityPresent(name), `Facility ${name} is not created`);
+        assert.isTrue(await facilityPage.isRecordPresent(name), `Facility ${name} is not created`);
     }
 
     async checkFacilityIsNotCreated(name: string) {
-        assert.isFalse(await facilityPage.isFacilityPresent(name), `Facility ${name} is created`);
+        assert.isFalse(await facilityPage.isRecordPresent(name), `Facility ${name} is created`);
     }
 
     async checkFacilityPageIsOpened() {
