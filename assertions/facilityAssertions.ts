@@ -1,19 +1,21 @@
-import {FacilityPage} from "../pages/facility";
+import {ManageFacilitiesPage} from "../pages/admin/manageFacilities";
+import {AdminTable} from "../pages/admin/adminTable";
 
-const assert = require("chai").assert;
-const facilityPage: FacilityPage = new FacilityPage();
+const assert = require("chai").assert,
+    manageFacilitiesPage: ManageFacilitiesPage = new ManageFacilitiesPage(),
+    adminTable: AdminTable = new AdminTable();
 
 export class FacilityAssertions {
 
     async checkFacilityIsCreated(name: string) {
-        assert.isTrue(await facilityPage.isRecordPresent(name), `Facility ${name} is not created`);
+        assert.isTrue(await adminTable.isRecordPresent(name), `Facility ${name} is not created`);
     }
 
     async checkFacilityIsNotCreated(name: string) {
-        assert.isFalse(await facilityPage.isRecordPresent(name), `Facility ${name} is created`);
+        assert.isFalse(await adminTable.isRecordPresent(name), `Facility ${name} is created`);
     }
 
     async checkFacilityPageIsOpened() {
-        assert.isTrue(await facilityPage.isFacilityPageDisplayed(), 'Facility page is not opened');
+        assert.isTrue(await manageFacilitiesPage.isFacilityListDisplayed(), 'Facility page is not opened');
     }
 }

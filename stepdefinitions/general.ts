@@ -1,13 +1,14 @@
-import {GeneralFunctions} from "../business-functions/generalFunctions";
+import {GeneralControls} from "../pages/generalControls";
 
-const {When} = require("cucumber");
+const {When} = require("cucumber"),
+    generalControls: GeneralControls = new GeneralControls();
 
-When(/^user cancels changes$/, async () => {
-    await GeneralFunctions.cancel();
+When(/^User cancels changes$/, async () => {
+    await generalControls.clickCancelButton();
 });
 
-When(/^user submits creation$/, async () => {
-    await GeneralFunctions.submit();
+When(/^User submits changes$/, async () => {
+    await generalControls.clickSubmitButton();
 });
 
 

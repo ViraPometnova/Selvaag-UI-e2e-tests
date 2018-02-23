@@ -1,13 +1,14 @@
 import {LoginAssertions} from "../assertions/loginAssertions";
 import {LoginPage} from "../pages/login";
 import {LoginFunctions} from "../business-functions/loginFunctions";
+import {credentials} from "../test-data/loginData";
 
 const {When, Then, Given} = require("cucumber"),
     loginPage: LoginPage = new LoginPage(),
     loginAssertions: LoginAssertions = new LoginAssertions();
 
 Given(/^User is on login page$/, async () => {
-    await loginAssertions.checkLoginPageisWebElementDisplayed();
+    await loginAssertions.checkLoginPageisDisplayed();
 });
 
 When(/^types username (.*?)$/, async (username: string) => {
@@ -23,7 +24,7 @@ When(/^performs log in$/, async () => {
 });
 
 Then(/^User is left on login page$/, async () => {
-    await loginAssertions.checkLoginPageisWebElementDisplayed();
+    await loginAssertions.checkLoginPageisDisplayed();
 });
 
 Then(/^Login action is available$/, async () => {
@@ -37,6 +38,12 @@ Then(/^Login action is not available$/, async () => {
 When(/^User is logged in with (.*?) and (.*?)$/, async (username: string, password: string) => {
     await LoginFunctions.login(username, password);
 });
+
+When(/^User is logged in$/, async () => {
+    await LoginFunctions.login(credentials.username, credentials.password);
+});
+
+
 
 
 

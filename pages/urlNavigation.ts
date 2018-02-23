@@ -11,4 +11,12 @@ export class UrlNavigation {
     static openAdminUrl() {
         browser.get(baseUrl + 'admin');
     }
+
+    static openFacilityMembersUrl() {
+        browser.get(baseUrl + 'admin/facilitymembers');
+    }
+
+    static openMainPageUrl(){
+        browser.get(baseUrl);
+    }
 }

@@ -12,26 +12,26 @@ export class AdminTable {
     }
 
     clickEditButtonAt(name: string) {
-        const parentElement = this.getRowParentElementBy(name),
+        const parentElement = this.getRowParentElementFor(name),
             editButton = parentElement.element(by.cssContainingText('a', 'edit'));
         return editButton.waitAndClick();
     }
 
-    private getRowParentElementBy(name: string) {
+    private getRowParentElementFor(name: string) {
         return element(by.cssContainingText('tr', name));
     }
 
     isRecordPresent(name: string) {
-        const record = this.getRowElementBy(name);
+        const record = this.getRowElementFor(name);
         return record.isWebElementPresent();
     }
 
-    private getRowElementBy(name: string) {
+    private getRowElementFor(name: string) {
         return element(by.cssContainingText('td', name));
     }
 
-    getRowDataBy(cellText: string) {
-        const row = this.getRowParentElementBy(cellText);
+    getRowDataAt(cellText: string) {
+        const row = this.getRowParentElementFor(cellText);
         return row.getText();
     }
 }

@@ -1,23 +1,28 @@
-import {FacilityPage} from "../pages/facility";
+import {ManageFacilitiesPage} from "../pages/admin/manageFacilities";
 import {FacilityAssertions} from "../assertions/facilityAssertions";
 import {UrlNavigation} from "../pages/urlNavigation";
 import {CurrentRun} from "../support/currentRun";
+import {FacilityFunctions} from "../business-functions/facilityFunctions";
+import {AdminTable} from "../pages/admin/adminTable";
+import {facilityData} from "../test-data/facilityData";
 
 const {When, Then} = require("cucumber"),
-    facilityPage: FacilityPage = new FacilityPage(),
-    facilityAssertions: FacilityAssertions = new FacilityAssertions();
+    manageFacilitiesPage: ManageFacilitiesPage = new ManageFacilitiesPage(),
+    facilityAssertions: FacilityAssertions = new FacilityAssertions(),
+    facilityFunctions: FacilityFunctions = new FacilityFunctions(),
+    adminTable: AdminTable = new AdminTable();
 
-When(/^performs new facility creation$/, async () => {
-    await facilityPage.clickAddButton();
+When(/^performs new Facility creation$/, async () => {
+    await adminTable.clickAddButton();
 });
 
-When(/^types facility name (.*?)$/, async (name: string) => {
-    await facilityPage.setFacilityName(CurrentRun.unique(name));
+When(/^types Facility name (.*?)$/, async (facilityName: string) => {
+    await manageFacilitiesPage.setFacilityName(CurrentRun.uniqueName(facilityName));
 });
 
-Then(/^facility (.*?) is not created$/, async (name: string) => {
+Then(/^Facility (.*?) is not created$/, async (facilityName: string) => {
     await facilityAssertions.checkFacilityPageIsOpened();
-    await facilityAssertions.checkFacilityIsNotCreated(CurrentRun.unique(name));
+    await facilityAssertions.checkFacilityIsNotCreated(CurrentRun.uniqueName(facilityName));
 });
 
 When(/^User is on facilities page$/, async () => {
@@ -25,13 +30,18 @@ When(/^User is on facilities page$/, async () => {
     await facilityAssertions.checkFacilityPageIsOpened();
 });
 
-Then(/^facility (.*?) is created$/, async (name: string) => {
+Then(/^Facility (.*?) is created$/, async (facilityName: string) => {
     await facilityAssertions.checkFacilityPageIsOpened();
-    await facilityAssertions.checkFacilityIsCreated(CurrentRun.unique(name));
+    await facilityAssertions.checkFacilityIsCreated(CurrentRun.uniqueName(facilityName));
 });
 
-When(/^opens facility (.*?) to edit$/, async (name: string) => {
-    await facilityPage.clickEditButtonAt(CurrentRun.unique(name));
+When(/^opens Facility (.*?) to edit$/, async (facilityName: string) => {
+    await adminTable.clickEditButtonAt(CurrentRun.uniqueName(facilityName));
+});
+
+When(/^Facility is created$/, async () => {
+    await facilityFunctions.createFacility(CurrentRun.uniqueName(facilityData.name));
+    await facilityAssertions.checkFacilityIsCreated(CurrentRun.uniqueName(facilityData.name));
 });
 
 

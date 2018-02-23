@@ -72,13 +72,13 @@ ElementFinder.prototype.clearAndSendKeys = function (text: string) {
 
 ElementFinder.prototype.isWebElementDisplayed = function () {
     let self = this;
-    return browser.wait(ExpectedConditions.visibilityOf(self), 3000)
+    return browser.wait(ExpectedConditions.visibilityOf(self), 10000)
         .then(() => true, () => false);
 };
 
 ElementFinder.prototype.isWebElementPresent = function () {
     let self = this;
-    return browser.wait(ExpectedConditions.presenceOf(self), 3000)
+    return browser.wait(ExpectedConditions.presenceOf(self), 10000)
         .then(() => true, () => false);
 };
 
@@ -88,7 +88,7 @@ ElementFinder.prototype.isWebElementPresent = function () {
  */
 ElementFinder.prototype.waitAndClick = function () {
     let self = this;
-    return browser.wait(ExpectedConditions.elementToBeClickable(self), 5000)
+    return browser.wait(ExpectedConditions.elementToBeClickable(self), 10000)
         .then(function () {
             return self.click(); //if found
         }, function () {
@@ -122,7 +122,7 @@ ElementArrayFinder.prototype.getByAttribute = function (attribute: string, value
  */
 ElementFinder.prototype.hasClass = function (clazz: string) {
     return this.getAttribute('class').then(function (className) {
-        return className === clazz;
+        return className.indexOf(clazz) != -1;
     });
 };
 
