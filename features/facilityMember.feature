@@ -32,9 +32,9 @@ Feature: Facility Member
     And chooses Facility
     And types organisation name <name>
     And types organisation number <number>
-    And types organisation address line 1 <addressLine1>
-    And types organisation address line 2 <addressLine2>
-    And types organisation address line 3 <addressLine3>
+    And types organisation address line 1 <address>
+    And types organisation address line 2 <city>
+    And types organisation address line 3 <zip>
     And makes organisation enabled
     When User submits changes
     Then <name> Facility member is created
@@ -43,15 +43,15 @@ Feature: Facility Member
     And <name> has enabled <enabled> in Facility members list
     And User performs search by <number>
     And <name> has number <number> in listing
-    And <name> has address line 1 <addressLine1> in listing
-    And <name> has address line 2 <addressLine2> in listing
-    And <name> has address line 3 <addressLine3> in listing
+    And <name> has address line 1 <address> in listing
+    And <name> has address line 2 <city> in listing
+    And <name> has address line 3 <zip> in listing
     And <name> has <contractsAmount> created contracts in listing
     And <name> new contract is able to be created
 
     Examples:
-      | name    | number | addressLine1   | addressLine2 | addressLine3 | enabled | contractsAmount |
-      | Svartis | #      | Ocean drive 12 | Miami        | 33139        | true    | 0               |
+      | name    | number | address        | city  | zip   | enabled | contractsAmount |
+      | Svartis | #      | Ocean drive 12 | Miami | 33139 | true    | 0               |
 
   Scenario Outline: Edit Facility member
     Given User is on Facility members page
