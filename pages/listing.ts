@@ -47,8 +47,8 @@ export class ListingPage {
         return element(by.cssContainingText('.item-card', details));
     }
 
-    getItemDetailsFor(itemName: string) {
-        const itemElement = this.getItemDetailsElementFor(itemName),
+    async getItemDetailsFor(itemName: string) {
+        const itemElement = await this.getItemDetailsElementFor(itemName),
             detailsElement = itemElement.$('span');
         return detailsElement.getText();
     }
@@ -73,8 +73,7 @@ export class ListingPage {
     }
 
     async getItemCounterFor(itemName: string) {
-        const itemElement = this.getItem(itemName),
-            counterElement = itemElement.$('.count'),
+        const counterElement = this.getItemCounterElementFor(itemName),
             elementText = await counterElement.getText();
         return this.getCounterValueFrom(elementText);
     }
@@ -84,7 +83,16 @@ export class ListingPage {
         return splittedValue[0].trim();
     }
 
-    isAddNewContractLinkDisabledFor(name:string){
+    isAddNewContractLinkDisabledFor(name: string) {
         return this.getAddNewContractLinkFor(name).hasClass('disabled');
+    }
+
+    private getItemCounterElementFor(itemName: string) {
+        const itemElement = this.getItem(itemName);
+        return itemElement.$('.count');
+    }
+
+    clickCounterFor(itemName: string) {
+        return this.getItemCounterElementFor(itemName).waitAndClick();
     }
 }

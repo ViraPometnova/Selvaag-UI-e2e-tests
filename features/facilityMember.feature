@@ -47,7 +47,14 @@ Feature: Facility Member
     And <name> has address line 2 <city> in listing
     And <name> has address line 3 <zip> in listing
     And <name> has <contractsAmount> created contracts in listing
-    And <name> new contract is able to be created
+    And <name> new contract is able to be created from listing
+    And User opens <name> Facility member page
+    And <name> has number <number> on Facility member page
+    And <name> has address line 1 <address> on Facility member page
+    And <name> has address line 2 <city> on Facility member page
+    And <name> has address line 3 <zip> on Facility member page
+    And <name> has <contractsAmount> created contracts on Facility member page
+    And <name> new contract is able to be created from Facility member page
 
     Examples:
       | name    | number | address        | city  | zip   | enabled | contractsAmount |
@@ -64,6 +71,9 @@ Feature: Facility Member
     And <newName> has number <newNumber> in Facility members list
     And User performs search by <newNumber>
     And <newName> has number <newNumber> in listing
+    And User opens <newName> Facility member page
+    And <newName> has number <newNumber> on Facility member page
+
 
     Examples:
       | oldName | newName   | newNumber |
@@ -76,7 +86,9 @@ Feature: Facility Member
     When User submits changes
     Then <name> has enabled <enabled> in Facility members list
     And User performs search by <number>
-    And <name> is disabled for adding contracts
+    And <name> is disabled for adding contracts from listing
+    And User opens <name> Facility member page
+    And <name> is disabled for adding contracts from Facility member page
 
     Examples:
       | name      | enabled | number |

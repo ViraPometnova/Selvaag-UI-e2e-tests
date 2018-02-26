@@ -1,5 +1,6 @@
 import {ManageFacilityMembersPage} from "../pages/admin/manageFacilityMembers";
 import {AdminTable} from "../pages/admin/adminTable";
+import {browser} from "protractor";
 
 const assert = require("chai").assert,
     manageFacilityMembersPage: ManageFacilityMembersPage = new ManageFacilityMembersPage(),
@@ -7,7 +8,7 @@ const assert = require("chai").assert,
 
 export class FacilityMemberAssertions {
 
-    async checkFacilityMemberPageIsOpened() {
+    async checkManageFacilityMembersPageIsOpened() {
         assert.isTrue(await manageFacilityMembersPage.isFacilityMemberListDisplayed(), 'Facility member page is not opened');
     }
 
@@ -32,5 +33,9 @@ export class FacilityMemberAssertions {
 
     async checkFacilityMemberIsNotCreated(name: string) {
         assert.isFalse(await adminTable.isRecordPresent(name), `Facility member ${name} is created`);
+    }
+
+    async checkFacilityMemberPageIsOpened(){
+        assert.include(await browser.getCurrentUrl(), '/facility-member/', 'Url is not include facility member page reference');
     }
 }

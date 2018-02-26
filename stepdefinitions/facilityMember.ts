@@ -82,7 +82,7 @@ Then(/^organisation address line 3 validation message is shown/, async () => {
 
 When(/^User is on Facility members page$/, async () => {
     await UrlNavigation.openFacilityMembersUrl();
-    await facilityMemberAssertions.checkFacilityMemberPageIsOpened();
+    await facilityMemberAssertions.checkManageFacilityMembersPageIsOpened();
 });
 
 When(/^chooses Facility$/, async () => {
@@ -134,7 +134,7 @@ Then(/^(.*?) has (.*?) created contracts in listing$/, async (name: string, coun
     await listingAssertions.checkCounterFor(CurrentRun.uniqueName(name), count);
 });
 
-Then(/^(.*?) new contract is able to be created$/, async (name: string) => {
+Then(/^(.*?) new contract is able to be created from listing$/, async (name: string) => {
     await listingAssertions.checkAddNewContractLinkIsNotDisabledFor(CurrentRun.uniqueName(name));
     await listingPage.clickAddNewContractFor(CurrentRun.uniqueName(name));
     await contractAssertions.checkContractPageIsOpened();
@@ -148,11 +148,44 @@ When(/^makes organisation disabled$/, async () => {
     await manageFacilityMembersPage.setDisabledCheckbox();
 });
 
-Then(/^(.*?) is disabled for adding contracts$/, async (name: string) => {
+Then(/^(.*?) is disabled for adding contracts from listing$/, async (name: string) => {
     await listingAssertions.checkAddNewContractLinkIsDisabledFor(CurrentRun.uniqueName(name));
 });
 
+Then(/^(.*?) is disabled for adding contracts from Facility member page$/, async (name: string) => {
+    await listingAssertions.checkAddNewContractLinkIsDisabledFor(CurrentRun.uniqueName(name));
+});
 
+When(/^User opens (.*?) Facility member page$/, async (name: string) => {
+    await listingPage.clickCounterFor(name);
+    await facilityMemberAssertions.checkFacilityMemberPageIsOpened();
+});
+
+Then(/^(.*?) has number (.*?) on Facility member page$/, async (name: string, number: string) => {
+    await listingAssertions.checkDetailsAreDisplayedFor(CurrentRun.uniqueName(name), CurrentRun.uniqueNumber(number));
+});
+
+Then(/^(.*?) has address line 1 (.*?) on Facility member page$/, async (name: string, address: string) => {
+    await listingAssertions.checkSubDetailsAreDisplayedFor(CurrentRun.uniqueName(name), address);
+});
+
+Then(/^(.*?) has address line 2 (.*?) on Facility member page$/, async (name: string, city: string) => {
+    await listingAssertions.checkSubDetailsAreDisplayedFor(CurrentRun.uniqueName(name), city);
+});
+
+Then(/^(.*?) has address line 3 (.*?) on Facility member page$/, async (name: string, zip: string) => {
+    await listingAssertions.checkSubDetailsAreDisplayedFor(CurrentRun.uniqueName(name), zip);
+});
+
+Then(/^(.*?) has (.*?) created contracts on Facility member page$/, async (name: string, count: string) => {
+    await listingAssertions.checkCounterFor(CurrentRun.uniqueName(name), count);
+});
+
+Then(/^(.*?) new contract is able to be created from Facility member page$/, async (name: string) => {
+    await listingAssertions.checkAddNewContractLinkIsNotDisabledFor(CurrentRun.uniqueName(name));
+    await listingPage.clickAddNewContractFor(CurrentRun.uniqueName(name));
+    await contractAssertions.checkContractPageIsOpened();
+});
 
 
 

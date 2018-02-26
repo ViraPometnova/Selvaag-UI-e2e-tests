@@ -34,7 +34,6 @@ export class LoginPage {
     }
 
     async isLoginButtonEnabled() {
-        const buttonClass = await this.loginButton.getAttribute('class');
-        return buttonClass.indexOf('enabled') != -1;
+        return this.loginButton.hasClass('enabled');
     }
 }

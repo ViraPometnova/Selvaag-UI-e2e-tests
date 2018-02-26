@@ -21,5 +21,5 @@ When(/^opens Facility manager$/, async () => {
 
 When(/^opens Facility members manager$/, async () => {
     await adminPage.clickManageFacilityMembersLink();
-    await facilityMemberAssertions.checkFacilityMemberPageIsOpened();
+    await facilityMemberAssertions.checkManageFacilityMembersPageIsOpened();
 });
