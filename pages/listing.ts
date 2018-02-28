@@ -1,16 +1,26 @@
-import {element, by, $} from "protractor";
+import {element, by, $, $$} from "protractor";
 
 export class ListingPage {
     public loadMoreLink: any;
     public searchInput: any;
     public advancedSearchLink: any;
     public lookupIcon: any;
+    public itemCard: any;
+    public details: any;
+    public subdetails: any;
+    public actions: any;
+    public counter: any;
 
     constructor() {
         this.loadMoreLink = element(by.cssContainingText('a', 'load more'));
         this.searchInput = $('.search-wrapper input');
         this.advancedSearchLink = element(by.cssContainingText('.advanced-switcher', 'Advanced search'));
         this.lookupIcon = $('.drop');
+        this.itemCard = $$('.item-card').first();
+        this.details = $$('.details').first();
+        this.subdetails = $$('.sub-details').first();
+        this.actions = $$('.actions').first();
+        this.counter = $$('.count').first();
     }
 
     isLoadMoreLinkPresent() {
@@ -94,5 +104,30 @@ export class ListingPage {
 
     clickCounterFor(itemName: string) {
         return this.getItemCounterElementFor(itemName).waitAndClick();
+    }
+
+    async isItemCardAndDetailsDisplayed() {
+        return (await this.isItemCardDisplayed() && await this.isDetailsDisplayed() && await this.isSubDetailsDisplayed()
+            && await this.isActionsDisplayed() && await this.isCounterDisplayed());
+    }
+
+    private isItemCardDisplayed() {
+        return this.itemCard.isWebElementDisplayed();
+    }
+
+    private isDetailsDisplayed() {
+        return this.details.isWebElementDisplayed();
+    }
+
+    private isSubDetailsDisplayed() {
+        return this.subdetails.isWebElementDisplayed();
+    }
+
+    private isActionsDisplayed() {
+        return this.actions.isWebElementDisplayed();
+    }
+
+    private isCounterDisplayed() {
+        return this.counter.isWebElementDisplayed();
     }
 }

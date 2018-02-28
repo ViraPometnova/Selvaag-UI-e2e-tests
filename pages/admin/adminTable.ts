@@ -1,10 +1,16 @@
-import {element, by} from "protractor";
+import {element, by, $, $$} from "protractor";
 
 export class AdminTable {
     public addButton: any;
+    public table: any;
+    public tableRow: any;
+    public tableData: any;
 
     constructor() {
         this.addButton = element(by.cssContainingText('.btn', 'Add'));
+        this.table = $('.table');
+        this.tableRow = $$('tr').first();
+        this.tableData = $$('td').first();
     }
 
     clickAddButton() {
@@ -33,5 +39,21 @@ export class AdminTable {
     getRowDataAt(cellText: string) {
         const row = this.getRowParentElementFor(cellText);
         return row.getText();
+    }
+
+    async isAdminTableDispalyed() {
+        return (await this.isTableDisplayed() && await this.isTableRowDisplayed() && await this.isTableDataDisplayed());
+    }
+
+    private isTableDisplayed() {
+        return this.table.isWebElementDisplayed();
+    }
+
+    private isTableRowDisplayed() {
+        return this.tableRow.isWebElementDisplayed();
+    }
+
+    private isTableDataDisplayed() {
+        return this.tableData.isWebElementDisplayed();
     }
 }

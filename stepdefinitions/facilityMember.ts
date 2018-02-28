@@ -111,6 +111,7 @@ Then(/^(.*?) has Facility in Facility members list$/, async (organisationName: s
 });
 
 Then(/^(.*?) has enabled (.*?) in Facility members list$/, async (name: string, enabled: string) => {
+    await facilityMemberAssertions.checkManageFacilityMembersPageIsOpened();
     await facilityMemberAssertions.checkOrganisationStateIsPresentInFacilityMembersList(CurrentRun.uniqueName(name), enabled);
 });
 

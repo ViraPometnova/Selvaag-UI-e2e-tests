@@ -1,8 +1,7 @@
-import {ManageFacilitiesPage} from "../pages/admin/manageFacilities";
 import {AdminTable} from "../pages/admin/adminTable";
+import {browser} from "protractor";
 
 const assert = require("chai").assert,
-    manageFacilitiesPage: ManageFacilitiesPage = new ManageFacilitiesPage(),
     adminTable: AdminTable = new AdminTable();
 
 export class FacilityAssertions {
@@ -16,6 +15,7 @@ export class FacilityAssertions {
     }
 
     async checkFacilityPageIsOpened() {
-        assert.isTrue(await manageFacilitiesPage.isFacilityListDisplayed(), 'Facility page is not opened');
+        assert.include(await browser.getCurrentUrl(), '/facilities', 'Url is not included reference on Manage facilities page');
+        assert.isTrue(await adminTable.isAdminTableDispalyed(), 'Facility page is not opened');
     }
 }

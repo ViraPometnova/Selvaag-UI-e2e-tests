@@ -16,22 +16,22 @@ export class AdminPage {
     }
 
     clickManageFacilitiesLink() {
-        this.manageFacilitiesLink.waitAndClick();
+        return this.manageFacilitiesLink.waitAndClick();
     }
 
     clickManageFacilityMembersLink() {
-        this.manageFacilityMembersLink.waitAndClick();
+        return this.manageFacilityMembersLink.waitAndClick();
     }
 
     clickManageGuaranteeTypesLink() {
-        this.manageGuaranteeTypesLink.waitAndClick();
+        return this.manageGuaranteeTypesLink.waitAndClick();
     }
 
     clickProblematicGuaranteesLink() {
-        this.problematicGuaranteesLink.waitAndClick();
+        return this.problematicGuaranteesLink.waitAndClick();
     }
 
     clickExitAdminLink() {
-        this.exitAdminLink.waitAndClick();
+        return this.exitAdminLink.waitAndClick();
     }
 }

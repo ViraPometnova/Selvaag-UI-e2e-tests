@@ -2,7 +2,6 @@ import {element, by, $} from "protractor";
 import {AdminTable} from "./adminTable";
 
 export class ManageFacilityMembersPage {
-    public facilityList: any;
     public organisationNameInput: any;
     public organisationNumberInput: any;
     public facilityDropdown: any;
@@ -11,16 +10,11 @@ export class ManageFacilityMembersPage {
     adminTable: AdminTable = new AdminTable();
 
     constructor() {
-        this.facilityList = element(by.cssContainingText('app-facility-member-list', 'Facility Members'));
         this.organisationNameInput = $('#organisationNameInput');
         this.organisationNumberInput = $('#organisationNumberInput');
         this.facilityDropdown = $('#facilitySelect');
         this.enabledLabel = $('label[for="enabledCheck"]');
         this.enabledCheckbox = $('#enabledCheck');
-    }
-
-    isFacilityMemberListDisplayed() {
-        return this.facilityList.isWebElementDisplayed();
     }
 
     setOrganisationName(name: string) {
