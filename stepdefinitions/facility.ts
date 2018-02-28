@@ -5,11 +5,13 @@ import {CurrentRun} from "../support/currentRun";
 import {FacilityFunctions} from "../business-functions/facilityFunctions";
 import {AdminTable} from "../pages/admin/adminTable";
 import {facilityData} from "../test-data/facilityData";
+import {Rest} from "../support/rest";
 
 const {When, Then} = require("cucumber"),
     manageFacilitiesPage: ManageFacilitiesPage = new ManageFacilitiesPage(),
     facilityAssertions: FacilityAssertions = new FacilityAssertions(),
     facilityFunctions: FacilityFunctions = new FacilityFunctions(),
+    rest: Rest = new Rest(),
     adminTable: AdminTable = new AdminTable();
 
 When(/^performs new Facility creation$/, async () => {
@@ -40,8 +42,9 @@ When(/^opens Facility (.*?) to edit$/, async (facilityName: string) => {
 });
 
 When(/^Facility is created$/, async () => {
-    await facilityFunctions.createFacility(CurrentRun.uniqueName(facilityData.name));
-    await facilityAssertions.checkFacilityIsCreated(CurrentRun.uniqueName(facilityData.name));
+    await rest.createFacility();
+    // await facilityFunctions.createFacility(CurrentRun.uniqueName(facilityData.name));
+    // await facilityAssertions.checkFacilityIsCreated(CurrentRun.uniqueName(facilityData.name));
 });
 
 

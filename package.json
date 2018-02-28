@@ -43,7 +43,8 @@
     "ts-node": "^3.3.0",
     "typescript": "^2.5.3",
     "moment": "2.20.1",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "web-request": "^1.0.7"
   },
   "repository": "https://github.com/igniteram/protractor-cucumber-typescript"
 }
