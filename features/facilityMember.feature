@@ -2,14 +2,14 @@ Feature: Facility Member
 
   Scenario Outline: Facility member card validation
     Given User is logged in
-    And opens admin page
-    And opens Facility members manager
-    And performs new Facility member creation
-    And types organisation name <anyText>
-    And types organisation number <anyText>
-    And types organisation address line 1 <anyText>
-    And types organisation address line 2 <anyText>
-    And types organisation address line 3 <anyText>
+#    And opens admin page
+#    And opens Facility members manager
+#    And performs new Facility member creation
+#    And types organisation name <anyText>
+#    And types organisation number <anyText>
+#    And types organisation address line 1 <anyText>
+#    And types organisation address line 2 <anyText>
+#    And types organisation address line 3 <anyText>
 #    And clears organisation name
 #    And clears organisation number
 #    And clears organisation address line 1
@@ -17,9 +17,9 @@ Feature: Facility Member
 #    And clears organisation address line 3
 #    Then organisation name validation message is shown
 #    And organisation number validation message is shown
-    And organisation address line 1 validation message is shown
-    And organisation address line 2 validation message is shown
-    And organisation address line 3 validation message is shown
+#    And organisation address line 1 validation message is shown
+#    And organisation address line 2 validation message is shown
+#    And organisation address line 3 validation message is shown
 
     Examples:
       | anyText |

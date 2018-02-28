@@ -64,10 +64,14 @@ ElementArrayFinder.prototype.getByText = function (compareText) {
  */
 ElementFinder.prototype.clearAndSendKeys = function (text: string) {
     let self = this;
-    return self.sendKeys('')
+    return browser.wait(ExpectedConditions.visibilityOf(self), 10000)
         .then(() => {
-            self.clear().sendKeys(text);
-        });
+            self.sendKeys('')
+                .then(() => {
+                        self.clear().sendKeys(text)
+                    }
+                )
+        })
 };
 
 ElementFinder.prototype.isWebElementDisplayed = function () {

@@ -1,10 +1,7 @@
 import {element, by, $, $$} from "protractor";
 
 export class ListingPage {
-    public loadMoreLink: any;
-    public searchInput: any;
-    public advancedSearchLink: any;
-    public lookupIcon: any;
+
     public itemCard: any;
     public details: any;
     public subdetails: any;
@@ -12,35 +9,11 @@ export class ListingPage {
     public counter: any;
 
     constructor() {
-        this.loadMoreLink = element(by.cssContainingText('a', 'load more'));
-        this.searchInput = $('.search-wrapper input');
-        this.advancedSearchLink = element(by.cssContainingText('.advanced-switcher', 'Advanced search'));
-        this.lookupIcon = $('.drop');
         this.itemCard = $$('.item-card').first();
         this.details = $$('.details').first();
         this.subdetails = $$('.sub-details').first();
         this.actions = $$('.actions').first();
         this.counter = $$('.count').first();
-    }
-
-    isLoadMoreLinkPresent() {
-        return this.loadMoreLink.isWebElementPresent();
-    }
-
-    isSearchInputDisplayed() {
-        return this.searchInput.isWebElementDisplayed();
-    }
-
-    isAdvancedSearchLinkDisplayed() {
-        return this.advancedSearchLink.isWebElementDisplayed();
-    }
-
-    setSearchPattern(pattern: string) {
-        return this.searchInput.clearAndSendKeys(pattern);
-    }
-
-    clickSearchLookup() {
-        return this.lookupIcon.waitAndClick();
     }
 
     isItemDisplayed(itemName: string) {

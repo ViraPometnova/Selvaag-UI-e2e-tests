@@ -1,14 +1,9 @@
 import {ListingPage} from "../pages/listing";
 
-const assert = require("chai").assert;
-const listingPage: ListingPage = new ListingPage();
+const assert = require("chai").assert,
+    listingPage: ListingPage = new ListingPage();
 
 export class ListingAssertions {
-
-    async checkListingPageIsDisplayed() {
-        assert.isTrue(await listingPage.isSearchInputDisplayed(), 'Search input is not displayed');
-        assert.isTrue(await listingPage.isAdvancedSearchLinkDisplayed(), 'Advanced search link is not displayed');
-    }
 
     async checkDetailsAreDisplayedFor(cardName: string, details: string) {
         assert.include(await listingPage.getItemDetailsFor(cardName), details, `${cardName} doesn't contain ${details}`);
