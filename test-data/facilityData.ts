@@ -1,3 +1,5 @@
+import {CurrentRun} from "../support/currentRun";
+
 export const facilityData = {
-    name: 'Facility'
+    name: CurrentRun.uniqueName('Facility')
 };

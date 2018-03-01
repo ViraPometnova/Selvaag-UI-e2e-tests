@@ -5,18 +5,18 @@ const baseUrl = config.baseUrl;
 
 export class UrlNavigation {
     static openFacilitiesUrl() {
-        browser.get(baseUrl + 'admin/facilities');
+        return browser.get(baseUrl + 'admin/facilities');
     }
 
     static openAdminUrl() {
-        browser.get(baseUrl + 'admin');
+        return browser.get(baseUrl + 'admin');
     }
 
     static openFacilityMembersUrl() {
-        browser.get(baseUrl + 'admin/facilitymembers');
+        return browser.get(baseUrl + 'admin/facilitymembers');
     }
 
     static openMainPageUrl(){
-        browser.get(baseUrl);
+        return browser.get(baseUrl);
     }
 }

@@ -2,16 +2,15 @@ import {ManageFacilitiesPage} from "../pages/admin/manageFacilities";
 import {FacilityAssertions} from "../assertions/facilityAssertions";
 import {UrlNavigation} from "../pages/urlNavigation";
 import {CurrentRun} from "../support/currentRun";
-import {FacilityFunctions} from "../business-functions/facilityFunctions";
 import {AdminTable} from "../pages/admin/adminTable";
 import {facilityData} from "../test-data/facilityData";
-import {Rest} from "../support/rest";
+import {WebService} from "../support/webService";
+import {facilityMemberData} from "../test-data/facilityMemberData";
 
 const {When, Then} = require("cucumber"),
     manageFacilitiesPage: ManageFacilitiesPage = new ManageFacilitiesPage(),
     facilityAssertions: FacilityAssertions = new FacilityAssertions(),
-    facilityFunctions: FacilityFunctions = new FacilityFunctions(),
-    rest: Rest = new Rest(),
+    webService: WebService = new WebService(),
     adminTable: AdminTable = new AdminTable();
 
 When(/^performs new Facility creation$/, async () => {
@@ -42,9 +41,8 @@ When(/^opens Facility (.*?) to edit$/, async (facilityName: string) => {
 });
 
 When(/^Facility is created$/, async () => {
-    await rest.createFacility();
-    // await facilityFunctions.createFacility(CurrentRun.uniqueName(facilityData.name));
-    // await facilityAssertions.checkFacilityIsCreated(CurrentRun.uniqueName(facilityData.name));
+    // await webService.createFacility(CurrentRun.uniqueName(facilityData.name));
+    await webService.createFacilityMember(facilityMemberData);
 });
 
 
