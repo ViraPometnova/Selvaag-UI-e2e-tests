@@ -1,4 +1,6 @@
 import {ListingPage} from "../pages/listing";
+import {browser} from "protractor";
+import {config} from "../config/config";
 
 const assert = require("chai").assert,
     listingPage = new ListingPage();
@@ -23,5 +25,9 @@ export class ListingAssertions {
 
     async checkAddNewContractLinkIsNotDisabledFor(name: string) {
         assert.isFalse(await listingPage.isAddNewContractLinkDisabledFor(name), `Add new contract link is disabled for ${name}`);
+    }
+
+    async checkStartPageIsOpened(){
+        assert.equal(await browser.getCurrentUrl(), config.baseUrl, 'Main page is not opened');
     }
 }

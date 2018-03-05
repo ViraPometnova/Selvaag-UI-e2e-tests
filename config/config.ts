@@ -22,14 +22,14 @@ export const config: Config = {
     frameworkPath: require.resolve("protractor-cucumber-framework"),
 
     specs: [
-        "../../features/facilityMember.feature",
+        "../../features/contract.feature",
     ],
 
     onPrepare: () => {
         browser.waitForAngularEnabled(false);
-        browser.manage().window().maximize();
+        browser.manage().window().setSize(1366, 768);
         browser.manage().timeouts().pageLoadTimeout(40000);
-        browser.manage().timeouts().implicitlyWait(25000);
+        browser.manage().timeouts().implicitlyWait(10000);
         Reporter.createDirectory(jsonReports);
     },
 

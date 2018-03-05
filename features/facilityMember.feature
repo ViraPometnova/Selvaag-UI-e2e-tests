@@ -32,9 +32,9 @@ Feature: Facility Member
     And chooses Facility
     And types organisation name <name>
     And types organisation number <number>
-    And types organisation address line 1 <address>
-    And types organisation address line 2 <city>
-    And types organisation address line 3 <zip>
+    And types address line 1 <address>
+    And types address line 2 <city>
+    And types address line 3 <zip>
     And makes organisation enabled
     When User submits changes
     Then <name> Facility member is created
@@ -42,12 +42,12 @@ Feature: Facility Member
     And <name> has Facility in Facility members list
     And <name> has enabled <enabled> in Facility members list
     And User performs search by <number>
-    And <name> has number <number> in listing
-    And <name> has address line 1 <address> in listing
-    And <name> has address line 2 <city> in listing
-    And <name> has address line 3 <zip> in listing
-    And <name> has <contractsAmount> created contracts in listing
-    And <name> new contract is able to be created from listing
+    And <name> has number <number> in start page listing
+    And <name> has address line 1 <address> in start page listing
+    And <name> has address line 2 <city> in start page listing
+    And <name> has address line 3 <zip> in start page listing
+    And <name> has <contractsAmount> created contracts in start page listing
+    And <name> new contract is able to be created from start page listing
     And User opens <name> Facility member page
     And <name> has number <number> on Facility member page
     And <name> has address line 1 <address> on Facility member page
@@ -70,7 +70,7 @@ Feature: Facility Member
     And  <oldName> Facility member is not created
     And <newName> has number <newNumber> in Facility members list
     And User performs search by <newNumber>
-    And <newName> has number <newNumber> in listing
+    And <newName> has number <newNumber> in start page listing
     And User opens <newName> Facility member page
     And <newName> has number <newNumber> on Facility member page
 
@@ -86,7 +86,7 @@ Feature: Facility Member
     When User submits changes
     Then <name> has enabled <enabled> in Facility members list
     And User performs search by <number>
-    And <name> is disabled for adding contracts from listing
+    And <name> is disabled for adding contracts from start page listing
     And User opens <name> Facility member page
     And <name> is disabled for adding contracts from Facility member page
 

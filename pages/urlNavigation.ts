@@ -16,7 +16,7 @@ export class UrlNavigation {
         return browser.get(baseUrl + 'admin/facilitymembers');
     }
 
-    static openMainPageUrl(){
+    static openStartPageUrl(){
         return browser.get(baseUrl);
     }
 }

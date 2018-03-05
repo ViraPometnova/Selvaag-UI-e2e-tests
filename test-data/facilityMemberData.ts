@@ -8,5 +8,5 @@ export const facilityMemberData = {
     organisationName: CurrentRun.uniqueName('Svartis'),
     organisationNumber: CurrentRun.uniqueNumber('?'),
     enabled: true,
-    facilityName: CurrentRun.uniqueName(facilityData.name)
+    facilityName: facilityData.name
 };

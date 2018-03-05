@@ -9,4 +9,5 @@ export class LoginFunctions {
         await loginPage.setPassword(password);
         return await loginPage.clickLoginButton();
     }
+
 }

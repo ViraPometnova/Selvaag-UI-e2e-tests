@@ -16,4 +16,12 @@ export class ContractPage {
     isContractNumberInputDisplayed() {
         return this.contractNumberInput.isWebElementDisplayed();
     }
+
+    setProjectName(name: string) {
+        return this.projectNameInput.clearAndSendKeys(name);
+    }
+
+    setContractNumber(number: string) {
+        return this.contractNumberInput.clearAndSendKeys(number);
+    }
 }

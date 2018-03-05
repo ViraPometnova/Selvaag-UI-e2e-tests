@@ -4,7 +4,7 @@ import {UrlNavigation} from "../pages/urlNavigation";
 import {CurrentRun} from "../support/currentRun";
 import {AdminTable} from "../pages/admin/adminTable";
 import {facilityData} from "../test-data/facilityData";
-import {WebService} from "../support/webService";
+import {WebService} from "../support/rest/webService";
 
 const {When, Then} = require("cucumber"),
     facilityAssertions = new FacilityAssertions(),

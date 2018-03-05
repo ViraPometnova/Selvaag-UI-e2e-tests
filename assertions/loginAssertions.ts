@@ -7,7 +7,6 @@ export class LoginAssertions {
 
     async checkLoginPageisDisplayed() {
         assert.isTrue(await loginPage.isTitleDisplayed(), 'Login page title is not displayed');
-        assert.equal(await loginPage.getPageTitle(), 'Selvaag BUL Guarantees', 'Login page title is not equal to expected');
     }
 
     async checkLoginButtonIsEnabled() {

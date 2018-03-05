@@ -10,7 +10,6 @@ Feature: Log in Selvaag
     Examples:
       | username  | password |
       | something | anything |
-      |           |          |
 
   Scenario Outline: Log in with valid credentials
     Given User is on login page
