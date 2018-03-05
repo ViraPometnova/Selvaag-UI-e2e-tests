@@ -2,7 +2,7 @@ import {AdminTable} from "../pages/admin/adminTable";
 import {browser} from "protractor";
 
 const assert = require("chai").assert,
-    adminTable: AdminTable = new AdminTable();
+    adminTable = new AdminTable();
 
 export class FacilityAssertions {
 

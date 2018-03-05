@@ -1,7 +1,7 @@
 import {Search} from "../pages/search";
 
 const assert = require("chai").assert,
-    search: Search = new Search();
+    search = new Search();
 
 export class SearchAssertions {
 

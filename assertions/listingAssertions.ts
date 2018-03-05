@@ -1,7 +1,7 @@
 import {ListingPage} from "../pages/listing";
 
 const assert = require("chai").assert,
-    listingPage: ListingPage = new ListingPage();
+    listingPage = new ListingPage();
 
 export class ListingAssertions {
 

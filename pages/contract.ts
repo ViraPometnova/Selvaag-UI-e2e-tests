@@ -1,8 +1,8 @@
 import {$} from "protractor";
 
 export class ContractPage {
-    public projectNameInput: any;
-    public contractNumberInput: any;
+    private projectNameInput: any;
+    private contractNumberInput: any;
 
     constructor() {
         this.projectNameInput = $('#projectNameInput');

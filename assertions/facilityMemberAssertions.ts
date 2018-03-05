@@ -4,9 +4,9 @@ import {browser} from "protractor";
 import {ListingPage} from "../pages/listing";
 
 const assert = require("chai").assert,
-    manageFacilityMembersPage: ManageFacilityMembersPage = new ManageFacilityMembersPage(),
-    adminTable: AdminTable = new AdminTable(),
-    listing: ListingPage = new ListingPage();
+    manageFacilityMembersPage = new ManageFacilityMembersPage(),
+    adminTable = new AdminTable(),
+    listing = new ListingPage();
 
 export class FacilityMemberAssertions {
 

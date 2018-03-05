@@ -1,7 +1,7 @@
 import {LoginPage} from "../pages/login";
 
 const assert = require("chai").assert;
-const loginPage: LoginPage = new LoginPage();
+const loginPage = new LoginPage();
 
 export class LoginAssertions {
 

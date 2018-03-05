@@ -9,16 +9,19 @@ import {AddressForm} from "../pages/addressForm";
 import {ContractAssertions} from "../assertions/contractAssertions";
 import {facilityData} from "../test-data/facilityData";
 import {AddressFormAssertions} from "../assertions/addressFormAssertions";
+import {WebService} from "../support/webService";
+import {facilityMemberData} from "../test-data/facilityMemberData";
 
 const {When, Then} = require("cucumber"),
-    manageFacilityMembersPage: ManageFacilityMembersPage = new ManageFacilityMembersPage(),
-    facilityMemberAssertions: FacilityMemberAssertions = new FacilityMemberAssertions(),
-    listingAssertions: ListingAssertions = new ListingAssertions(),
-    listingPage: ListingPage = new ListingPage(),
-    adminTable: AdminTable = new AdminTable(),
-    addressForm: AddressForm = new AddressForm(),
-    contractAssertions: ContractAssertions = new ContractAssertions(),
-    addressFormAssertions: AddressFormAssertions = new AddressFormAssertions();
+    manageFacilityMembersPage = new ManageFacilityMembersPage(),
+    facilityMemberAssertions = new FacilityMemberAssertions(),
+    listingAssertions = new ListingAssertions(),
+    listingPage = new ListingPage(),
+    adminTable = new AdminTable(),
+    addressForm = new AddressForm(),
+    contractAssertions = new ContractAssertions(),
+    addressFormAssertions = new AddressFormAssertions(),
+    webService = new WebService();
 
 When(/^performs new Facility member creation$/, async () => {
     await adminTable.clickAddButton();
@@ -186,6 +189,10 @@ Then(/^(.*?) new contract is able to be created from Facility member page$/, asy
     await listingAssertions.checkAddNewContractLinkIsNotDisabledFor(CurrentRun.uniqueName(name));
     await listingPage.clickAddNewContractFor(CurrentRun.uniqueName(name));
     await contractAssertions.checkContractPageIsOpened();
+});
+
+When(/^Facility member is created$/, async () => {
+    await webService.createFacilityMember(facilityMemberData);
 });
 
 

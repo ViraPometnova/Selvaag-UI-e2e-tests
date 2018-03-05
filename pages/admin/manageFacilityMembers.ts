@@ -2,12 +2,12 @@ import {element, by, $} from "protractor";
 import {AdminTable} from "./adminTable";
 
 export class ManageFacilityMembersPage {
-    public organisationNameInput: any;
-    public organisationNumberInput: any;
-    public facilityDropdown: any;
-    public enabledCheckbox: any;
-    public enabledLabel: any;
-    adminTable: AdminTable = new AdminTable();
+    private organisationNameInput: any;
+    private organisationNumberInput: any;
+    private facilityDropdown: any;
+    private enabledCheckbox: any;
+    private enabledLabel: any;
+    adminTable = new AdminTable();
 
     constructor() {
         this.organisationNameInput = $('#organisationNameInput');

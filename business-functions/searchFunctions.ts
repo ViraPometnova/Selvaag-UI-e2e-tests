@@ -2,8 +2,8 @@ import {ListingPage} from "../pages/listing";
 import {browser} from "protractor";
 import {Search} from "../pages/search";
 
-const listingPage: ListingPage = new ListingPage(),
-    search: Search = new Search();
+const listingPage = new ListingPage(),
+    search = new Search();
 
 export class SearchFunctions {
 

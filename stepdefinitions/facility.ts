@@ -5,13 +5,12 @@ import {CurrentRun} from "../support/currentRun";
 import {AdminTable} from "../pages/admin/adminTable";
 import {facilityData} from "../test-data/facilityData";
 import {WebService} from "../support/webService";
-import {facilityMemberData} from "../test-data/facilityMemberData";
 
 const {When, Then} = require("cucumber"),
-    manageFacilitiesPage: ManageFacilitiesPage = new ManageFacilitiesPage(),
-    facilityAssertions: FacilityAssertions = new FacilityAssertions(),
-    webService: WebService = new WebService(),
-    adminTable: AdminTable = new AdminTable();
+    facilityAssertions = new FacilityAssertions(),
+    manageFacilitiesPage = new ManageFacilitiesPage(),
+    webService = new WebService(),
+    adminTable = new AdminTable();
 
 When(/^performs new Facility creation$/, async () => {
     await adminTable.clickAddButton();
@@ -41,8 +40,7 @@ When(/^opens Facility (.*?) to edit$/, async (facilityName: string) => {
 });
 
 When(/^Facility is created$/, async () => {
-    // await webService.createFacility(CurrentRun.uniqueName(facilityData.name));
-    await webService.createFacilityMember(facilityMemberData);
+    await webService.createFacility(facilityData.name);
 });
 
 

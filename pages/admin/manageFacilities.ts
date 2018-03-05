@@ -1,8 +1,8 @@
 import {element, by, $} from "protractor";
 
 export class ManageFacilitiesPage {
-    public addFacilityButton: any;
-    public facilityNameInput: any;
+    private addFacilityButton: any;
+    private facilityNameInput: any;
 
     constructor() {
         this.addFacilityButton = element(by.cssContainingText('.btn', 'Add Facility'));

@@ -1,9 +1,9 @@
 import {$, by, element} from "protractor";
 
 export class Search {
-    public searchInput: any;
-    public advancedSearchLink: any;
-    public lookupIcon: any;
+    private searchInput: any;
+    private advancedSearchLink: any;
+    private lookupIcon: any;
 
     constructor() {
         this.searchInput = $('.search-wrapper input');

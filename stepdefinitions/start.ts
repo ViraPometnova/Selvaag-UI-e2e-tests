@@ -4,8 +4,8 @@ import {SearchAssertions} from "../assertions/searchAssertions";
 import {SearchFunctions} from "../business-functions/searchFunctions";
 
 const {Then, When} = require("cucumber"),
-        searchAssertions: SearchAssertions = new SearchAssertions(),
-    searchFunctions: SearchFunctions = new SearchFunctions();
+        searchAssertions = new SearchAssertions(),
+    searchFunctions = new SearchFunctions();
 
 Then(/^User is redirected to start page$/, async () => {
     await searchAssertions.checkSearchIsDisplayed();

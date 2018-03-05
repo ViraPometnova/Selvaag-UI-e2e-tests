@@ -4,8 +4,8 @@ import {LoginFunctions} from "../business-functions/loginFunctions";
 import {credentials} from "../test-data/loginData";
 
 const {When, Then, Given} = require("cucumber"),
-    loginPage: LoginPage = new LoginPage(),
-    loginAssertions: LoginAssertions = new LoginAssertions();
+    loginPage = new LoginPage(),
+    loginAssertions = new LoginAssertions();
 
 Given(/^User is on login page$/, async () => {
     await loginAssertions.checkLoginPageisDisplayed();

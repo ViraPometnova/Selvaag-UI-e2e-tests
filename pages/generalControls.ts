@@ -1,8 +1,8 @@
 import {element, by} from "protractor";
 
 export class GeneralControls {
-    public submitButton: any;
-    public cancelButton: any;
+    private submitButton: any;
+    private cancelButton: any;
 
     constructor() {
         this.submitButton = element(by.cssContainingText('.btn', 'SUBMIT'));

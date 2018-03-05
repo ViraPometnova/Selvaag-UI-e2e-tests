@@ -2,11 +2,11 @@ import {element, by, $, $$} from "protractor";
 
 export class ListingPage {
 
-    public itemCard: any;
-    public details: any;
-    public subdetails: any;
-    public actions: any;
-    public counter: any;
+    private itemCard: any;
+    private details: any;
+    private subdetails: any;
+    private actions: any;
+    private counter: any;
 
     constructor() {
         this.itemCard = $$('.item-card').first();

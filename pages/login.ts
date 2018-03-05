@@ -1,10 +1,10 @@
 import {$, element, by, browser} from "protractor";
 
 export class LoginPage {
-    public title: any;
-    public usernameInput: any;
-    public passwordInput: any;
-    public loginButton: any;
+    private title: any;
+    private usernameInput: any;
+    private passwordInput: any;
+    private loginButton: any;
 
     constructor() {
         this.title = element(by.cssContainingText('.login-form', 'SELVAAG'));

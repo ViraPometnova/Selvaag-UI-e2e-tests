@@ -2,7 +2,7 @@ import {ContractPage} from "../pages/contract";
 import {browser} from "protractor";
 
 const assert = require("chai").assert,
-    contractPage: ContractPage = new ContractPage();
+    contractPage = new ContractPage();
 
 export class ContractAssertions {
 

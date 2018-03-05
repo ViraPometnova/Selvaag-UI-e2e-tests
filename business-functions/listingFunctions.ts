@@ -3,7 +3,7 @@ import {browser} from "protractor";
 import {Search} from "../pages/search";
 
 const listingPage: ListingPage = new ListingPage(),
-    search: Search = new Search();
+    search = new Search();
 
 export class ListingFunctions {
 

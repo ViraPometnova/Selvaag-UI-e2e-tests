@@ -1,11 +1,11 @@
 import {element, by} from "protractor";
 
 export class AdminPage {
-    public manageFacilitiesLink: any;
-    public manageFacilityMembersLink: any;
-    public manageGuaranteeTypesLink: any;
-    public problematicGuaranteesLink: any;
-    public exitAdminLink: any;
+    private manageFacilitiesLink: any;
+    private manageFacilityMembersLink: any;
+    private manageGuaranteeTypesLink: any;
+    private problematicGuaranteesLink: any;
+    private exitAdminLink: any;
 
     constructor() {
         this.manageFacilitiesLink = element(by.cssContainingText('.nav-link', 'Manage Facilities'));

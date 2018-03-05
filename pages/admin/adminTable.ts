@@ -1,10 +1,10 @@
 import {element, by, $, $$} from "protractor";
 
 export class AdminTable {
-    public addButton: any;
-    public table: any;
-    public tableRow: any;
-    public tableData: any;
+    private addButton: any;
+    private table: any;
+    private tableRow: any;
+    private tableData: any;
 
     constructor() {
         this.addButton = element(by.cssContainingText('.btn', 'Add'));

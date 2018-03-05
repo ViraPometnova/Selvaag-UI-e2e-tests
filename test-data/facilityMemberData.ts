@@ -1,4 +1,5 @@
 import {CurrentRun} from "../support/currentRun";
+import {facilityData} from "../test-data/facilityData";
 
 export const facilityMemberData = {
     address: '1255, 5th Ave, Manhattan',
@@ -6,5 +7,6 @@ export const facilityMemberData = {
     zip: '10029',
     organisationName: CurrentRun.uniqueName('Svartis'),
     organisationNumber: CurrentRun.uniqueNumber('?'),
-    enabled: true
+    enabled: true,
+    facilityName: CurrentRun.uniqueName(facilityData.name)
 };

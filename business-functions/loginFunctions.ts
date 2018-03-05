@@ -1,6 +1,6 @@
 import {LoginPage} from "../pages/login";
 
-const loginPage: LoginPage = new LoginPage();
+const loginPage = new LoginPage();
 
 export class LoginFunctions {
 

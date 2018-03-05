@@ -1,12 +1,12 @@
 import {$, by, element} from "protractor";
 
 export class AddressForm {
-    public addressLine1Input: any;
-    public addressLine2Input: any;
-    public addressLine3Input: any;
-    public addressInputFeedback: any;
-    public cityInputFeedback: any;
-    public zipInputFeedback: any;
+    private addressLine1Input: any;
+    private addressLine2Input: any;
+    private addressLine3Input: any;
+    private addressInputFeedback: any;
+    private cityInputFeedback: any;
+    private zipInputFeedback: any;
 
     constructor() {
         this.addressLine1Input = $('#addressLine1Input');

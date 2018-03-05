@@ -4,10 +4,10 @@ import {FacilityAssertions} from "../assertions/facilityAssertions";
 import {FacilityMemberAssertions} from "../assertions/facilityMemberAssertions";
 
 const {When} = require("cucumber"),
-    header: Header = new Header(),
-    adminPage: AdminPage = new AdminPage(),
-    facilityAssertions: FacilityAssertions = new FacilityAssertions(),
-    facilityMemberAssertions: FacilityMemberAssertions = new FacilityMemberAssertions();
+    header = new Header(),
+    adminPage = new AdminPage(),
+    facilityAssertions = new FacilityAssertions(),
+    facilityMemberAssertions = new FacilityMemberAssertions();
 
 When(/^opens admin page$/, async () => {
     await header.clickUserIcon();

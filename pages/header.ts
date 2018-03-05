@@ -1,10 +1,10 @@
 import {element, by, $} from "protractor";
 
 export class Header {
-    public userIcon: any;
-    public selvaagLink: any;
-    public adminLink: any;
-    public logoutLink: any;
+    private userIcon: any;
+    private selvaagLink: any;
+    private adminLink: any;
+    private logoutLink: any;
 
     constructor() {
         this.userIcon = $('.user-icon');

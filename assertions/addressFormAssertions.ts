@@ -1,7 +1,7 @@
 import {AddressForm} from "../pages/addressForm";
 
 const assert = require("chai").assert,
-    addressForm: AddressForm = new AddressForm();
+    addressForm = new AddressForm();
 
 export class AddressFormAssertions {
     async checkAddressValidationMessageIsDisplayed() {
