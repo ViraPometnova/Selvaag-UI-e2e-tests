@@ -2,12 +2,14 @@ import {LoginAssertions} from "../assertions/loginAssertions";
 import {LoginPage} from "../pages/login";
 import {LoginFunctions} from "../business-functions/loginFunctions";
 import {credentials} from "../test-data/loginData";
+import {UrlNavigation} from "../pages/urlNavigation";
 
 const {When, Then, Given} = require("cucumber"),
     loginPage = new LoginPage(),
     loginAssertions = new LoginAssertions();
 
 Given(/^User is on login page$/, async () => {
+    await UrlNavigation.openLoginPageUrl();
     await loginAssertions.checkLoginPageisDisplayed();
 });
 

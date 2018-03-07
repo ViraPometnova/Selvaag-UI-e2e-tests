@@ -13,6 +13,7 @@ export const config: Config = {
 
     directConnect: true,
     noGlobals: true,
+    allScriptsTimeout: 15000,
 
     capabilities: {
         browserName: "chrome",
@@ -22,14 +23,14 @@ export const config: Config = {
     frameworkPath: require.resolve("protractor-cucumber-framework"),
 
     specs: [
-        "../../features/contract.feature",
+        "../../features/contract.feature"
     ],
 
     onPrepare: () => {
         browser.waitForAngularEnabled(false);
         browser.manage().window().setSize(1366, 768);
         browser.manage().timeouts().pageLoadTimeout(40000);
-        browser.manage().timeouts().implicitlyWait(10000);
+        browser.manage().timeouts().implicitlyWait(30000);
         Reporter.createDirectory(jsonReports);
     },
 

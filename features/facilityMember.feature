@@ -14,8 +14,8 @@ Feature: Facility Member
     Then organisation name validation message is shown
     And organisation number validation message is shown
     And organisation address line 1 validation message is shown
-    And organisation address line 2 validation message is shown
-    And organisation address line 3 validation message is shown
+    And address line 2 validation message is shown
+    And address line 3 validation message is shown
 
   Scenario Outline: Create Facility member
     Given Facility is created

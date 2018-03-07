@@ -17,27 +17,27 @@ export class AddressForm {
         this.zipInputFeedback = element(by.cssContainingText('.form-control-feedback', 'Zip is required.'));
     }
 
-    setOrganisationAddressLine1(address: string) {
+    setAddressLine1(address: string) {
         return this.addressLine1Input.clearAndSendKeys(address);
     }
 
-    setOrganisationAddressLine2(city: string) {
+    setAddressLine2(city: string) {
         return this.addressLine2Input.clearAndSendKeys(city);
     }
 
-    setOrganisationAddressLine3(zip: string) {
+    setAddressLine3(zip: string) {
         return this.addressLine3Input.clearAndSendKeys(zip);
     }
 
-    clearOrganisationAddressLine1() {
+    clearAddressLine1() {
         return this.addressLine1Input.clear();
     }
 
-    clearOrganisationAddressLine2() {
+    clearAddressLine2() {
         return this.addressLine2Input.clear();
     }
 
-    clearOrganisationAddressLine3() {
+    clearAddressLine3() {
         return this.addressLine3Input.clear();
     }
 

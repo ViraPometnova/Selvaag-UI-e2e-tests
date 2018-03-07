@@ -16,7 +16,11 @@ export class UrlNavigation {
         return browser.get(baseUrl + 'admin/facilitymembers');
     }
 
-    static openStartPageUrl(){
+    static openStartPageUrl() {
         return browser.get(baseUrl);
+    }
+
+    static openLoginPageUrl() {
+        return browser.get(baseUrl + 'auth/login');
     }
 }

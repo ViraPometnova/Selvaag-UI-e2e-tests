@@ -11,4 +11,16 @@ export class ContractAssertions {
         assert.isTrue(await contractPage.isProjectNameInputDisplayed(), 'Project name input is not displayed');
         assert.isTrue(await contractPage.isContractNumberInputDisplayed(), 'Contract number input is not displayed');
     }
+
+    async checkProjectNameValidationMessageIsDisplayed() {
+        assert.isTrue(await contractPage.isProjectNameFeedbackDisplayed(), 'Validation message is not shown');
+    }
+
+    async checkContractNumberValidationMessageIsDisplayed() {
+        assert.isTrue(await contractPage.isContractNumberFeedbackDisplayed(), 'Validation message is not shown');
+    }
+
+    async checkProjectDateValidationMessageIsDisplayed() {
+        assert.isTrue(await contractPage.isProjectDateFeedbackDisplayed(), 'Validation message is not shown');
+    }
 }

@@ -51,18 +51,6 @@ Then(/^organisation number validation message is shown/, async () => {
     await facilityMemberAssertions.checkOrganisationNumberValidationMessageIsDisplayed();
 });
 
-Then(/^organisation address line 1 validation message is shown/, async () => {
-    await addressFormAssertions.checkAddressValidationMessageIsDisplayed();
-});
-
-Then(/^organisation address line 2 validation message is shown/, async () => {
-    await addressFormAssertions.checkCityValidationMessageIsDisplayed();
-});
-
-Then(/^organisation address line 3 validation message is shown/, async () => {
-    await addressFormAssertions.checkZipValidationMessageIsDisplayed();
-});
-
 When(/^User is on Facility members page$/, async () => {
     await UrlNavigation.openFacilityMembersUrl();
     await facilityMemberAssertions.checkManageFacilityMembersPageIsOpened();

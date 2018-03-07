@@ -1,6 +1,7 @@
 import {ElementArrayFinder, ElementFinder, promise, protractor} from 'protractor';
 import {browser} from "protractor";
-import {ExpectedConditions} from "protractor";
+
+const EC = protractor.ExpectedConditions;
 
 
 declare module 'protractor/built/element' {
@@ -64,25 +65,24 @@ ElementArrayFinder.prototype.getByText = function (compareText) {
  */
 ElementFinder.prototype.clearAndSendKeys = function (text: string) {
     let self = this;
-    return browser.wait(ExpectedConditions.visibilityOf(self), 10000)
+    return browser.wait(EC.visibilityOf(self), 10000)
         .then(() => {
             self.sendKeys('')
                 .then(() => {
-                        self.clear().sendKeys(text)
-                    }
-                )
+                    self.clear().sendKeys(text)
+                })
         })
 };
 
 ElementFinder.prototype.isWebElementDisplayed = function () {
     let self = this;
-    return browser.wait(ExpectedConditions.visibilityOf(self), 10000)
+    return browser.wait(EC.visibilityOf(self), 10000)
         .then(() => true, () => false);
 };
 
 ElementFinder.prototype.isWebElementPresent = function () {
     let self = this;
-    return browser.wait(ExpectedConditions.presenceOf(self), 10000)
+    return browser.wait(EC.presenceOf(self), 10000)
         .then(() => true, () => false);
 };
 
@@ -92,7 +92,7 @@ ElementFinder.prototype.isWebElementPresent = function () {
  */
 ElementFinder.prototype.waitAndClick = function () {
     let self = this;
-    return browser.wait(ExpectedConditions.elementToBeClickable(self), 10000)
+    return browser.wait(EC.and(EC.visibilityOf(self), EC.elementToBeClickable(self)), 10000)
         .then(function () {
             return self.click(); //if found
         }, function () {
