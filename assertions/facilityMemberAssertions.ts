@@ -42,4 +42,12 @@ export class FacilityMemberAssertions {
         assert.include(await browser.getCurrentUrl(), '/facility-member/', 'Url is not included facility member page reference');
         assert.isTrue(await listing.isItemCardAndDetailsDisplayed(), 'Item card with details is not displayed');
     }
+
+    async checkOrganisationNameValidationMessageIsDisplayed() {
+        assert.isTrue(await manageFacilityMembersPage.isOrganisationNameFeedbackDispalyed(), 'Validation message is not displayed');
+    }
+
+    async checkOrganisationNumberValidationMessageIsDisplayed() {
+        assert.isTrue(await manageFacilityMembersPage.isOrganisationNumberFeedbackDispalyed(), 'Validation message is not displayed');
+    }
 }

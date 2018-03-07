@@ -7,6 +7,8 @@ export class ManageFacilityMembersPage {
     private facilityDropdown: any;
     private enabledCheckbox: any;
     private enabledLabel: any;
+    private organizationNameFeedback: any;
+    private organizationNumberFeedback: any;
     adminTable = new AdminTable();
 
     constructor() {
@@ -15,6 +17,16 @@ export class ManageFacilityMembersPage {
         this.facilityDropdown = $('#facilitySelect');
         this.enabledLabel = $('label[for="enabledCheck"]');
         this.enabledCheckbox = $('#enabledCheck');
+        this.organizationNameFeedback = element(by.cssContainingText('.form-control-feedback', 'Organisation name is required.'));
+        this.organizationNumberFeedback = element(by.cssContainingText('.form-control-feedback', 'Organisation number is required.'));
+    }
+
+    isOrganisationNameFeedbackDispalyed() {
+        return this.organizationNameFeedback.isWebElementDisplayed();
+    }
+
+    isOrganisationNumberFeedbackDispalyed() {
+        return this.organizationNumberFeedback.isWebElementDisplayed();
     }
 
     setOrganisationName(name: string) {
@@ -23,15 +35,6 @@ export class ManageFacilityMembersPage {
 
     setOrganisationNumber(number: string) {
         return this.organisationNumberInput.clearAndSendKeys(number);
-    }
-
-    private getFeedbackElement(parent: any) {
-        return parent.$('.form-control-feedback');
-    }
-
-    getOrganisationNameFeedbackMessage() {
-        const feedbackElement = this.getFeedbackElement(this.organisationNameInput);
-        return feedbackElement.getText();
     }
 
     clearOrganisationNameInput() {

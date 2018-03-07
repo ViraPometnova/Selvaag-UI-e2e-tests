@@ -5,7 +5,6 @@ import {FacilityMemberAssertions} from "../assertions/facilityMemberAssertions";
 import {ListingAssertions} from "../assertions/listingAssertions";
 import {ListingPage} from "../pages/listing";
 import {AdminTable} from "../pages/admin/adminTable";
-import {AddressForm} from "../pages/addressForm";
 import {ContractAssertions} from "../assertions/contractAssertions";
 import {facilityData} from "../test-data/facilityData";
 import {AddressFormAssertions} from "../assertions/addressFormAssertions";
@@ -19,7 +18,6 @@ const {When, Then} = require("cucumber"),
     listingAssertions = new ListingAssertions(),
     listingPage = new ListingPage(),
     adminTable = new AdminTable(),
-    addressForm = new AddressForm(),
     contractAssertions = new ContractAssertions(),
     addressFormAssertions = new AddressFormAssertions(),
     webService = new WebService(),
@@ -45,20 +43,12 @@ When(/^clears organisation number$/, async () => {
     await manageFacilityMembersPage.clearOrganisationNumberInput();
 });
 
-When(/^clears organisation address line 1/, async () => {
-    await addressForm.clearOrganisationAddressLine1();
-});
-
-When(/^clears organisation address line 2/, async () => {
-    await addressForm.clearOrganisationAddressLine2();
-});
-
-When(/^clears organisation address line 3/, async () => {
-    await addressForm.clearOrganisationAddressLine3();
-});
-
 Then(/^organisation name validation message is shown/, async () => {
-    await manageFacilityMembersPage.getOrganisationNameFeedbackMessage();
+    await facilityMemberAssertions.checkOrganisationNameValidationMessageIsDisplayed();
+});
+
+Then(/^organisation number validation message is shown/, async () => {
+    await facilityMemberAssertions.checkOrganisationNumberValidationMessageIsDisplayed();
 });
 
 Then(/^organisation address line 1 validation message is shown/, async () => {
