@@ -1,79 +1,120 @@
-Feature: Contract
+Feature: Guarantee type
 
-  Scenario: Validation contract card
+  Scenario: Validation guarantee type card
     Given User is logged in
-    And Organisation is created
-    And opens new contract page
-    And clears project name
-    And clears contract number
-    And clears address line 1
-    And clears address line 2
-    And clears address line 3
-    And clears project date
+    And opens Manage guarantee types page
+    And performs new guarantee creation
+    And clears guarantee type name
+    And clears fixed premium
+    And clears maintenance percentage
+    And clears maintenance period in months
+    And clears performance percentage
+    And clears document template id
+    And clears letter template id
+    And clears agreement id
     And clicks on zero coordinates
-    Then project name validation message is shown
+    Then guarantee type name validation message is shown
     And contract number validation message is shown
-    And address line 1 validation message is shown
-    And address line 2 validation message is shown
-    And address line 3 validation message is shown
-    And project date validation message is shown
+    And fixed premium validation message is shown
+    And maintenance percentage validation message is shown
+    And maintenance period in months validation message is shown
+    And performance percentage validation message is shown
+    And document template id validation message is shown
+    And letter template id validation message is shown
+    And agreement id validation message is shown
 
 
-  Scenario Outline: Create contract
-#    Given opens new contract page
-#    And types project name <name>
-#    And types address line 1 <address>
-#    And types address line 2 <city>
-#    And types address line 3 <zip>
-#    And types contract number <number>
-#    And chooses start date <date>
-#    When User submits changes
-    Given Contract is created
-    When User performs search by <number>
-    And <name> has contract number <number> in start page listing
-    And <name> has address line 1 <address> in start page listing
-    And <name> has address line 2 <city> in start page listing
-    And <name> has address line 3 <zip> in start page listing
-    And <name> has project date <date> in start page listing
-    And <name> has <guaranteeAmount> created guarantees in start page listing
-    And editing contract <name> is enabled from start page listing
-    And User performs search by <number>
-    And <name> new guarantee is able to be created from start page listing
-    And User opens <name> contract page
-    And has project name <name> on Contract page
-    And <name> has number <number> on Contract page
-    And <name> has address line 1 <address> on Contract page
-    And <name> has address line 2 <city> on Contract page
-    And <name> has address line 3 <zip> on Contract page
-    And <name> has project date <date> on Contract page
-    And <name> has <guaranteeAmount> created guarantees on Contract page
-
-    Examples:
-      | name      | address                 | city      | zip   | date       | number | guaranteeAmount |
-      | Sun Risky | 1297, Massachusetts Ave | Arlington | 02476 | 2010-01-01 | CN     | 0               |
-
-
-  Scenario Outline: Edit contract details
-    Given User opens <oldName> contract page
-    And types project name <newName>
-    And types contract number <newNumber>
-#    And chooses start date <newDate>
+  Scenario Outline: Create guarantee type
+    Given User is on Manage guarantee types page
+    And performs new guarantee creation
+    And types guarantee type name <name>
+    And makes guarantee type enabled
+    And types fixed premium <fixedPremium>
+    And makes guarantee type has maintenance <hasMaintenance>
+    And types maintenance percentage <maintenancePercentage>
+    And types maintenance period in months <monthsAmount>
+    And makes guarantee type has performance <hasPerformance>
+    And types performance percentage <performancePercentage>
+    And types document template id <documentTemplateId>
+    And types letter template id <letterTemplateId>
+    And types agreement id <agreementId>
     When User submits changes
-    Then <oldNumber> contract is not created
-    And <newNumber> contract is created
-    And <newName> has contract number <newNumber> in start page listing
-#    And <newName> has project date <newDate> in start page listing
-    And User opens <newName> contract page
-    And has project name <newName> on Contract page
-    And <newName> has number <newNumber> on Contract page
-#    And <newName> has project date <newDate> on Contract page
+    Then guarantee type <name> is created
+    And <name> has guarantee type enabled <enabled> in Guarantee Types list
+    And <name> has fixed premium <fixedPremium> in Guarantee Types list
+    And <name> has maintenance <hasMaintenance> in Guarantee Types list
+    And <name> has maintenance percentage <maintenancePercentage> in Guarantee Types list
+    And <name> has maintenance period in months <monthsAmount> in Guarantee Types list
+    And <name> has performance <hasPerformance> in Guarantee Types list
+    And <name> has performance percentage <performancePercentage> in Guarantee Types list
+    And User opens guarantee type <name> to edit
+    And <name> has guarantee type enabled <enabled> on Edit Guarantee Type page
+    And <name> has fixed premium <fixedPremium> on Edit Guarantee Type page
+    And <name> has maintenance <hasMaintenance> on Edit Guarantee Type page
+    And <name> has maintenance percentage <maintenancePercentage> on Edit Guarantee Type page
+    And <name> has maintenance period in months <monthsAmount> on Edit Guarantee Type page
+    And <name> has performance <hasPerformance> on Edit Guarantee Type page
+    And <name> has performance percentage <performancePercentage> on Edit Guarantee Type page
+    And <name> has document template id <documentTemplateId> on Edit Guarantee Type page
+    And <name> has letter template id <letterTemplateId> on Edit Guarantee Type page
+    And <name> has agreement id <agreementId> on Edit Guarantee Type page
 
     Examples:
-      | oldName   | newName      | newNumber | oldNumber | newDate    |
-      | Sun Risky | Cheerful sun | NN        | CN        | 2015-12-31 |
+      | name        | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
+      | Combined    | 4200         | true           | 5                     | 60           | true           | 3                     | CDTID              | CLTID            | 1398        | true    |
+      | Maintenance | 4200         | true           | 5                     | 60           | false          | 0                     | MDTID              | MLTID            | 1376        | true    |
+      | Advanced    | 2400         | false          | 0                     | 0            | true           | 10                    | ADTID              | ALTID            | 1405        | true    |
 
+  Scenario Outline: Edit guarantee type
+    Given User is on Manage guarantee types page
+    And User opens guarantee type <oldName> to edit
+    And types guarantee type name <newName>
+    And makes guarantee type disabled
+    And types fixed premium <newFixedPremium>
+    And makes guarantee type has maintenance <newHasMaintenance>
+    And types maintenance percentage <newMaintenancePercentage>
+    And types maintenance period in months <newMonthsAmount>
+    And makes guarantee type has performance <newHasPerformance>
+    And types performance percentage <newPerformancePercentage>
+    When User submits changes
+    Then guarantee type <newName> is created
+    And guarantee type <oldName> is not created
+    And <newName> has guarantee type enabled <newEnabled> in Guarantee Types list
+    And <newName> has fixed premium <newFixedPremium> in Guarantee Types list
+    And <newName> has maintenance <newHasMaintenance> in Guarantee Types list
+    And <newName> has maintenance percentage <newMaintenancePercentage> in Guarantee Types list
+    And <newName> has maintenance period in months <newMonthsAmount> in Guarantee Types list
+    And <newName> has performance <newHasPerformance> in Guarantee Types list
+    And <newName> has performance percentage <newPerformancePercentage> in Guarantee Types list
+    And User opens guarantee type <newName> to edit
+    And <newName> has guarantee type enabled <newEnabled> on Edit Guarantee Type page
+    And <newName> has fixed premium <newFixedPremium> on Edit Guarantee Type page
+    And <newName> has maintenance <hasMaintenance> on Edit Guarantee Type page
+    And <newName> has maintenance percentage <newMaintenancePercentage> on Edit Guarantee Type page
+    And <newName> has maintenance period in months <newMonthsAmount> on Edit Guarantee Type page
+    And <newName> has performance <newHasPerformance> on Edit Guarantee Type page
+    And <newName> has performance percentage <newPerformancePercentage> on Edit Guarantee Type page
 
+    Examples:
+      | oldName     | newName        | newFixedPremium | newMaintenancePercentage | newPerformancePercentage | newMonthsAmount | newHasMaintenance | newHasPerformance | newEnabled |
+      | Combined    | NewCombined    | 1234            | 24                       | 95                       | 120             | false             | false             | false      |
+      | Maintenance | NewMaintenance | 5678            | 0                        | 48                       | 37              | false             | true              | false      |
+      | Advanced    | NewAdvanced    | 900             | 6                        | 237                      | 42              | true              | false             | false      |
 
+  Scenario Outline: Disable guarantee type
+    Given Facility is created
+    And Organisation is created
+    And Contract is created
+    And Enabled guarantee type is created
+    And <name> is able to be selected on New Guarantee page
+    And User opens guarantee type <name> to edit
+    And makes guarantee type disabled
+    When User submits changes
+    Then <name> is not able to be selected on New Guarantee page
+
+    Examples:
+      | name             |
+      | Enabled Combined |
 
 
 

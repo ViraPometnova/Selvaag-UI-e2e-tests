@@ -10,7 +10,7 @@ Feature: Facility Member
     And clears address line 1
     And clears address line 2
     And clears address line 3
-    And makes organisation disabled
+    And clicks on zero coordinates
     Then organisation name validation message is shown
     And organisation number validation message is shown
     And address line 1 validation message is shown
