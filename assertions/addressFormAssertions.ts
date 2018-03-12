@@ -16,4 +16,15 @@ export class AddressFormAssertions {
         assert.isTrue(await addressForm.isZipInputFeedbackDisplayed(), 'Validation message is not displayed');
     }
 
+    async checkAddressEqualTo(address: string) {
+        assert.equal(await addressForm.getAddress(), address, `Address is not equal to ${address}`);
+    }
+
+    async checkCityEqualTo(city: string) {
+        assert.equal(await addressForm.getCity(), city, `City is not equal to ${city}`);
+    }
+
+    async checkZipEqualTo(zip: string) {
+        assert.equal(await addressForm.getZip(), zip, `Zip is not equal to ${zip}`);
+    }
 }

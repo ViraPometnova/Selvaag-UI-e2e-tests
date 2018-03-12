@@ -6,7 +6,7 @@ export const facilityMemberData = {
     city: 'New York',
     zip: '10029',
     organisationName: CurrentRun.uniqueName('Svartis'),
-    organisationNumber: CurrentRun.uniqueNumber('?'),
+    organisationNumber: CurrentRun.uniqueNumber('ON'),
     enabled: true,
     facilityName: facilityData.name
 };

@@ -13,7 +13,7 @@ Feature: Facility Member
     And makes organisation disabled
     Then organisation name validation message is shown
     And organisation number validation message is shown
-    And organisation address line 1 validation message is shown
+    And address line 1 validation message is shown
     And address line 2 validation message is shown
     And address line 3 validation message is shown
 
@@ -34,7 +34,7 @@ Feature: Facility Member
     And <name> has Facility in Facility members list
     And <name> has enabled <enabled> in Facility members list
     And User performs search by <number>
-    And <name> has number <number> in start page listing
+    And <name> has organisation number <number> in start page listing
     And <name> has address line 1 <address> in start page listing
     And <name> has address line 2 <city> in start page listing
     And <name> has address line 3 <zip> in start page listing
@@ -50,7 +50,7 @@ Feature: Facility Member
 
     Examples:
       | name    | number | address        | city  | zip   | enabled | contractsAmount |
-      | Svartis | #      | Ocean drive 12 | Miami | 33139 | true    | 0               |
+      | Svartis | ON     | Ocean drive 12 | Miami | 33139 | true    | 0               |
 
   Scenario Outline: Edit Facility member
     Given User is on Facility members page
@@ -62,14 +62,14 @@ Feature: Facility Member
     And  <oldName> Facility member is not created
     And <newName> has number <newNumber> in Facility members list
     And User performs search by <newNumber>
-    And <newName> has number <newNumber> in start page listing
+    And <newName> has organisation number <newNumber> in start page listing
     And User opens <newName> Facility member page
     And <newName> has number <newNumber> on Facility member page
 
 
     Examples:
       | oldName | newName   | newNumber |
-      | Svartis | Solutions | @         |
+      | Svartis | Solutions | NN        |
 
   Scenario Outline: Disable Facility member
     Given User is on Facility members page
@@ -81,10 +81,10 @@ Feature: Facility Member
     And <name> is disabled for adding contracts from start page listing
     And User opens <name> Facility member page
     And <name> is disabled for adding contracts from Facility member page
-
+#TODO: Add checks for disabled contract and guarantee creation
     Examples:
       | name      | enabled | number |
-      | Solutions | false   | @      |
+      | Solutions | false   | NN     |
 
 
 

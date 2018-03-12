@@ -61,4 +61,16 @@ export class ContractPage {
     isProjectDateFeedbackDisplayed() {
         return this.projectDateFeedback.isWebElementDisplayed();
     }
+
+    getContractNumber() {
+        return this.contractNumberInput.getAttribute('value');
+    }
+
+    getProjectDate() {
+        return this.projectDateInput.getAttribute('value');
+    }
+
+    getProjectName() {
+        return this.projectNameInput.getAttribute('value');
+    }
 }

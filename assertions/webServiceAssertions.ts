@@ -8,4 +8,8 @@ export class WebServiceAssertions {
         assert.include(await webService.getFacilityMembersNames(), organisationName, `Facility member ${organisationName} is not created`);
     }
 
+    async checkContractIsCreated(organisationName: string,projectName: string) {
+        assert.include(await webService.getContractNames(organisationName), projectName, `Contract ${projectName} is not created`);
+    }
+
 }

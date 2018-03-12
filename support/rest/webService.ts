@@ -2,9 +2,10 @@ import * as WebRequest from 'web-request';
 import {AccessToken} from "./accessToken";
 import {config} from "../../config/config";
 
-const baseUrl = config.baseUrl + '/v1/',
+const baseUrl = config.baseUrl + 'v1/',
     facilityUrl = baseUrl + 'facility',
     facilityMemberUrl = baseUrl + 'facilitymember',
+    contractUrl = baseUrl + 'contract',
     accessToken = new AccessToken();
 
 export class WebService {
@@ -44,7 +45,8 @@ export class WebService {
     async getFacilityGuidFor(facilityName: string) {
         const facilities = await this.getFacilities(),
             content = JSON.parse(facilities.content),
-            guid = content.filter(item => item['facilityName'] == facilityName).map(item => item['guid']);
+            guid = content.filter(item => item['facilityName'] == facilityName)
+                .map(item => item['guid']);
         return guid[0];
     }
 
@@ -57,5 +59,48 @@ export class WebService {
         const facilityMembers = await this.getFacilityMembers(),
             content = JSON.parse(facilityMembers.content);
         return content.map(item => item['organisationName']);
+    }
+
+    async createContract(contract) {
+        const auth = await accessToken.getAuthOption(),
+            organisationGuid = await this.getFacilityMemberGuidFor(contract.organisationName);
+        return await WebRequest.post(contractUrl,
+            {
+                json: {
+                    contractNumber: contract.number,
+                    facilityMemberGuid: organisationGuid,
+                    projectAddressLine1: contract.address,
+                    projectAddressLine2: contract.city,
+                    projectAddressLine3: contract.zip,
+                    projectDate: contract.projectDate,
+                    projectName: contract.projectName
+                },
+                auth: auth,
+                throwResponseError: true
+            });
+    }
+
+    async getFacilityMemberGuidFor(organisationName: string) {
+        const facilityMembers = await this.getFacilityMembers(),
+            content = JSON.parse(facilityMembers.content),
+            guid = content.filter(item => item['organisationName'] == organisationName)
+                .map(item => item['guid']);
+        return guid[0];
+
+    }
+
+    async getContractNames(organisationName: string) {
+        const contracts = await this.getContractsFor(organisationName),
+            content = JSON.parse(contracts.content),
+            result = content.filter(item => item['contract'] != null && item['contract']['projectName'] != null)
+                .map(item => item['contract']['projectName']);
+        return result;
+    }
+
+    async getContractsFor(organisationName: string) {
+        const auth = await accessToken.getAuthOption(),
+            organisationGuid = await this.getFacilityMemberGuidFor(organisationName),
+            getContractUrl = facilityMemberUrl + `contract?facilityMemberGuid=${organisationGuid}`;
+        return await WebRequest.get(getContractUrl, {auth: auth, throwResponseError: true});
     }
 }

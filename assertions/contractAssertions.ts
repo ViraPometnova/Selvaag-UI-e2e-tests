@@ -23,4 +23,16 @@ export class ContractAssertions {
     async checkProjectDateValidationMessageIsDisplayed() {
         assert.isTrue(await contractPage.isProjectDateFeedbackDisplayed(), 'Validation message is not shown');
     }
+
+    async checkContractNumberEqualTo(contractNumber: string) {
+        assert.equal(await contractPage.getContractNumber(), contractNumber, `Contract number is not equal to ${contractNumber}`);
+    }
+
+    async checkProjectNameEqualTo(projectName: string) {
+        assert.equal(await contractPage.getProjectName(), projectName, `Project name is not equal to ${projectName}`);
+    }
+
+    async checkProjectDateEqualTo(projectDate: string){
+        assert.equal(await contractPage.getProjectDate(), projectDate, `Project date is not equal to ${projectDate}`);
+    }
 }

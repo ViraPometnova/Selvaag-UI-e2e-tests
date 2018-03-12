@@ -30,14 +30,14 @@ export class ListingPage {
         return element(by.cssContainingText('.item-card', details));
     }
 
-    async getItemDetailsFor(itemName: string) {
+    async getItemDetailsFor(itemName: string, detailName: string) {
         const itemElement = await this.getItemDetailsElementFor(itemName),
-            detailsElement = itemElement.$('span');
-        return detailsElement.getText();
+            detailsElements = itemElement.element(by.cssContainingText('span', detailName));
+        return detailsElements.getText();
     }
 
-    private getItemDetailsElementFor(cardName: string) {
-        return element(by.cssContainingText('.details', cardName));
+    private getItemDetailsElementFor(itemName: string) {
+        return element(by.cssContainingText('.details', itemName));
     }
 
     getItemSubDetailsFor(itemName: string) {
@@ -66,8 +66,8 @@ export class ListingPage {
         return splittedValue[0].trim();
     }
 
-    isAddNewContractLinkDisabledFor(name: string) {
-        return this.getAddNewContractLinkFor(name).hasClass('disabled');
+    isAddNewContractLinkDisabledFor(itemName: string) {
+        return this.getAddNewContractLinkFor(itemName).hasClass('disabled');
     }
 
     private getItemCounterElementFor(itemName: string) {
@@ -80,8 +80,8 @@ export class ListingPage {
     }
 
     async isItemCardAndDetailsDisplayed() {
-        return (await this.isItemCardDisplayed() && await this.isDetailsDisplayed() && await this.isSubDetailsDisplayed()
-            && await this.isActionsDisplayed() && await this.isCounterDisplayed());
+        return await this.isItemCardDisplayed() && await this.isDetailsDisplayed() && await this.isSubDetailsDisplayed()
+            && await this.isActionsDisplayed() && await this.isCounterDisplayed();
     }
 
     private isItemCardDisplayed() {
@@ -102,5 +102,31 @@ export class ListingPage {
 
     private isCounterDisplayed() {
         return this.counter.isWebElementDisplayed();
+    }
+
+    private getEditContractLinkFor(itemName: string) {
+        const item = this.getItem(itemName);
+        return item.$('#lnkEditContract');
+    }
+
+    private getAddNewGuaranteeLinkFor(itemName: string) {
+        const item = this.getItem(itemName);
+        return item.$('#lnkAddNewGuarantee');
+    }
+
+    isEditContractLinkDisabledFor(itemName: string) {
+        return this.getEditContractLinkFor(itemName).hasClass('disabled');
+    }
+
+    isAddNewGuaranteeLinkDisabledFor(itemName: string) {
+        return this.getAddNewGuaranteeLinkFor(itemName).hasClass('disabled');
+    }
+
+    clickAddNewGuaranteeLinkFor(itemName: string) {
+        return this.getAddNewGuaranteeLinkFor(itemName).waitAndClick();
+    }
+
+    clickEditContractLinkFor(itemName: string) {
+        return this.getEditContractLinkFor(itemName).waitAndClick();
     }
 }

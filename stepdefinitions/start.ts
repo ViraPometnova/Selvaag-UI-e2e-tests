@@ -20,11 +20,6 @@ When(/^User performs search by (.*?)$/, async (number: string) => {
     await searchFunctions.search(CurrentRun.uniqueNumber(number));
 });
 
-Then(/^(.*?) has number (.*?) in start page listing$/, async (name: string, number: string) => {
-    await listingAssertions.checkStartPageIsOpened();
-    await listingAssertions.checkDetailsAreDisplayedFor(CurrentRun.uniqueName(name), CurrentRun.uniqueNumber(number));
-});
-
 Then(/^(.*?) has address line 1 (.*?) in start page listing$/, async (name: string, address: string) => {
     await listingAssertions.checkStartPageIsOpened();
     await listingAssertions.checkSubDetailsAreDisplayedFor(CurrentRun.uniqueName(name), address);

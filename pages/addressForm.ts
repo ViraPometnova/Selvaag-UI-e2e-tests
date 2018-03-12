@@ -52,4 +52,16 @@ export class AddressForm {
     isZipInputFeedbackDisplayed() {
         return this.zipInputFeedback.isWebElementDisplayed();
     }
+
+    getAddress() {
+        return this.addressLine1Input.getAttribute('value');
+    }
+
+    getCity() {
+        return this.addressLine2Input.getAttribute('value');
+    }
+
+    getZip() {
+        return this.addressLine3Input.getAttribute('value');
+    }
 }
