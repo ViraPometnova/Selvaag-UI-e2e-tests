@@ -1,18 +1,16 @@
-import {ListingPage} from "../pages/listing";
-import {facilityMemberData} from "../test-data/facilityMemberData";
+import {AddressFormAssertions} from "../assertions/addressFormAssertions";
 import {ContractAssertions} from "../assertions/contractAssertions";
+import {GuaranteeAssertions} from "../assertions/guaranteeAssertions";
+import {ListingAssertions} from "../assertions/listingAssertions";
+import {WebServiceAssertions} from "../assertions/webServiceAssertions";
+import {SearchFunctions} from "../business-functions/searchFunctions";
 import {ContractPage} from "../pages/contract";
-import {CurrentRun} from "../support/currentRun";
+import {ListingPage} from "../pages/listing";
 import {UrlNavigation} from "../pages/urlNavigation";
-import {CalendarFunctions} from "../business-functions/calendarFunctions";
+import {CurrentRun} from "../support/currentRun";
 import {WebService} from "../support/rest/webService";
 import {contractData} from "../test-data/contractData";
-import {WebServiceAssertions} from "../assertions/webServiceAssertions";
-import {ListingAssertions} from "../assertions/listingAssertions";
-import moment = require("moment");
-import {GuaranteeAssertions} from "../assertions/guaranteeAssertions";
-import {AddressFormAssertions} from "../assertions/addressFormAssertions";
-import {SearchFunctions} from "../business-functions/searchFunctions";
+import {facilityMemberData} from "../test-data/facilityMemberData";
 
 const {When, Then} = require("cucumber"),
     listingPage = new ListingPage(),
@@ -20,7 +18,6 @@ const {When, Then} = require("cucumber"),
     contractPage = new ContractPage(),
     webService = new WebService(),
     webServiceAssertions = new WebServiceAssertions(),
-    calendarFunctions = new CalendarFunctions(),
     listingAssertions = new ListingAssertions(),
     guaranteeAssertions = new GuaranteeAssertions(),
     addressFormAssertions = new AddressFormAssertions(),
@@ -40,9 +37,8 @@ When(/^types contract number (.*?)$/, async (contractNumber: string) => {
     await contractPage.setContractNumber(CurrentRun.uniqueNumber(contractNumber));
 });
 
-When(/^chooses start date (.*?)$/, async (projectDate: string) => {
-    await contractPage.setProjectDate();
-    await calendarFunctions.setDate(projectDate);
+When(/^types start date (.*?)$/, async (projectDate: string) => {
+    await contractPage.setProjectDate(projectDate);
 });
 
 When(/^clears project name$/, async () => {
@@ -76,7 +72,7 @@ When(/^Contract is created$/, async () => {
 
 Then(/^(.*?) has project date (.*?) in start page listing$/, async (projectName: string, projectDate: string) => {
     await listingAssertions.checkStartPageIsOpened();
-    await listingAssertions.checkProjectDateFor(CurrentRun.uniqueName(projectName), moment(projectDate).format('DD.MM.YYYY'));
+    await listingAssertions.checkProjectDateFor(CurrentRun.uniqueName(projectName), projectDate);
 });
 
 Then(/^(.*?) has (.*?) created guarantees in start page listing$/, async (projectName: string, guaranteesAmount: string) => {
@@ -150,8 +146,7 @@ Then(/^(.*?) new guarantee is able to be created from Contract page$/, async (pr
 
 Then(/^(.*?) has project date (.*?) on Contract page$/, async (projectName: string, projectDate: string) => {
     await contractAssertions.checkContractPageIsOpened();
-    await listingAssertions.checkProjectDateFor(CurrentRun.uniqueName(projectName),
-        moment(projectDate).format('DD.MM.YYYY'));
+    await listingAssertions.checkProjectDateFor(CurrentRun.uniqueName(projectName), projectDate);
     await contractAssertions.checkProjectDateEqualTo(projectDate);
 });
 
@@ -172,4 +167,7 @@ Then(/^(.*?) contract is created$/, async (contractNumber: string) => {
     await listingAssertions.checkItemIsDisplayed(CurrentRun.uniqueNumber(contractNumber));
 });
 
-
+When(/^performs new guarantee creation for (.*?)$/, async (projectName: string) => {
+    await listingPage.clickAddNewGuaranteeLinkFor(CurrentRun.uniqueName(projectName));
+    await guaranteeAssertions.checkGuaranteePageIsOpened();
+});

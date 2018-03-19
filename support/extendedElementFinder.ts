@@ -21,6 +21,8 @@ declare module 'protractor/built/element' {
         isWebElementDisplayed(): promise.Promise<boolean>;
 
         isWebElementPresent(): promise.Promise<boolean>;
+
+        getValue(): Promise<string>;
     }
 }
 
@@ -128,6 +130,10 @@ ElementFinder.prototype.hasClass = function (clazz: string) {
     return this.getAttribute('class').then(function (className) {
         return className.indexOf(clazz) != -1;
     });
+};
+
+ElementFinder.prototype.getValue = function () {
+    return this.getAttribute('value');
 };
 
 export * from 'protractor';

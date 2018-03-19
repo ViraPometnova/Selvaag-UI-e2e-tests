@@ -54,14 +54,14 @@ export class AddressForm {
     }
 
     getAddress() {
-        return this.addressLine1Input.getAttribute('value');
+        return this.addressLine1Input.getValue();
     }
 
     getCity() {
-        return this.addressLine2Input.getAttribute('value');
+        return this.addressLine2Input.getValue();
     }
 
     getZip() {
-        return this.addressLine3Input.getAttribute('value');
+        return this.addressLine3Input.getValue();
     }
 }

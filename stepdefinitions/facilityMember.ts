@@ -71,17 +71,17 @@ Then(/^(.*?) Facility member is not created$/, async (organisationName: string) 
 });
 
 Then(/^(.*?) has number (.*?) in Facility members list$/, async (organisationName: string, organisationNumber: string) => {
-    await facilityMemberAssertions.checkOrganisationNumberIsPresentInFacilityMembersList(CurrentRun.uniqueName(organisationName),
+    await facilityMemberAssertions.checkOrganisationNumberInFacilityMembersListEqualTo(CurrentRun.uniqueName(organisationName),
         CurrentRun.uniqueNumber(organisationNumber));
 });
 
 Then(/^(.*?) has Facility in Facility members list$/, async (organisationName: string) => {
-    await facilityMemberAssertions.checkFacilityIsPresentInFacilityMembersList(CurrentRun.uniqueName(organisationName), facilityData.name);
+    await facilityMemberAssertions.checkFacilityInFacilityMembersListEqualTo(CurrentRun.uniqueName(organisationName), facilityData.name);
 });
 
 Then(/^(.*?) has enabled (.*?) in Facility members list$/, async (organisationName: string, enabled: string) => {
     await facilityMemberAssertions.checkManageFacilityMembersPageIsOpened();
-    await facilityMemberAssertions.checkOrganisationStateIsPresentInFacilityMembersList(CurrentRun.uniqueName(organisationName), enabled);
+    await facilityMemberAssertions.checkOrganisationStateInFacilityMembersListEqualTo(CurrentRun.uniqueName(organisationName), enabled);
 });
 
 Then(/^(.*?) has (.*?) created contracts in start page listing$/, async (organisationName: string, contractsAmount: string) => {

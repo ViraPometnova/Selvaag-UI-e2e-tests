@@ -12,25 +12,25 @@ export class FacilityMemberAssertions {
 
     async checkManageFacilityMembersPageIsOpened() {
         assert.include(await browser.getCurrentUrl(), '/facilitymembers', 'Url is not included Manage Facility members page reference');
-        assert.isTrue(await adminTable.isAdminTableDispalyed(), 'Facility member page is not opened');
+        assert.isTrue(await adminTable.isAdminTableDisplayed(), 'Facility member page is not opened');
     }
 
     async checkFacilityMemberIsCreated(name: string) {
         assert.isTrue(await adminTable.isRecordPresent(name), `Facility member ${name} is not created`);
     }
 
-    async checkOrganisationNumberIsPresentInFacilityMembersList(organisationName: string, number: string) {
-        assert.include(await manageFacilityMembersPage.getDetailsFromFacilityMembersList(organisationName), number,
+    async checkOrganisationNumberInFacilityMembersListEqualTo(organisationName: string, number: string) {
+        assert.equal(await manageFacilityMembersPage.getDetailsFromFacilityMembersList(organisationName, 'Organisation Number'), number,
             `${number} is not present in ${organisationName} details`);
     }
 
-    async checkFacilityIsPresentInFacilityMembersList(organisationName: string, facilityName: string) {
-        assert.include(await manageFacilityMembersPage.getDetailsFromFacilityMembersList(organisationName), facilityName,
-            `${facilityName} is not present in ${organisationName} details`);
+    async checkFacilityInFacilityMembersListEqualTo(organisationName: string, facilityName: string) {
+        assert.equal(await manageFacilityMembersPage.getDetailsFromFacilityMembersList(organisationName,
+            'Facility'), facilityName, `${facilityName} is not present in ${organisationName} details`);
     }
 
-    async checkOrganisationStateIsPresentInFacilityMembersList(organisationName: string, enabled: string) {
-        assert.include(await manageFacilityMembersPage.getDetailsFromFacilityMembersList(organisationName), enabled,
+    async checkOrganisationStateInFacilityMembersListEqualTo(organisationName: string, enabled: string) {
+        assert.equal(await manageFacilityMembersPage.getDetailsFromFacilityMembersList(organisationName, 'Enabled'), enabled,
             `${enabled} is not present in ${organisationName} details`);
     }
 

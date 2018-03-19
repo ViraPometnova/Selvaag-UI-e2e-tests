@@ -34,8 +34,8 @@ export class ContractPage {
         return this.contractNumberInput.clearAndSendKeys(number);
     }
 
-    setProjectDate() {
-        return this.projectDateInput.sendKeys('');
+    setProjectDate(projectDate: string) {
+        return this.projectDateInput.clearAndSendKeys(projectDate);
     }
 
     clearProjectName() {
@@ -63,14 +63,14 @@ export class ContractPage {
     }
 
     getContractNumber() {
-        return this.contractNumberInput.getAttribute('value');
+        return this.contractNumberInput.getValue();
     }
 
     getProjectDate() {
-        return this.projectDateInput.getAttribute('value');
+        return this.projectDateInput.getValue();
     }
 
     getProjectName() {
-        return this.projectNameInput.getAttribute('value');
+        return this.projectNameInput.getValue();
     }
 }

@@ -86,5 +86,5 @@ Feature: Facility Member
       | name      | enabled | number |
       | Solutions | false   | NN     |
 
-
+#TODO: Add check if organisations ordered alphabetically
 

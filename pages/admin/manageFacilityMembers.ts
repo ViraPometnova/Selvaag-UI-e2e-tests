@@ -65,8 +65,7 @@ export class ManageFacilityMembersPage {
             return this.enabledLabel.waitAndClick();
     }
 
-    getDetailsFromFacilityMembersList(name: string) {
-        return this.adminTable.getRowDataAt(name);
-
+    async getDetailsFromFacilityMembersList(recordName: string, columnName: string) {
+        return await this.adminTable.getCellDataFor(recordName, columnName);
     }
 }

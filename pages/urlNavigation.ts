@@ -23,4 +23,8 @@ export class UrlNavigation {
     static openLoginPageUrl() {
         return browser.get(baseUrl + 'auth/login');
     }
+
+    static openGuaranteeTypesUrl() {
+        return browser.get(baseUrl + 'admin/guaranteetypes');
+    }
 }

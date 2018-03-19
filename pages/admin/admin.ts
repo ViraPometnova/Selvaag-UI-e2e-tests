@@ -1,4 +1,4 @@
-import {element, by} from "protractor";
+import {element, by, $} from "protractor";
 
 export class AdminPage {
     private manageFacilitiesLink: any;

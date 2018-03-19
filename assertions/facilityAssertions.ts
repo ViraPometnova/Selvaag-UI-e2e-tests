@@ -16,6 +16,6 @@ export class FacilityAssertions {
 
     async checkFacilityPageIsOpened() {
         assert.include(await browser.getCurrentUrl(), '/facilities', 'Url is not included reference on Manage facilities page');
-        assert.isTrue(await adminTable.isAdminTableDispalyed(), 'Facility page is not opened');
+        assert.isTrue(await adminTable.isAdminTableDisplayed(), 'Facility page is not opened');
     }
 }

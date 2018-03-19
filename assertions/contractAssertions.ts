@@ -32,7 +32,7 @@ export class ContractAssertions {
         assert.equal(await contractPage.getProjectName(), projectName, `Project name is not equal to ${projectName}`);
     }
 
-    async checkProjectDateEqualTo(projectDate: string){
+    async checkProjectDateEqualTo(projectDate: string) {
         assert.equal(await contractPage.getProjectDate(), projectDate, `Project date is not equal to ${projectDate}`);
     }
 }

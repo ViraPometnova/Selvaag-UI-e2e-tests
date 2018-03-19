@@ -6,6 +6,7 @@ const baseUrl = config.baseUrl + 'v1/',
     facilityUrl = baseUrl + 'facility',
     facilityMemberUrl = baseUrl + 'facilitymember',
     contractUrl = baseUrl + 'contract',
+    guaranteeTypesUrl = baseUrl + 'guaranteetypes',
     accessToken = new AccessToken();
 
 export class WebService {
@@ -91,10 +92,9 @@ export class WebService {
 
     async getContractNames(organisationName: string) {
         const contracts = await this.getContractsFor(organisationName),
-            content = JSON.parse(contracts.content),
-            result = content.filter(item => item['contract'] != null && item['contract']['projectName'] != null)
-                .map(item => item['contract']['projectName']);
-        return result;
+            content = JSON.parse(contracts.content);
+        return content.filter(item => item['contract'] != null && item['contract']['projectName'] != null)
+            .map(item => item['contract']['projectName']);
     }
 
     async getContractsFor(organisationName: string) {
@@ -102,5 +102,38 @@ export class WebService {
             organisationGuid = await this.getFacilityMemberGuidFor(organisationName),
             getContractUrl = facilityMemberUrl + `contract?facilityMemberGuid=${organisationGuid}`;
         return await WebRequest.get(getContractUrl, {auth: auth, throwResponseError: true});
+    }
+
+    async createGuaranteeType(guaranteeType) {
+        const auth = await accessToken.getAuthOption();
+        return await WebRequest.post(guaranteeTypesUrl,
+            {
+                json: {
+                    documentTemplateId: guaranteeType.documentTemplateId,
+                    enabled: guaranteeType.enabled,
+                    fixedPremium: guaranteeType.fixedPremium,
+                    i2iAgreementId: guaranteeType.agreementId,
+                    letterTemplateId: guaranteeType.letterTemplateId,
+                    maintenancePercentage: guaranteeType.maintenancePercentage,
+                    maintenancePeriodInMonths: guaranteeType.maintenancePeriodInMonths,
+                    name: guaranteeType.name,
+                    performancePercentage: guaranteeType.performancePercentage,
+                    showMaintenance: guaranteeType.showMaintenance,
+                    showPerformance: guaranteeType.showPerformance
+                },
+                auth: auth,
+                throwResponseError: true
+            });
+    }
+
+    async getGuaranteeTypes() {
+        const auth = await accessToken.getAuthOption();
+        return await WebRequest.get(guaranteeTypesUrl, {auth: auth});
+    }
+
+    async getGuaranteeTypesNames() {
+        const guaranteeTypes = await this.getGuaranteeTypes(),
+            content = JSON.parse(guaranteeTypes.content);
+        return content.map(item => item['name']);
     }
 }

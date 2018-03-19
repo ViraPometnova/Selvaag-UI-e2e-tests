@@ -36,7 +36,7 @@ Feature: Facility
       | oldFacilityName | newFacilityName |
       | Test Facility   | New Facility    |
 
-
+#TODO: Add check if facilities ordered alphabetically
 
 
 

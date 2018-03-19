@@ -20,16 +20,15 @@ Feature: Contract
 
 
   Scenario Outline: Create contract
-#    Given opens new contract page
-#    And types project name <name>
-#    And types address line 1 <address>
-#    And types address line 2 <city>
-#    And types address line 3 <zip>
-#    And types contract number <number>
-#    And chooses start date <date>
-#    When User submits changes
-    Given Contract is created
-    When User performs search by <number>
+    Given opens new contract page
+    And types project name <name>
+    And types address line 1 <address>
+    And types address line 2 <city>
+    And types address line 3 <zip>
+    And types start date <date>
+    And types contract number <number>
+    When User submits changes
+    And User performs search by <number>
     And <name> has contract number <number> in start page listing
     And <name> has address line 1 <address> in start page listing
     And <name> has address line 2 <city> in start page listing
@@ -50,27 +49,27 @@ Feature: Contract
 
     Examples:
       | name      | address                 | city      | zip   | date       | number | guaranteeAmount |
-      | Sun Risky | 1297, Massachusetts Ave | Arlington | 02476 | 2010-01-01 | CN     | 0               |
+      | Sun Risky | 1297, Massachusetts Ave | Arlington | 02476 | 01.01.2010 | CN     | 0               |
 
 
   Scenario Outline: Edit contract details
     Given User opens <oldName> contract page
     And types project name <newName>
+    And types start date <newDate>
     And types contract number <newNumber>
-#    And chooses start date <newDate>
     When User submits changes
     Then <oldNumber> contract is not created
     And <newNumber> contract is created
     And <newName> has contract number <newNumber> in start page listing
-#    And <newName> has project date <newDate> in start page listing
+    And <newName> has project date <newDate> in start page listing
     And User opens <newName> contract page
     And has project name <newName> on Contract page
     And <newName> has number <newNumber> on Contract page
-#    And <newName> has project date <newDate> on Contract page
+    And <newName> has project date <newDate> on Contract page
 
     Examples:
       | oldName   | newName      | newNumber | oldNumber | newDate    |
-      | Sun Risky | Cheerful sun | NN        | CN        | 2015-12-31 |
+      | Sun Risky | Cheerful sun | NN        | CN        | 31.12.2015 |
 
 
 

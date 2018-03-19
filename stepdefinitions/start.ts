@@ -1,8 +1,8 @@
-import {CurrentRun} from "../support/currentRun";
-import {UrlNavigation} from "../pages/urlNavigation";
+import {ListingAssertions} from "../assertions/listingAssertions";
 import {SearchAssertions} from "../assertions/searchAssertions";
 import {SearchFunctions} from "../business-functions/searchFunctions";
-import {ListingAssertions} from "../assertions/listingAssertions";
+import {UrlNavigation} from "../pages/urlNavigation";
+import {CurrentRun} from "../support/currentRun";
 
 const {Then, When} = require("cucumber"),
     searchAssertions = new SearchAssertions(),
@@ -13,11 +13,11 @@ Then(/^User is redirected to start page$/, async () => {
     await searchAssertions.checkSearchIsDisplayed();
 });
 
-When(/^User performs search by (.*?)$/, async (number: string) => {
+When(/^User performs search by (.*?)$/, async (itemNumber: string) => {
     await UrlNavigation.openStartPageUrl();
     await listingAssertions.checkStartPageIsOpened();
     await searchAssertions.checkSearchIsDisplayed();
-    await searchFunctions.search(CurrentRun.uniqueNumber(number));
+    await searchFunctions.search(CurrentRun.uniqueNumber(itemNumber));
 });
 
 Then(/^(.*?) has address line 1 (.*?) in start page listing$/, async (name: string, address: string) => {
@@ -34,5 +34,4 @@ Then(/^(.*?) has address line 3 (.*?) in start page listing$/, async (name: stri
     await listingAssertions.checkStartPageIsOpened();
     await listingAssertions.checkSubDetailsAreDisplayedFor(CurrentRun.uniqueName(name), zip);
 });
-
-
+

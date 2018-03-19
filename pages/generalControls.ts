@@ -4,11 +4,13 @@ export class GeneralControls {
     private submitButton: any;
     private cancelButton: any;
     private routerElement: any;
+    private toastElement: any;
 
     constructor() {
         this.submitButton = element(by.cssContainingText('.btn', 'SUBMIT'));
         this.cancelButton = element(by.cssContainingText('.btn', 'CANCEL'));
         this.routerElement = $$('router-outlet').first();
+        this.toastElement = $('app-toasts');
     }
 
     clickSubmitButton() {
@@ -21,5 +23,10 @@ export class GeneralControls {
 
     clickOnZeroCoordinates() {
         return browser.driver.actions().mouseMove(this.routerElement).click().perform();
+    }
+
+    hideToasts() {
+        return browser.executeScript("arguments[0].style.display = 'none';", this.toastElement.getWebElement());
+
     }
 }

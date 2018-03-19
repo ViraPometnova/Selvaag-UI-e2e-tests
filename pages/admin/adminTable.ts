@@ -3,14 +3,34 @@ import {element, by, $, $$} from "protractor";
 export class AdminTable {
     private addButton: any;
     private table: any;
-    private tableRow: any;
+    private tableRows: any;
     private tableData: any;
+    private tableHeader: any;
+    private columns: any;
 
     constructor() {
         this.addButton = element(by.cssContainingText('.btn', 'Add'));
         this.table = $('.table');
-        this.tableRow = $$('tr').first();
-        this.tableData = $$('td').first();
+        this.tableRows = $$('tr');
+        this.tableData = $$('td');
+        this.tableHeader = $('thead');
+        this.columns = $$('th[scope="col"]');
+    }
+
+    private async getColumnPositionFor(columnName: string) {
+        const columnsArray = await this.getColumnsArray();
+        return columnsArray.indexOf(columnName);
+    }
+
+    private async getColumnsArray() {
+        let columnsArray = [], columnValue, i = 0;
+        columnValue = await this.columns.first().getText();
+        while (columnValue !== ' ') {
+            columnValue = await this.columns.get(i).getText();
+            columnsArray.push(columnValue);
+            i++;
+        }
+        return columnsArray;
     }
 
     clickAddButton() {
@@ -36,12 +56,15 @@ export class AdminTable {
         return element(by.cssContainingText('td', name));
     }
 
-    getRowDataAt(cellText: string) {
-        const row = this.getRowParentElementFor(cellText);
-        return row.getText();
+    async getCellDataFor(recordName: string, columnName: string) {
+        const row = this.getRowParentElementFor(recordName),
+            cellPosition = await this.getColumnPositionFor(columnName),
+            cell = row.$$('td').get(cellPosition),
+            text = await cell.getText();
+        return text;
     }
 
-    async isAdminTableDispalyed() {
+    async isAdminTableDisplayed() {
         return (await this.isTableDisplayed() && await this.isTableRowDisplayed() && await this.isTableDataDisplayed());
     }
 
@@ -50,10 +73,10 @@ export class AdminTable {
     }
 
     private isTableRowDisplayed() {
-        return this.tableRow.isWebElementDisplayed();
+        return this.tableRows.first().isWebElementDisplayed();
     }
 
     private isTableDataDisplayed() {
-        return this.tableData.isWebElementDisplayed();
+        return this.tableData.first().isWebElementDisplayed();
     }
 }
