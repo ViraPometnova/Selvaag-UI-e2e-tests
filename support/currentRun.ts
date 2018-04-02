@@ -14,7 +14,12 @@ export class CurrentRun {
         return `${name} [${this.timeStamp}]`;
     }
 
-    static uniqueNumber(number: string){
+    static uniqueNumber(number: string) {
         return `${number}${this.randomString}`;
+    }
+
+    static uniquePerTestRun(testData) {
+        testData.forEach(item => item['name'] = this.uniqueName(item['name']));
+        testData.forEach(item => item['number'] = this.uniqueNumber(item['number']));
     }
 }

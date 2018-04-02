@@ -6,11 +6,10 @@ import {WebServiceAssertions} from "../assertions/webServiceAssertions";
 import {SearchFunctions} from "../business-functions/searchFunctions";
 import {ContractPage} from "../pages/contract";
 import {ListingPage} from "../pages/listing";
-import {UrlNavigation} from "../pages/urlNavigation";
 import {CurrentRun} from "../support/currentRun";
 import {WebService} from "../support/rest/webService";
-import {contractData} from "../test-data/contractData";
-import {facilityMemberData} from "../test-data/facilityMemberData";
+import {TableDefinition} from "cucumber";
+import {AddressForm} from "../pages/addressForm";
 
 const {When, Then} = require("cucumber"),
     listingPage = new ListingPage(),
@@ -21,25 +20,10 @@ const {When, Then} = require("cucumber"),
     listingAssertions = new ListingAssertions(),
     guaranteeAssertions = new GuaranteeAssertions(),
     addressFormAssertions = new AddressFormAssertions(),
-    searchFunctions = new SearchFunctions();
+    searchFunctions = new SearchFunctions(),
+    addressForm = new AddressForm();
 
-When(/^opens new contract page$/, async () => {
-    await UrlNavigation.openStartPageUrl();
-    await listingPage.clickAddNewContractFor(facilityMemberData.organisationName);
-    await contractAssertions.checkContractPageIsOpened();
-});
-
-When(/^types project name (.*?)$/, async (projectName: string) => {
-    await contractPage.setProjectName(CurrentRun.uniqueName(projectName));
-});
-
-When(/^types contract number (.*?)$/, async (contractNumber: string) => {
-    await contractPage.setContractNumber(CurrentRun.uniqueNumber(contractNumber));
-});
-
-When(/^types start date (.*?)$/, async (projectDate: string) => {
-    await contractPage.setProjectDate(projectDate);
-});
+let contractData, editedContractData;
 
 When(/^clears project name$/, async () => {
     await contractPage.clearProjectName();
@@ -70,104 +54,95 @@ When(/^Contract is created$/, async () => {
     await webServiceAssertions.checkContractIsCreated(contractData.organisationName, contractData.projectName);
 });
 
-Then(/^(.*?) has project date (.*?) in start page listing$/, async (projectName: string, projectDate: string) => {
-    await listingAssertions.checkStartPageIsOpened();
-    await listingAssertions.checkProjectDateFor(CurrentRun.uniqueName(projectName), projectDate);
-});
-
-Then(/^(.*?) has (.*?) created guarantees in start page listing$/, async (projectName: string, guaranteesAmount: string) => {
-    await listingAssertions.checkStartPageIsOpened();
-    await listingAssertions.checkCounterFor(projectName, guaranteesAmount);
-});
-
-Then(/^editing contract (.*?) is enabled from start page listing$/, async (projectName: string) => {
-    await listingAssertions.checkStartPageIsOpened();
-    await listingAssertions.checkEditContractLinkIsNotDisabledFor(projectName);
-    await listingPage.clickEditContractLinkFor(projectName);
+Then(/^User opens contract page$/, async () => {
+    await searchFunctions.openStartPageAndSearch(contractData[0].number);
+    await listingPage.clickEditContractLinkFor(contractData[0].name);
     await contractAssertions.checkContractPageIsOpened();
 });
 
-Then(/^(.*?) new guarantee is able to be created from start page listing$/, async (projectName: string) => {
-    await listingAssertions.checkStartPageIsOpened();
-    await listingAssertions.checkAddNewGuaranteeLinkIsNotDisabledFor(projectName);
-    await listingPage.clickAddNewGuaranteeLinkFor(projectName);
+Then(/^old contract is not created$/, async () => {
+    await searchFunctions.openStartPageAndSearch(contractData[0].number);
+    await listingAssertions.checkItemIsNotDisplayed(contractData[0].name);
+});
+
+When(/^fill contract card with values$/, async (table: TableDefinition) => {
+    contractData = await table.hashes();
+    CurrentRun.uniquePerTestRun(contractData);
+
+    await contractPage.setProjectName(contractData[0].name);
+    await contractPage.setContractNumber(contractData[0].number);
+    await contractPage.setProjectDate(contractData[0].date);
+    await addressForm.setAddressLine1(contractData[0].address);
+    await addressForm.setAddressLine2(contractData[0].city);
+    await addressForm.setAddressLine3(contractData[0].zip);
+});
+
+Then(/^contract is present in start page listing$/, async () => {
+    await searchFunctions.openStartPageAndSearch(contractData[0].number);
+
+    await listingAssertions.checkSubDetailsAreDisplayedFor(contractData[0].name, contractData[0].address);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(contractData[0].name, contractData[0].city);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(contractData[0].name, contractData[0].zip);
+
+    await listingAssertions.checkContractNumberFor(contractData[0].name, contractData[0].number);
+    await listingAssertions.checkProjectDateFor(contractData[0].name, contractData[0].date);
+    await listingAssertions.checkCounterFor(contractData[0].name, contractData[0].guaranteesAmount);
+
+    await listingAssertions.checkEditContractLinkIsNotDisabledFor(contractData[0].name);
+    await listingPage.clickEditContractLinkFor(contractData[0].name);
+    await contractAssertions.checkContractPageIsOpened();
+
+    await searchFunctions.openStartPageAndSearch(contractData[0].number);
+    await listingAssertions.checkAddNewGuaranteeLinkIsNotDisabledFor(contractData[0].name);
+    await listingPage.clickAddNewGuaranteeLinkFor(contractData[0].name);
     await guaranteeAssertions.checkGuaranteePageIsOpened();
 });
 
-Then(/^(.*?) has contract number (.*?) in start page listing$/, async (projectName: string, contractNumber: string) => {
-    await listingAssertions.checkStartPageIsOpened();
-    await listingAssertions.checkContractNumberFor(CurrentRun.uniqueName(projectName), CurrentRun.uniqueNumber(contractNumber));
-});
-
-Then(/^User opens (.*?) contract page$/, async (projectName: string) => {
-    await UrlNavigation.openStartPageUrl();
-    await listingPage.clickEditContractLinkFor(CurrentRun.uniqueName(projectName));
+Then(/^contract is present on Contract page$/, async () => {
+    await searchFunctions.openStartPageAndSearch(contractData[0].number);
+    await listingPage.clickEditContractLinkFor(contractData[0].name);
     await contractAssertions.checkContractPageIsOpened();
+
+    await contractAssertions.checkProjectNameEqualTo(contractData[0].name);
+    await listingAssertions.checkContractNumberFor(contractData[0].name, contractData[0].number);
+    await contractAssertions.checkContractNumberEqualTo(contractData[0].number);
+
+    await listingAssertions.checkSubDetailsAreDisplayedFor(contractData[0].name, contractData[0].address);
+    await addressFormAssertions.checkAddressEqualTo(contractData[0].address);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(contractData[0].name, contractData[0].city);
+    await addressFormAssertions.checkCityEqualTo(contractData[0].city);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(contractData[0].name, contractData[0].zip);
+    await addressFormAssertions.checkZipEqualTo(contractData[0].zip);
+
+    await listingAssertions.checkProjectDateFor(contractData[0].name, contractData[0].date);
+    await contractAssertions.checkProjectDateEqualTo(contractData[0].date);
+
+    await listingAssertions.checkCounterFor(contractData[0].name, contractData[0].guaranteesAmount);
 });
 
-Then(/^(.*?) has number (.*?) on Contract page$/, async (projectName: string, contractNumber: string) => {
+When(/^edit contract data$/, async (table: TableDefinition) => {
+    editedContractData = table.hashes();
+    CurrentRun.uniquePerTestRun(editedContractData);
+
+    await contractPage.setProjectName(editedContractData[0].name);
+    await contractPage.setContractNumber(editedContractData[0].number);
+    await contractPage.setProjectDate(editedContractData[0].date);
+});
+
+Then(/^edited contract is created$/, async () => {
+    await searchFunctions.openStartPageAndSearch(editedContractData[0].number);
+    await listingAssertions.checkItemIsDisplayed(editedContractData[0].name);
+
+    await listingAssertions.checkProjectDateFor(editedContractData[0].name, editedContractData[0].date);
+    await listingAssertions.checkContractNumberFor(editedContractData[0].name, editedContractData[0].number);
+
+    await listingPage.clickEditContractLinkFor(editedContractData[0].name);
     await contractAssertions.checkContractPageIsOpened();
-    await listingAssertions.checkContractNumberFor(CurrentRun.uniqueName(projectName), CurrentRun.uniqueNumber(contractNumber));
-    await contractAssertions.checkContractNumberEqualTo(CurrentRun.uniqueNumber(contractNumber));
-});
 
-Then(/^(.*?) has address line 1 (.*?) on Contract page$/, async (projectName: string, contractAddress: string) => {
-    await contractAssertions.checkContractPageIsOpened();
-    await listingAssertions.checkSubDetailsAreDisplayedFor(CurrentRun.uniqueName(projectName), contractAddress);
-    await addressFormAssertions.checkAddressEqualTo(contractAddress);
-});
+    await contractAssertions.checkProjectNameEqualTo(editedContractData[0].name);
+    await listingAssertions.checkContractNumberFor(editedContractData[0].name, editedContractData[0].number);
+    await contractAssertions.checkContractNumberEqualTo(editedContractData[0].number);
 
-Then(/^(.*?) has address line 2 (.*?) on Contract page$/, async (projectName: string, contractCity: string) => {
-    await contractAssertions.checkContractPageIsOpened();
-    await listingAssertions.checkSubDetailsAreDisplayedFor(CurrentRun.uniqueName(projectName), contractCity);
-    await addressFormAssertions.checkCityEqualTo(contractCity);
-});
-
-Then(/^(.*?) has address line 3 (.*?) on Contract page$/, async (projectName: string, zipCity: string) => {
-    await contractAssertions.checkContractPageIsOpened();
-    await listingAssertions.checkSubDetailsAreDisplayedFor(CurrentRun.uniqueName(projectName), zipCity);
-    await addressFormAssertions.checkZipEqualTo(zipCity);
-});
-
-Then(/^(.*?) has (.*?) created guarantees on Contract page$/, async (projectName: string, guaranteesAmount: string) => {
-    await contractAssertions.checkContractPageIsOpened();
-    await listingAssertions.checkCounterFor(CurrentRun.uniqueName(projectName), guaranteesAmount);
-});
-
-Then(/^editing contract (.*?) is enabled from Contract page$/, async (projectName: string) => {
-    await contractAssertions.checkContractPageIsOpened();
-    await listingAssertions.checkEditContractLinkIsNotDisabledFor(CurrentRun.uniqueName(projectName));
-});
-
-Then(/^(.*?) new guarantee is able to be created from Contract page$/, async (projectName: string) => {
-    await contractAssertions.checkContractPageIsOpened();
-    await listingAssertions.checkAddNewGuaranteeLinkIsNotDisabledFor(CurrentRun.uniqueName(projectName));
-});
-
-Then(/^(.*?) has project date (.*?) on Contract page$/, async (projectName: string, projectDate: string) => {
-    await contractAssertions.checkContractPageIsOpened();
-    await listingAssertions.checkProjectDateFor(CurrentRun.uniqueName(projectName), projectDate);
-    await contractAssertions.checkProjectDateEqualTo(projectDate);
-});
-
-Then(/^has project name (.*?) on Contract page$/, async (projectName: string) => {
-    await contractAssertions.checkContractPageIsOpened();
-    await contractAssertions.checkProjectNameEqualTo(CurrentRun.uniqueName(projectName));
-});
-
-Then(/^(.*?) contract is not created$/, async (contractNumber: string) => {
-    await UrlNavigation.openStartPageUrl();
-    await searchFunctions.search(CurrentRun.uniqueNumber(contractNumber));
-    await listingAssertions.checkItemIsNotDisplayed(CurrentRun.uniqueNumber(contractNumber));
-});
-
-Then(/^(.*?) contract is created$/, async (contractNumber: string) => {
-    await UrlNavigation.openStartPageUrl();
-    await searchFunctions.search(CurrentRun.uniqueNumber(contractNumber));
-    await listingAssertions.checkItemIsDisplayed(CurrentRun.uniqueNumber(contractNumber));
-});
-
-When(/^performs new guarantee creation for (.*?)$/, async (projectName: string) => {
-    await listingPage.clickAddNewGuaranteeLinkFor(CurrentRun.uniqueName(projectName));
-    await guaranteeAssertions.checkGuaranteePageIsOpened();
+    await listingAssertions.checkProjectDateFor(editedContractData[0].name, editedContractData[0].date);
+    await contractAssertions.checkProjectDateEqualTo(editedContractData[0].date);
 });

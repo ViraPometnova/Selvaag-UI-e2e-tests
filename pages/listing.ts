@@ -27,7 +27,7 @@ export class ListingPage {
     }
 
     private getItem(details: string) {
-        return element(by.cssContainingText('.item-card', details));
+        return element.all(by.cssContainingText('.item-card', details)).first();
     }
 
     async getItemDetailsFor(itemName: string, detailName: string) {
@@ -37,7 +37,7 @@ export class ListingPage {
     }
 
     private getItemDetailsElementFor(itemName: string) {
-        return element(by.cssContainingText('.details', itemName));
+        return element.all(by.cssContainingText('.details', itemName)).first();
     }
 
     getItemSubDetailsFor(itemName: string) {

@@ -17,7 +17,7 @@ When(/^User performs search by (.*?)$/, async (itemNumber: string) => {
     await UrlNavigation.openStartPageUrl();
     await listingAssertions.checkStartPageIsOpened();
     await searchAssertions.checkSearchIsDisplayed();
-    await searchFunctions.search(CurrentRun.uniqueNumber(itemNumber));
+    await searchFunctions.search(itemNumber);
 });
 
 Then(/^(.*?) has address line 1 (.*?) in start page listing$/, async (name: string, address: string) => {
@@ -34,4 +34,4 @@ Then(/^(.*?) has address line 3 (.*?) in start page listing$/, async (name: stri
     await listingAssertions.checkStartPageIsOpened();
     await listingAssertions.checkSubDetailsAreDisplayedFor(CurrentRun.uniqueName(name), zip);
 });
-
+

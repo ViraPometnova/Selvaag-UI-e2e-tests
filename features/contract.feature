@@ -2,7 +2,9 @@ Feature: Contract
 
   Scenario: Validation contract card
     Given User is logged in
-    And Organisation is created
+    And Organisation is created with values
+      | facilityName | name    | number | address                  | city     | zip   | enabled |
+      | Facility     | Svartis | ON     | 1255, 5th Ave, Manhattan | New York | 10029 | true    |
     And opens new contract page
     And clears project name
     And clears contract number
@@ -19,57 +21,25 @@ Feature: Contract
     And project date validation message is shown
 
 
-  Scenario Outline: Create contract
+  Scenario: Create contract
     Given opens new contract page
-    And types project name <name>
-    And types address line 1 <address>
-    And types address line 2 <city>
-    And types address line 3 <zip>
-    And types start date <date>
-    And types contract number <number>
+    And fill contract card with values
+      | name      | address                 | city      | zip   | date       | number | guaranteesAmount |
+      | Sun Risky | 1297, Massachusetts Ave | Arlington | 02476 | 01.01.2010 | CN     | 0                |
     When User submits changes
-    And User performs search by <number>
-    And <name> has contract number <number> in start page listing
-    And <name> has address line 1 <address> in start page listing
-    And <name> has address line 2 <city> in start page listing
-    And <name> has address line 3 <zip> in start page listing
-    And <name> has project date <date> in start page listing
-    And <name> has <guaranteeAmount> created guarantees in start page listing
-    And editing contract <name> is enabled from start page listing
-    And User performs search by <number>
-    And <name> new guarantee is able to be created from start page listing
-    And User opens <name> contract page
-    And has project name <name> on Contract page
-    And <name> has number <number> on Contract page
-    And <name> has address line 1 <address> on Contract page
-    And <name> has address line 2 <city> on Contract page
-    And <name> has address line 3 <zip> on Contract page
-    And <name> has project date <date> on Contract page
-    And <name> has <guaranteeAmount> created guarantees on Contract page
+    And contract is present in start page listing
+    And contract is present on Contract page
 
-    Examples:
-      | name      | address                 | city      | zip   | date       | number | guaranteeAmount |
-      | Sun Risky | 1297, Massachusetts Ave | Arlington | 02476 | 01.01.2010 | CN     | 0               |
-
-
-  Scenario Outline: Edit contract details
-    Given User opens <oldName> contract page
-    And types project name <newName>
-    And types start date <newDate>
-    And types contract number <newNumber>
+  Scenario: Edit contract details
+    Given User opens contract page
+    And edit contract data
+      | name         | number | date       |
+      | Cheerful sun | NN     | 31.12.2015 |
     When User submits changes
-    Then <oldNumber> contract is not created
-    And <newNumber> contract is created
-    And <newName> has contract number <newNumber> in start page listing
-    And <newName> has project date <newDate> in start page listing
-    And User opens <newName> contract page
-    And has project name <newName> on Contract page
-    And <newName> has number <newNumber> on Contract page
-    And <newName> has project date <newDate> on Contract page
+    Then old contract is not created
+    And edited contract is created
 
-    Examples:
-      | oldName   | newName      | newNumber | oldNumber | newDate    |
-      | Sun Risky | Cheerful sun | NN        | CN        | 31.12.2015 |
+
 
 
 

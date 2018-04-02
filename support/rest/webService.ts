@@ -29,8 +29,8 @@ export class WebService {
                 addressLine2: facilityMember.city,
                 addressLine3: facilityMember.zip,
                 facilityGuid: facilityGuid,
-                organisationName: facilityMember.organisationName,
-                organisationNumber: facilityMember.organisationNumber,
+                organisationName: facilityMember.name,
+                organisationNumber: facilityMember.number,
                 enabled: facilityMember.enabled
             },
             auth: auth,

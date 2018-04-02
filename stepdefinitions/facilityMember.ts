@@ -8,8 +8,9 @@ import {AdminTable} from "../pages/admin/adminTable";
 import {ContractAssertions} from "../assertions/contractAssertions";
 import {facilityData} from "../test-data/facilityData";
 import {WebService} from "../support/rest/webService";
-import {facilityMemberData} from "../test-data/facilityMemberData";
 import {WebServiceAssertions} from "../assertions/webServiceAssertions";
+import {TableDefinition} from "cucumber";
+import {SearchFunctions} from "../business-functions/searchFunctions";
 
 const {When, Then} = require("cucumber"),
     manageFacilityMembersPage = new ManageFacilityMembersPage(),
@@ -19,7 +20,10 @@ const {When, Then} = require("cucumber"),
     adminTable = new AdminTable(),
     contractAssertions = new ContractAssertions(),
     webService = new WebService(),
-    webServiceAssertions = new WebServiceAssertions();
+    webServiceAssertions = new WebServiceAssertions(),
+    searchFunctions = new SearchFunctions();
+
+let organisationData;
 
 When(/^performs new Facility member creation$/, async () => {
     await adminTable.clickAddButton();
@@ -129,10 +133,18 @@ Then(/^(.*?) new contract is able to be created from Facility member page$/, asy
     await contractAssertions.checkContractPageIsOpened();
 });
 
-When(/^Organisation is created$/, async () => {
-    await webService.createFacility(facilityData.name);
-    await webService.createFacilityMember(facilityMemberData);
-    await webServiceAssertions.checkFacilityMemberIsCreated(facilityMemberData.organisationName);
+When(/^Organisation is created with values$/, async (table: TableDefinition) => {
+    organisationData = await table.hashes();
+    CurrentRun.uniquePerTestRun(organisationData);
+    await webService.createFacility(organisationData[0].facilityName);
+    await webService.createFacilityMember(organisationData[0]);
+    await webServiceAssertions.checkFacilityMemberIsCreated(organisationData[0].name);
+});
+
+When(/^opens new contract page$/, async () => {
+    await searchFunctions.openStartPageAndSearch(organisationData[0].number);
+    await listingPage.clickAddNewContractFor(organisationData[0].name);
+    await contractAssertions.checkContractPageIsOpened();
 });
 
 Then(/^(.*?) has address line 1 (.*?) on Facility member page$/, async (organisationName: string, organisationAddress: string) => {
