@@ -1,76 +1,75 @@
 import {$, by, element} from "protractor";
 
 export class ContractPage {
-    private projectNameInput: any;
-    private contractNumberInput: any;
     public projectDateInput: any;
     public projectDateFeedback: any;
     public contractNumberFeedback: any;
     public projectNameFeedback: any;
+    private projectNameInput: any;
+    private contractNumberInput: any;
 
     constructor() {
-        this.projectNameInput = $('#projectNameInput');
-        this.contractNumberInput = $('#contractNumberInput');
+        this.projectNameInput = $("#projectNameInput");
+        this.contractNumberInput = $("#contractNumberInput");
         this.projectDateInput = $('app-date[formcontrolname="projectDate"] input');
-        this.projectNameFeedback = element(by.cssContainingText('.form-control-feedback', 'Project Name is required.'));
-        this.projectDateFeedback = element(by.cssContainingText('.form-control-feedback', 'Project Date is required.'));
-        this.contractNumberFeedback = element(by.cssContainingText('.form-control-feedback', 'Contract Number is required.'));
+        this.projectNameFeedback = element(by.cssContainingText(".form-control-feedback", "Project Name is required."));
+        this.projectDateFeedback = element(by.cssContainingText(".form-control-feedback", "Project Date is required."));
+        this.contractNumberFeedback = element(by.cssContainingText(".form-control-feedback", "Contract Number is required."));
     }
 
-    isProjectNameInputDisplayed() {
+    public isProjectNameInputDisplayed() {
         return this.projectNameInput.isWebElementDisplayed();
     }
 
-    isContractNumberInputDisplayed() {
+    public isContractNumberInputDisplayed() {
         return this.contractNumberInput.isWebElementDisplayed();
     }
 
-
-    setProjectName(name: string) {
+    public setProjectName(name: string) {
         return this.projectNameInput.clearAndSendKeys(name);
     }
 
-    setContractNumber(number: string) {
-        return this.contractNumberInput.clearAndSendKeys(number);
+    public setContractNumber(contractNumber: string) {
+        return this.contractNumberInput.clearAndSendKeys(contractNumber);
     }
 
-    setProjectDate(projectDate: string) {
+    public setProjectDate(projectDate: string) {
         return this.projectDateInput.clearAndSendKeys(projectDate);
     }
 
-    clearProjectName() {
+    public clearProjectName() {
         return this.projectNameInput.clear();
     }
 
-    clearProjectDate() {
-        return this.projectDateInput.sendKeys('');
+    public clearProjectDate() {
+        return this.projectDateInput.sendKeys("");
     }
 
-    clearContractNumber() {
+    public clearContractNumber() {
         return this.contractNumberInput.clear();
     }
 
-    isProjectNameFeedbackDisplayed() {
+    public isProjectNameFeedbackDisplayed() {
         return this.projectNameFeedback.isWebElementDisplayed();
     }
 
-    isContractNumberFeedbackDisplayed() {
+    public isContractNumberFeedbackDisplayed() {
         return this.contractNumberFeedback.isWebElementDisplayed();
     }
 
-    isProjectDateFeedbackDisplayed() {
+    public isProjectDateFeedbackDisplayed() {
         return this.projectDateFeedback.isWebElementDisplayed();
     }
 
-    getContractNumber() {
+    public getContractNumber() {
         return this.contractNumberInput.getValue();
     }
 
-    getProjectDate() {
+    public getProjectDate() {
         return this.projectDateInput.getValue();
     }
 
-    getProjectName() {
+    public getProjectName() {
         return this.projectNameInput.getValue();
     }
 }

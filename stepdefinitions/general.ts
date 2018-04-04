@@ -15,9 +15,3 @@ When(/^User submits changes$/, async () => {
 When(/^clicks on zero coordinates$/, async () => {
     await generalControls.clickOnZeroCoordinates();
 });
-
-
-
-
-
-

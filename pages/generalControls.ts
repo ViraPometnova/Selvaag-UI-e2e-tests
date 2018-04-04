@@ -1,4 +1,4 @@
-import {element, by, browser, $, $$} from "protractor";
+import {$, $$, browser, by, element} from "protractor";
 
 export class GeneralControls {
     private submitButton: any;
@@ -7,25 +7,25 @@ export class GeneralControls {
     private toastElement: any;
 
     constructor() {
-        this.submitButton = element(by.cssContainingText('.btn', 'SUBMIT'));
-        this.cancelButton = element(by.cssContainingText('.btn', 'CANCEL'));
-        this.routerElement = $$('router-outlet').first();
-        this.toastElement = $('app-toasts');
+        this.submitButton = element(by.cssContainingText(".btn", "SUBMIT"));
+        this.cancelButton = element(by.cssContainingText(".btn", "CANCEL"));
+        this.routerElement = $$("router-outlet").first();
+        this.toastElement = $("app-toasts");
     }
 
-    clickSubmitButton() {
+    public clickSubmitButton() {
         return this.submitButton.waitAndClick();
     }
 
-    clickCancelButton() {
+    public clickCancelButton() {
         return this.cancelButton.waitAndClick();
     }
 
-    clickOnZeroCoordinates() {
+    public clickOnZeroCoordinates() {
         return browser.driver.actions().mouseMove(this.routerElement).click().perform();
     }
 
-    hideToasts() {
+    public hideToasts() {
         return browser.executeScript("arguments[0].style.display = 'none';", this.toastElement.getWebElement());
 
     }

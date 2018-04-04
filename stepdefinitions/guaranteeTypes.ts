@@ -1,13 +1,13 @@
-import {AdminTable} from "../pages/admin/adminTable";
+import {GuaranteeAssertions} from "../assertions/guaranteeAssertions";
 import {GuaranteeTypeAssertions} from "../assertions/guaranteeTypeAssertions";
+import {WebServiceAssertions} from "../assertions/webServiceAssertions";
+import {AdminTable} from "../pages/admin/adminTable";
 import {ManageGuaranteeTypesPage} from "../pages/admin/manageGuaranteeTypes";
+import {GuaranteePage} from "../pages/guarantee";
 import {UrlNavigation} from "../pages/urlNavigation";
 import {CurrentRun} from "../support/currentRun";
 import {WebService} from "../support/rest/webService";
 import {enabledGuaranteeType} from "../test-data/guaranteeTypeData";
-import {WebServiceAssertions} from "../assertions/webServiceAssertions";
-import {GuaranteePage} from "../pages/guarantee";
-import {GuaranteeAssertions} from "../assertions/guaranteeAssertions";
 
 const {When, Then} = require("cucumber"),
     adminTable = new AdminTable(),
@@ -236,6 +236,3 @@ When(/^(.*?) is able to be selected on New Guarantee page$/, async (guaranteeTyp
 Then(/^(.*?) is not able to be selected on New Guarantee page$/, async (guaranteeTypeName: string) => {
     await guaranteeAssertions.checkGuaranteeTypeIsNotPresentInDropdown(CurrentRun.uniqueName(guaranteeTypeName));
 });
-
-
-

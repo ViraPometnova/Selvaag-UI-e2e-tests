@@ -6,9 +6,21 @@ export class Search {
     private lookupIcon: any;
 
     constructor() {
-        this.searchInput = $('.search-wrapper input');
-        this.advancedSearchLink = element(by.cssContainingText('.advanced-switcher', 'Advanced search'));
-        this.lookupIcon = $('.drop');
+        this.searchInput = $(".search-wrapper input");
+        this.advancedSearchLink = element(by.cssContainingText(".advanced-switcher", "Advanced search"));
+        this.lookupIcon = $(".drop");
+    }
+
+    public setSearchPattern(pattern: string) {
+        return this.searchInput.clearAndSendKeys(pattern);
+    }
+
+    public clickSearchLookup() {
+        return this.lookupIcon.waitAndClick();
+    }
+
+    public async isSearchDisplayed() {
+        return (await this.isSearchInputDisplayed() && await this.isLookupIconDisplayed() && await this.isAdvancedSearchLinkDisplayed());
     }
 
     private isLookupIconDisplayed() {
@@ -21,17 +33,5 @@ export class Search {
 
     private isAdvancedSearchLinkDisplayed() {
         return this.advancedSearchLink.isWebElementDisplayed();
-    }
-
-    setSearchPattern(pattern: string) {
-        return this.searchInput.clearAndSendKeys(pattern);
-    }
-
-    clickSearchLookup() {
-        return this.lookupIcon.waitAndClick();
-    }
-
-    async isSearchDisplayed() {
-        return (await this.isSearchInputDisplayed() && await this.isLookupIconDisplayed() && await this.isAdvancedSearchLinkDisplayed());
     }
 }

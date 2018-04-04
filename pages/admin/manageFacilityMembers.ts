@@ -1,7 +1,9 @@
-import {element, by, $} from "protractor";
+import {$, browser, by, element} from "protractor";
 import {AdminTable} from "./adminTable";
+import {WebService} from "../../support/rest/webService";
 
 export class ManageFacilityMembersPage {
+    public adminTable = new AdminTable();
     private organisationNameInput: any;
     private organisationNumberInput: any;
     private facilityDropdown: any;
@@ -9,63 +11,66 @@ export class ManageFacilityMembersPage {
     private enabledLabel: any;
     private organizationNameFeedback: any;
     private organizationNumberFeedback: any;
-    adminTable = new AdminTable();
+    private webService = new WebService();
 
     constructor() {
-        this.organisationNameInput = $('#organisationNameInput');
-        this.organisationNumberInput = $('#organisationNumberInput');
-        this.facilityDropdown = $('#facilitySelect');
+        this.organisationNameInput = $("#organisationNameInput");
+        this.organisationNumberInput = $("#organisationNumberInput");
+        this.facilityDropdown = $("#facilitySelect");
         this.enabledLabel = $('label[for="enabledCheck"]');
-        this.enabledCheckbox = $('#enabledCheck');
-        this.organizationNameFeedback = element(by.cssContainingText('.form-control-feedback', 'Organisation name is required.'));
-        this.organizationNumberFeedback = element(by.cssContainingText('.form-control-feedback', 'Organisation number is required.'));
+        this.enabledCheckbox = $("#enabledCheck");
+        this.organizationNameFeedback = element(by.cssContainingText(".form-control-feedback", "Organisation name is required."));
+        this.organizationNumberFeedback = element(by.cssContainingText(".form-control-feedback", "Organisation number is required."));
     }
 
-    isOrganisationNameFeedbackDispalyed() {
+    public isOrganisationNameFeedbackDispalyed() {
         return this.organizationNameFeedback.isWebElementDisplayed();
     }
 
-    isOrganisationNumberFeedbackDispalyed() {
+    public isOrganisationNumberFeedbackDispalyed() {
         return this.organizationNumberFeedback.isWebElementDisplayed();
     }
 
-    setOrganisationName(name: string) {
+    public setOrganisationName(name: string) {
         return this.organisationNameInput.clearAndSendKeys(name);
     }
 
-    setOrganisationNumber(number: string) {
-        return this.organisationNumberInput.clearAndSendKeys(number);
+    public setOrganisationNumber(organisationNumber: string) {
+        return this.organisationNumberInput.clearAndSendKeys(organisationNumber);
     }
 
-    clearOrganisationNameInput() {
+    public clearOrganisationNameInput() {
         return this.organisationNameInput.clear();
     }
 
-    clearOrganisationNumberInput() {
+    public clearOrganisationNumberInput() {
         return this.organisationNumberInput.clear();
     }
 
-    async selectFacility(name: string) {
+    public async selectFacility(name: string) {
         await this.facilityDropdown.waitAndClick();
-        const option = this.getOptionElementFor(name);
-        return option.waitAndClick();
+        const item = element(by.cssContainingText("option", name));
+        await browser.executeScript("arguments[0].scrollIntoView()", item.getWebElement());
+        return item.waitAndClick();
+    }
+
+    public async setEnabledCheckbox() {
+        if (!await this.enabledCheckbox.isSelected()) {
+            return this.enabledLabel.waitAndClick();
+        }
+    }
+
+    public async setDisabledCheckbox() {
+        if (await this.enabledCheckbox.isSelected()) {
+            return this.enabledLabel.waitAndClick();
+        }
+    }
+
+    public async getDetailsFromFacilityMembersList(recordName: string, columnName: string) {
+        return await this.adminTable.getCellDataFor(recordName, columnName);
     }
 
     private getOptionElementFor(name: string) {
-        return element(by.cssContainingText('option', name));
-    }
-
-    async setEnabledCheckbox() {
-        if (!await this.enabledCheckbox.isSelected())
-            return this.enabledLabel.waitAndClick();
-    }
-
-    async setDisabledCheckbox() {
-        if (await this.enabledCheckbox.isSelected())
-            return this.enabledLabel.waitAndClick();
-    }
-
-    async getDetailsFromFacilityMembersList(recordName: string, columnName: string) {
-        return await this.adminTable.getCellDataFor(recordName, columnName);
+        return element(by.cssContainingText("option", name));
     }
 }

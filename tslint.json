@@ -1,13 +1,19 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended"
-    ],
-    "jsRules": {},
-    "rules": {
-        "no-var-requires": false,
-        "no-console": true,
-        "object-literal-sort-keys": false
-    },
-    "rulesDirectory": []
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "no-var-requires": false,
+    "no-console": false,
+    "object-literal-sort-keys": false,
+    "space-before-function-paren": false,
+    "one-variable-per-declaration": false,
+    "max-line-length": false,
+    "no-eval": false,
+    "no-string-literal": false,
+    "interface-name": false
+  },
+  "rulesDirectory": []
 }

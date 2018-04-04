@@ -1,10 +1,8 @@
-import {ElementArrayFinder, ElementFinder, promise, protractor} from 'protractor';
-import {browser} from "protractor";
+import {browser, by, element, ElementArrayFinder, ElementFinder, promise, protractor} from "protractor";
 
 const EC = protractor.ExpectedConditions;
 
-
-declare module 'protractor/built/element' {
+declare module "protractor/built/element" {
     export interface ElementArrayFinder {
         getByText(text: string): ElementFinder;
 
@@ -23,27 +21,10 @@ declare module 'protractor/built/element' {
         isWebElementPresent(): promise.Promise<boolean>;
 
         getValue(): Promise<string>;
+
+        selectFromScrolledDropdown(name: string): promise.Promise<void>;
     }
 }
-
-/**
- * Returns the first ElementFinder whos text matches the compareText passed as parameter.
- *
- * @example
- * let firstElement = element.all(by.css('.items li')).getByText('foo');
- * firstElement.click();
- *
- * @param  {string} compareText
- * @returns {ElementFinder} finder representing element whos text matches the text passed in argument.
- */
-ElementArrayFinder.prototype.getByText = function (compareText) {
-    let foundElement;
-    return this.filter(function (element) {
-        return element.getText().then(function (elementText) {
-            return elementText.trim() === compareText;
-        });
-    }).first();
-};
 
 /**
  * Checks whether the elements in array has the given text.This is using async/await for readability purpose.
@@ -66,24 +47,24 @@ ElementArrayFinder.prototype.getByText = function (compareText) {
  * @param  {string} text
  */
 ElementFinder.prototype.clearAndSendKeys = function (text: string) {
-    let self = this;
+    const self = this;
     return browser.wait(EC.visibilityOf(self), 10000)
         .then(() => {
-            self.sendKeys('')
+            self.sendKeys("")
                 .then(() => {
-                    self.clear().sendKeys(text)
-                })
-        })
+                    self.clear().sendKeys(text);
+                });
+        });
 };
 
 ElementFinder.prototype.isWebElementDisplayed = function () {
-    let self = this;
+    const self = this;
     return browser.wait(EC.visibilityOf(self), 10000)
         .then(() => true, () => false);
 };
 
 ElementFinder.prototype.isWebElementPresent = function () {
-    let self = this;
+    const self = this;
     return browser.wait(EC.presenceOf(self), 10000)
         .then(() => true, () => false);
 };
@@ -93,12 +74,12 @@ ElementFinder.prototype.isWebElementPresent = function () {
  * @returns {promise.Promise<void>} returns a promise that later resolves to void.
  */
 ElementFinder.prototype.waitAndClick = function () {
-    let self = this;
+    const self = this;
     return browser.wait(EC.and(EC.visibilityOf(self), EC.elementToBeClickable(self)), 10000)
-        .then(function () {
-            return self.click(); //if found
-        }, function () {
-            console.error(`Element is not clickable`); //error
+        .then(() => {
+            return self.click(); // if found
+        }, () => {
+            console.error(`Element is not clickable`); //   error
         });
 };
 
@@ -111,10 +92,10 @@ ElementFinder.prototype.waitAndClick = function () {
  * @returns {ElementFinder} returns first ElementFinder that matches the condition
  */
 ElementArrayFinder.prototype.getByAttribute = function (attribute: string, value: string) {
-    return this.filter(function (element) {
-        return element.getWebElement().getAttribute(attribute).then(function (elementAttribute) {
+    return this.filter((element) => {
+        return element.getWebElement().getAttribute(attribute).then((elementAttribute) => {
             return elementAttribute === value;
-        })
+        });
     }).first();
 };
 
@@ -127,13 +108,13 @@ ElementArrayFinder.prototype.getByAttribute = function (attribute: string, value
  * @returns {promise.Promise<boolean>} returns promise that resolves in a boolean (true/false) value.
  */
 ElementFinder.prototype.hasClass = function (clazz: string) {
-    return this.getAttribute('class').then(function (className) {
-        return className.indexOf(clazz) != -1;
+    return this.getAttribute("class").then((className) => {
+        return className.indexOf(clazz) !== -1;
     });
 };
 
 ElementFinder.prototype.getValue = function () {
-    return this.getAttribute('value');
+    return this.getAttribute("value");
 };
 
-export * from 'protractor';
+export * from "../node_modules/protractor";

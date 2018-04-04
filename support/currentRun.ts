@@ -7,19 +7,20 @@ import moment = require("moment");
 import randomstring = require("randomstring");
 
 export class CurrentRun {
-    private static timeStamp = moment().format('DD/MM/YYYY hh:mm:ss');
-    private static randomString = randomstring.generate(7);
-
-    static uniqueName(name: string) {
+    public static uniqueName(name: string) {
         return `${name} [${this.timeStamp}]`;
     }
 
-    static uniqueNumber(number: string) {
+    public static uniqueNumber(number: string) {
         return `${number}${this.randomString}`;
     }
 
-    static uniquePerTestRun(testData) {
-        testData.forEach(item => item['name'] = this.uniqueName(item['name']));
-        testData.forEach(item => item['number'] = this.uniqueNumber(item['number']));
+    public static uniquePerTestRun(testData) {
+        testData.forEach((item) => item.name = this.uniqueName(item.name));
+        testData.forEach((item) => item.number = this.uniqueNumber(item.number));
+        testData.forEach((item) => item.facilityName = this.uniqueName(item.facilityName));
     }
+
+    private static timeStamp = moment().format("DD/MM/YYYY hh:mm:ss");
+    private static randomString = randomstring.generate(7);
 }

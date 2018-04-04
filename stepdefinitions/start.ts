@@ -34,4 +34,3 @@ Then(/^(.*?) has address line 3 (.*?) in start page listing$/, async (name: stri
     await listingAssertions.checkStartPageIsOpened();
     await listingAssertions.checkSubDetailsAreDisplayedFor(CurrentRun.uniqueName(name), zip);
 });
-

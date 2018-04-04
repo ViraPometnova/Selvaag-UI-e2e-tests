@@ -9,59 +9,59 @@ export class AddressForm {
     private zipInputFeedback: any;
 
     constructor() {
-        this.addressLine1Input = $('#addressLine1Input');
-        this.addressLine2Input = $('#addressLine2Input');
-        this.addressLine3Input = $('#addressLine3Input');
-        this.addressInputFeedback = element(by.cssContainingText('.form-control-feedback', 'Address is required.'));
-        this.cityInputFeedback = element(by.cssContainingText('.form-control-feedback', 'City is required.'));
-        this.zipInputFeedback = element(by.cssContainingText('.form-control-feedback', 'Zip is required.'));
+        this.addressLine1Input = $("#addressLine1Input");
+        this.addressLine2Input = $("#addressLine2Input");
+        this.addressLine3Input = $("#addressLine3Input");
+        this.addressInputFeedback = element(by.cssContainingText(".form-control-feedback", "Address is required."));
+        this.cityInputFeedback = element(by.cssContainingText(".form-control-feedback", "City is required."));
+        this.zipInputFeedback = element(by.cssContainingText(".form-control-feedback", "Zip is required."));
     }
 
-    setAddressLine1(address: string) {
+    public setAddressLine1(address: string) {
         return this.addressLine1Input.clearAndSendKeys(address);
     }
 
-    setAddressLine2(city: string) {
+    public setAddressLine2(city: string) {
         return this.addressLine2Input.clearAndSendKeys(city);
     }
 
-    setAddressLine3(zip: string) {
+    public setAddressLine3(zip: string) {
         return this.addressLine3Input.clearAndSendKeys(zip);
     }
 
-    clearAddressLine1() {
+    public clearAddressLine1() {
         return this.addressLine1Input.clear();
     }
 
-    clearAddressLine2() {
+    public clearAddressLine2() {
         return this.addressLine2Input.clear();
     }
 
-    clearAddressLine3() {
+    public clearAddressLine3() {
         return this.addressLine3Input.clear();
     }
 
-    isAddressInputFeedbackDisplayed() {
+    public isAddressInputFeedbackDisplayed() {
         return this.addressInputFeedback.isWebElementDisplayed();
     }
 
-    isCityInputFeedbackDisplayed() {
+    public isCityInputFeedbackDisplayed() {
         return this.cityInputFeedback.isWebElementDisplayed();
     }
 
-    isZipInputFeedbackDisplayed() {
+    public isZipInputFeedbackDisplayed() {
         return this.zipInputFeedback.isWebElementDisplayed();
     }
 
-    getAddress() {
+    public getAddress() {
         return this.addressLine1Input.getValue();
     }
 
-    getCity() {
+    public getCity() {
         return this.addressLine2Input.getValue();
     }
 
-    getZip() {
+    public getZip() {
         return this.addressLine3Input.getValue();
     }
 }

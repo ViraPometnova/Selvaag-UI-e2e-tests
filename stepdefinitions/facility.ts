@@ -1,15 +1,13 @@
-import {ManageFacilitiesPage} from "../pages/admin/manageFacilities";
+import {TableDefinition} from "cucumber";
 import {FacilityAssertions} from "../assertions/facilityAssertions";
+import {AdminTable} from "../pages/admin/adminTable";
+import {ManageFacilitiesPage} from "../pages/admin/manageFacilities";
 import {UrlNavigation} from "../pages/urlNavigation";
 import {CurrentRun} from "../support/currentRun";
-import {AdminTable} from "../pages/admin/adminTable";
-import {WebService} from "../support/rest/webService";
-import {TableDefinition} from "cucumber";
 
 const {When, Then} = require("cucumber"),
     facilityAssertions = new FacilityAssertions(),
     manageFacilitiesPage = new ManageFacilitiesPage(),
-    webService = new WebService(),
     adminTable = new AdminTable();
 
 let facilityData, editedFacilityData;
@@ -37,11 +35,6 @@ When(/^opens Facility$/, async () => {
     await adminTable.clickEditButtonAt(facilityData[0].name);
 });
 
-When(/^Facility is created with values$/, async (table: TableDefinition) => {
-    const newFacility = await table.hashes();
-    await webService.createFacility(newFacility[0].name);
-});
-
 When(/^populate facility card with values$/, async (table: TableDefinition) => {
     facilityData = await table.hashes();
     CurrentRun.uniquePerTestRun(facilityData);
@@ -53,6 +46,7 @@ When(/^edit facility data$/, async (table: TableDefinition) => {
     editedFacilityData = await table.hashes();
     CurrentRun.uniquePerTestRun(editedFacilityData);
 
+    await manageFacilitiesPage.clearFacilityNameInput();
     await manageFacilitiesPage.setFacilityName(editedFacilityData[0].name);
 });
 
@@ -65,11 +59,3 @@ When(/^old Facility is not created$/, async () => {
     await facilityAssertions.checkFacilityPageIsOpened();
     await facilityAssertions.checkFacilityIsNotCreated(facilityData[0].name);
 });
-
-
-
-
-
-
-
-

@@ -5,7 +5,7 @@ const assert = require("chai").assert,
 
 export class SearchAssertions {
 
-    async checkSearchIsDisplayed() {
-        assert.isTrue(await search.isSearchDisplayed(), 'Search is not displayed');
+    public async checkSearchIsDisplayed() {
+        assert.isTrue(await search.isSearchDisplayed(), "Search is not displayed");
     }
 }
