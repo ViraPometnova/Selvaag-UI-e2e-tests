@@ -1,15 +1,17 @@
-import {ManageFacilityMembersPage} from "../pages/admin/manageFacilityMembers";
-import {CurrentRun} from "../support/currentRun";
-import {UrlNavigation} from "../pages/urlNavigation";
+import {TableDefinition} from "cucumber";
+import {browser} from "protractor";
+import {ContractAssertions} from "../assertions/contractAssertions";
 import {FacilityMemberAssertions} from "../assertions/facilityMemberAssertions";
 import {ListingAssertions} from "../assertions/listingAssertions";
-import {ListingPage} from "../pages/listing";
-import {AdminTable} from "../pages/admin/adminTable";
-import {ContractAssertions} from "../assertions/contractAssertions";
-import {facilityData} from "../test-data/facilityData";
-import {WebService} from "../support/rest/webService";
-import {facilityMemberData} from "../test-data/facilityMemberData";
 import {WebServiceAssertions} from "../assertions/webServiceAssertions";
+import {SearchFunctions} from "../business-functions/searchFunctions";
+import {AddressForm} from "../pages/addressForm";
+import {AdminTable} from "../pages/admin/adminTable";
+import {ManageFacilityMembersPage} from "../pages/admin/manageFacilityMembers";
+import {ListingPage} from "../pages/listing";
+import {UrlNavigation} from "../pages/urlNavigation";
+import {CurrentRun} from "../support/currentRun";
+import {WebService} from "../support/rest/webService";
 
 const {When, Then} = require("cucumber"),
     manageFacilityMembersPage = new ManageFacilityMembersPage(),
@@ -19,18 +21,14 @@ const {When, Then} = require("cucumber"),
     adminTable = new AdminTable(),
     contractAssertions = new ContractAssertions(),
     webService = new WebService(),
-    webServiceAssertions = new WebServiceAssertions();
+    webServiceAssertions = new WebServiceAssertions(),
+    searchFunctions = new SearchFunctions(),
+    addressForm = new AddressForm();
+
+let organisationData, editedOrganisationData;
 
 When(/^performs new Facility member creation$/, async () => {
     await adminTable.clickAddButton();
-});
-
-When(/^types organisation name (.*?)$/, async (organisationName: string) => {
-    await manageFacilityMembersPage.setOrganisationName(CurrentRun.uniqueName(organisationName));
-});
-
-When(/^types organisation number (.*?)$/, async (organisationNumber: string) => {
-    await manageFacilityMembersPage.setOrganisationNumber(CurrentRun.uniqueNumber(organisationNumber));
 });
 
 When(/^clears organisation name$/, async () => {
@@ -54,108 +52,144 @@ When(/^User is on Facility members page$/, async () => {
     await facilityMemberAssertions.checkManageFacilityMembersPageIsOpened();
 });
 
-When(/^chooses Facility$/, async () => {
-    await manageFacilityMembersPage.selectFacility(facilityData.name);
-});
-
 When(/^makes organisation enabled$/, async () => {
     await manageFacilityMembersPage.setEnabledCheckbox();
-});
-
-Then(/^(.*?) Facility member is created$/, async (organisationName: string) => {
-    await facilityMemberAssertions.checkFacilityMemberIsCreated(CurrentRun.uniqueName(organisationName));
-});
-
-Then(/^(.*?) Facility member is not created$/, async (organisationName: string) => {
-    await facilityMemberAssertions.checkFacilityMemberIsNotCreated(CurrentRun.uniqueName(organisationName));
-});
-
-Then(/^(.*?) has number (.*?) in Facility members list$/, async (organisationName: string, organisationNumber: string) => {
-    await facilityMemberAssertions.checkOrganisationNumberInFacilityMembersListEqualTo(CurrentRun.uniqueName(organisationName),
-        CurrentRun.uniqueNumber(organisationNumber));
-});
-
-Then(/^(.*?) has Facility in Facility members list$/, async (organisationName: string) => {
-    await facilityMemberAssertions.checkFacilityInFacilityMembersListEqualTo(CurrentRun.uniqueName(organisationName), facilityData.name);
-});
-
-Then(/^(.*?) has enabled (.*?) in Facility members list$/, async (organisationName: string, enabled: string) => {
-    await facilityMemberAssertions.checkManageFacilityMembersPageIsOpened();
-    await facilityMemberAssertions.checkOrganisationStateInFacilityMembersListEqualTo(CurrentRun.uniqueName(organisationName), enabled);
-});
-
-Then(/^(.*?) has (.*?) created contracts in start page listing$/, async (organisationName: string, contractsAmount: string) => {
-    await listingAssertions.checkCounterFor(CurrentRun.uniqueName(organisationName), contractsAmount);
-});
-
-Then(/^(.*?) new contract is able to be created from start page listing$/, async (organisationName: string) => {
-    await listingAssertions.checkAddNewContractLinkIsNotDisabledFor(CurrentRun.uniqueName(organisationName));
-    await listingPage.clickAddNewContractFor(CurrentRun.uniqueName(organisationName));
-    await contractAssertions.checkContractPageIsOpened();
-});
-
-When(/^opens facility member (.*?) to edit$/, async (organisationName: string) => {
-    await adminTable.clickEditButtonAt(CurrentRun.uniqueName(organisationName));
 });
 
 When(/^makes organisation disabled$/, async () => {
     await manageFacilityMembersPage.setDisabledCheckbox();
 });
 
-Then(/^(.*?) is disabled for adding contracts from start page listing$/, async (organisationName: string) => {
-    await listingAssertions.checkAddNewContractLinkIsDisabledFor(CurrentRun.uniqueName(organisationName));
+When(/^Organisation is created with values$/, async (table: TableDefinition) => {
+    organisationData = await table.hashes();
+    CurrentRun.uniquePerTestRun(organisationData);
+
+    await webService.createFacility(organisationData[0].facilityName);
+    await webService.createFacilityMember(organisationData[0]);
+    await webServiceAssertions.checkFacilityMemberIsCreated(organisationData[0].name);
 });
 
-Then(/^(.*?) is disabled for adding contracts from Facility member page$/, async (organisationName: string) => {
-    await listingAssertions.checkAddNewContractLinkIsDisabledFor(CurrentRun.uniqueName(organisationName));
-});
-
-When(/^User opens (.*?) Facility member page$/, async (organisationName: string) => {
-    await listingPage.clickCounterFor(organisationName);
-    await facilityMemberAssertions.checkFacilityMemberPageIsOpened();
-});
-
-Then(/^(.*?) has number (.*?) on Facility member page$/, async (organisationName: string, number: string) => {
-    await listingAssertions.checkOrganisationNumberFor(CurrentRun.uniqueName(organisationName), CurrentRun.uniqueNumber(number));
-});
-
-Then(/^(.*?) has (.*?) created contracts on Facility member page$/, async (organisationName: string, contractsAmount: string) => {
-    await listingAssertions.checkCounterFor(CurrentRun.uniqueName(organisationName), contractsAmount);
-});
-
-Then(/^(.*?) new contract is able to be created from Facility member page$/, async (organisationName: string) => {
-    await listingAssertions.checkAddNewContractLinkIsNotDisabledFor(CurrentRun.uniqueName(organisationName));
-    await listingPage.clickAddNewContractFor(CurrentRun.uniqueName(organisationName));
+When(/^opens new contract page$/, async () => {
+    await searchFunctions.openStartPageAndSearch(organisationData[0].number);
+    await listingPage.clickAddNewContractFor(organisationData[0].name);
     await contractAssertions.checkContractPageIsOpened();
 });
 
-When(/^Organisation is created$/, async () => {
-    await webService.createFacility(facilityData.name);
-    await webService.createFacilityMember(facilityMemberData);
-    await webServiceAssertions.checkFacilityMemberIsCreated(facilityMemberData.organisationName);
+When(/^fills organisation card with values$/, async (table: TableDefinition) => {
+    organisationData = await table.hashes();
+    CurrentRun.uniquePerTestRun(organisationData);
+
+    await webService.createFacility(organisationData[0].facilityName);
+    await browser.refresh();
+    await manageFacilityMembersPage.selectFacility(organisationData[0].facilityName);
+
+    await manageFacilityMembersPage.setOrganisationName(organisationData[0].name);
+    await manageFacilityMembersPage.setOrganisationNumber(organisationData[0].number);
+
+    await addressForm.setAddressLine1(organisationData[0].address);
+    await addressForm.setAddressLine2(organisationData[0].city);
+    await addressForm.setAddressLine3(organisationData[0].zip);
+
+    await manageFacilityMembersPage.setEnabledCheckbox();
 });
 
-Then(/^(.*?) has address line 1 (.*?) on Facility member page$/, async (organisationName: string, organisationAddress: string) => {
-    await facilityMemberAssertions.checkFacilityMemberPageIsOpened();
-    await listingAssertions.checkSubDetailsAreDisplayedFor(CurrentRun.uniqueName(organisationName), organisationAddress);
+Then(/^Facility member is present in Facility member list$/, async () => {
+    await UrlNavigation.openFacilityMembersUrl();
+    await facilityMemberAssertions.checkManageFacilityMembersPageIsOpened();
+    await facilityMemberAssertions.checkFacilityMemberIsCreated(organisationData[0].name);
+    await facilityMemberAssertions.checkOrganisationNumberInFacilityMembersListEqualTo(organisationData[0].name,
+        organisationData[0].number);
+    await facilityMemberAssertions.checkFacilityInFacilityMembersListEqualTo(organisationData[0].name,
+        organisationData[0].facilityName);
+    await facilityMemberAssertions.checkOrganisationStateInFacilityMembersListEqualTo(organisationData[0].name,
+        organisationData[0].enabled);
 });
 
-Then(/^(.*?) has address line 2 (.*?) on Facility member page$/, async (organisationName: string, organisationCity: string) => {
-    await facilityMemberAssertions.checkFacilityMemberPageIsOpened();
-    await listingAssertions.checkSubDetailsAreDisplayedFor(CurrentRun.uniqueName(organisationName), organisationCity);
-});
-
-Then(/^(.*?) has address line 3 (.*?) on Facility member page$/, async (organisationName: string, organisationZip: string) => {
-    await facilityMemberAssertions.checkFacilityMemberPageIsOpened();
-    await listingAssertions.checkSubDetailsAreDisplayedFor(CurrentRun.uniqueName(organisationName), organisationZip);
-});
-
-Then(/^(.*?) has organisation number (.*?) in start page listing$/, async (organisationName: string, organisationNumber: string) => {
+Then(/^Facility member is present in start page listing$/, async () => {
+    await searchFunctions.openStartPageAndSearch(organisationData[0].number);
     await listingAssertions.checkStartPageIsOpened();
-    await listingAssertions.checkOrganisationNumberFor(CurrentRun.uniqueName(organisationName), CurrentRun.uniqueNumber(organisationNumber));
+
+    await listingAssertions.checkOrganisationNumberFor(organisationData[0].name, organisationData[0].number);
+
+    await listingAssertions.checkSubDetailsAreDisplayedFor(organisationData[0].name, organisationData[0].address);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(organisationData[0].name, organisationData[0].city);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(organisationData[0].name, organisationData[0].zip);
+
+    await listingAssertions.checkCounterFor(organisationData[0].name, organisationData[0].contractsAmount);
+
+    await listingAssertions.checkAddNewContractLinkIsNotDisabledFor(organisationData[0].name);
+    await listingPage.clickAddNewContractFor(organisationData[0].name);
+    await contractAssertions.checkContractPageIsOpened();
 });
 
+Then(/^Facility member is present on Facility member page$/, async () => {
+    await UrlNavigation.openStartPageUrl();
+    await listingPage.clickCounterFor(organisationData[0].name);
 
+    await facilityMemberAssertions.checkFacilityMemberPageIsOpened();
+    await listingAssertions.checkOrganisationNumberFor(organisationData[0].name, organisationData[0].number);
 
+    await listingAssertions.checkSubDetailsAreDisplayedFor(organisationData[0].name, organisationData[0].address);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(organisationData[0].name, organisationData[0].city);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(organisationData[0].name, organisationData[0].zip);
 
+    await listingAssertions.checkCounterFor(organisationData[0].name, organisationData[0].contractsAmount);
 
+    await listingAssertions.checkAddNewContractLinkIsNotDisabledFor(organisationData[0].name);
+    await listingPage.clickAddNewContractFor(organisationData[0].name);
+    await contractAssertions.checkContractPageIsOpened();
+});
+
+When(/^opens Facility member$/, async () => {
+    await UrlNavigation.openFacilityMembersUrl();
+    await adminTable.clickEditButtonAt(organisationData[0].name);
+});
+
+When(/^edit Facility member data$/, async (table: TableDefinition) => {
+    editedOrganisationData = await table.hashes();
+    CurrentRun.uniquePerTestRun(editedOrganisationData);
+
+    await manageFacilityMembersPage.setOrganisationName(editedOrganisationData[0].name);
+    await manageFacilityMembersPage.setOrganisationNumber(editedOrganisationData[0].number);
+});
+
+Then(/^edited Facility member is created$/, async () => {
+    await UrlNavigation.openFacilityMembersUrl();
+    await facilityMemberAssertions.checkFacilityMemberIsCreated(editedOrganisationData[0].name);
+    await facilityMemberAssertions.checkOrganisationNumberInFacilityMembersListEqualTo(editedOrganisationData[0].name,
+        editedOrganisationData[0].number);
+
+    await searchFunctions.openStartPageAndSearch(editedOrganisationData[0].number);
+    await listingAssertions.checkOrganisationNumberFor(editedOrganisationData[0].name, editedOrganisationData[0].number);
+
+    await UrlNavigation.openStartPageUrl();
+    await listingPage.clickCounterFor(editedOrganisationData[0].name);
+    await facilityMemberAssertions.checkFacilityMemberPageIsOpened();
+    await listingAssertions.checkOrganisationNumberFor(editedOrganisationData[0].name, editedOrganisationData[0].number);
+});
+
+Then(/^old Facility member is not created$/, async () => {
+    await UrlNavigation.openFacilityMembersUrl();
+    await facilityMemberAssertions.checkFacilityMemberIsNotCreated(organisationData[0].name);
+});
+
+When(/^opens Facility member to disable$/, async () => {
+    await UrlNavigation.openFacilityMembersUrl();
+    await adminTable.clickEditButtonAt(organisationData[0].name);
+});
+
+Then(/^Facility member is disabled in Facility members list$/, async () => {
+    await facilityMemberAssertions.checkManageFacilityMembersPageIsOpened();
+    await facilityMemberAssertions.checkOrganisationStateInFacilityMembersListEqualTo(organisationData[0].name, "false");
+});
+
+Then(/^Facility member is disabled for adding contracts from start page listing$/, async () => {
+    await searchFunctions.openStartPageAndSearch(organisationData[0].number);
+    await listingAssertions.checkItemIsDisplayed(organisationData[0].name);
+    await listingAssertions.checkAddNewContractLinkIsDisabledFor(organisationData[0].name);
+});
+
+Then(/^Facility member is disabled for adding contracts from Facility member page$/, async () => {
+    await listingPage.clickCounterFor(organisationData[0].name);
+    await listingAssertions.checkAddNewContractLinkIsDisabledFor(organisationData[0].name);
+});

@@ -1,8 +1,8 @@
-import {Header} from "../pages/header";
-import {AdminPage} from "../pages/admin/admin";
 import {FacilityAssertions} from "../assertions/facilityAssertions";
 import {FacilityMemberAssertions} from "../assertions/facilityMemberAssertions";
 import {GuaranteeTypeAssertions} from "../assertions/guaranteeTypeAssertions";
+import {AdminPage} from "../pages/admin/admin";
+import {Header} from "../pages/header";
 
 const {When} = require("cucumber"),
     header = new Header(),

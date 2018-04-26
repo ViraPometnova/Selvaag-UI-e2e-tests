@@ -1,8 +1,8 @@
 import {LoginAssertions} from "../assertions/loginAssertions";
-import {LoginPage} from "../pages/login";
 import {LoginFunctions} from "../business-functions/loginFunctions";
-import {credentials} from "../test-data/loginData";
+import {LoginPage} from "../pages/login";
 import {UrlNavigation} from "../pages/urlNavigation";
+import {credentials} from "../test-data/loginData";
 
 const {When, Then, Given} = require("cucumber"),
     loginPage = new LoginPage(),
@@ -44,10 +44,3 @@ When(/^User is logged in with (.*?) and (.*?)$/, async (username: string, passwo
 When(/^User is logged in$/, async () => {
     await LoginFunctions.login(credentials.username, credentials.password);
 });
-
-
-
-
-
-
-

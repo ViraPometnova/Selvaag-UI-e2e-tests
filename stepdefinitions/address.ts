@@ -1,5 +1,5 @@
-import {AddressForm} from "../pages/addressForm";
 import {AddressFormAssertions} from "../assertions/addressFormAssertions";
+import {AddressForm} from "../pages/addressForm";
 
 const {When, Then} = require("cucumber"),
     addressForm = new AddressForm(),

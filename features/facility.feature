@@ -1,40 +1,35 @@
 Feature: Facility
 
-  Scenario Outline: Facility is not created
-    Given User is logged in with <username> and <password>
+  Scenario: Facility is not created
+    Given User is logged in
     And opens admin page
     And opens Facility manager
     And performs new Facility creation
-    And types Facility name <facilityName>
+    And populate facility card with values
+      | name             |
+      | NotSavedFacility |
     When User cancels changes
-    Then Facility <facilityName> is not created
+    Then canceled Facility is not created
 
-    Examples:
-      | username | password | facilityName     |
-      | admin    | admin    | NotSavedFacility |
-
-  Scenario Outline: New Facility is created
+  Scenario: New Facility is created
     Given User is on facilities page
     And performs new Facility creation
-    And types Facility name <facilityName>
-    When User submits changes
-    Then Facility <facilityName> is created
-
-    Examples:
-      | facilityName  |
+    And populate facility card with values
+      | name          |
       | Test Facility |
-
-  Scenario Outline: Edit Facility
-    Given User is on facilities page
-    And opens Facility <oldFacilityName> to edit
-    And types Facility name <newFacilityName>
     When User submits changes
-    Then Facility <newFacilityName> is created
-    And  Facility <oldFacilityName> is not created
+    Then Facility is created
 
-    Examples:
-      | oldFacilityName | newFacilityName |
-      | Test Facility   | New Facility    |
+  Scenario: Edit Facility
+    Given User is on facilities page
+    And opens Facility
+    And edit facility data
+      | name         |
+      | New Facility |
+    When User submits changes
+    Then edited Facility is created
+    And  old Facility is not created
+
 
 #TODO: Add check if facilities ordered alphabetically
 

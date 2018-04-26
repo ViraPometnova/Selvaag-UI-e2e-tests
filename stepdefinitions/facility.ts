@@ -1,28 +1,24 @@
-import {ManageFacilitiesPage} from "../pages/admin/manageFacilities";
+import {TableDefinition} from "cucumber";
 import {FacilityAssertions} from "../assertions/facilityAssertions";
+import {AdminTable} from "../pages/admin/adminTable";
+import {ManageFacilitiesPage} from "../pages/admin/manageFacilities";
 import {UrlNavigation} from "../pages/urlNavigation";
 import {CurrentRun} from "../support/currentRun";
-import {AdminTable} from "../pages/admin/adminTable";
-import {facilityData} from "../test-data/facilityData";
-import {WebService} from "../support/rest/webService";
 
 const {When, Then} = require("cucumber"),
     facilityAssertions = new FacilityAssertions(),
     manageFacilitiesPage = new ManageFacilitiesPage(),
-    webService = new WebService(),
     adminTable = new AdminTable();
+
+let facilityData, editedFacilityData;
 
 When(/^performs new Facility creation$/, async () => {
     await adminTable.clickAddButton();
 });
 
-When(/^types Facility name (.*?)$/, async (facilityName: string) => {
-    await manageFacilitiesPage.setFacilityName(CurrentRun.uniqueName(facilityName));
-});
-
-Then(/^Facility (.*?) is not created$/, async (facilityName: string) => {
+Then(/^canceled Facility is not created$/, async () => {
     await facilityAssertions.checkFacilityPageIsOpened();
-    await facilityAssertions.checkFacilityIsNotCreated(CurrentRun.uniqueName(facilityName));
+    await facilityAssertions.checkFacilityIsNotCreated(facilityData[0].name);
 });
 
 When(/^User is on facilities page$/, async () => {
@@ -30,19 +26,36 @@ When(/^User is on facilities page$/, async () => {
     await facilityAssertions.checkFacilityPageIsOpened();
 });
 
-Then(/^Facility (.*?) is created$/, async (facilityName: string) => {
+Then(/^Facility is created$/, async () => {
     await facilityAssertions.checkFacilityPageIsOpened();
-    await facilityAssertions.checkFacilityIsCreated(CurrentRun.uniqueName(facilityName));
+    await facilityAssertions.checkFacilityIsCreated(facilityData[0].name);
 });
 
-When(/^opens Facility (.*?) to edit$/, async (facilityName: string) => {
-    await adminTable.clickEditButtonAt(CurrentRun.uniqueName(facilityName));
+When(/^opens Facility$/, async () => {
+    await adminTable.clickEditButtonAt(facilityData[0].name);
 });
 
-When(/^Facility is created$/, async () => {
-    await webService.createFacility(facilityData.name);
+When(/^populate facility card with values$/, async (table: TableDefinition) => {
+    facilityData = await table.hashes();
+    CurrentRun.uniquePerTestRun(facilityData);
+
+    await manageFacilitiesPage.setFacilityName(facilityData[0].name);
 });
 
+When(/^edit facility data$/, async (table: TableDefinition) => {
+    editedFacilityData = await table.hashes();
+    CurrentRun.uniquePerTestRun(editedFacilityData);
 
+    await manageFacilitiesPage.clearFacilityNameInput();
+    await manageFacilitiesPage.setFacilityName(editedFacilityData[0].name);
+});
 
+When(/^edited Facility is created$/, async () => {
+    await facilityAssertions.checkFacilityPageIsOpened();
+    await facilityAssertions.checkFacilityIsCreated(editedFacilityData[0].name);
+});
 
+When(/^old Facility is not created$/, async () => {
+    await facilityAssertions.checkFacilityPageIsOpened();
+    await facilityAssertions.checkFacilityIsNotCreated(facilityData[0].name);
+});

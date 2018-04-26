@@ -1,5 +1,5 @@
-import {AdminTable} from "./adminTable";
 import {$, by, element} from "protractor";
+import {AdminTable} from "./adminTable";
 
 export class ManageGuaranteeTypesPage {
     private adminTable = new AdminTable();
@@ -27,235 +27,255 @@ export class ManageGuaranteeTypesPage {
     private agreementIdFeedback: any;
 
     constructor() {
-        this.nameInput = $('#nameInput');
-        this.enabledCheckbox = $('#enabledCheck');
-        this.fixedPremiumInput = $('#fixedPremiumInput');
-        this.hasMaintenanceCheckbox = $('#maintenanceCheck');
-        this.maintenancePercentageInput = $('#maintenancePercentageInput');
-        this.maintenancePeriodInMonthsInput = $('#maintenancePeriodInMonthsInput');
-        this.hasPerformanceCheckbox = $('#performanceCheck');
-        this.performancePercentageInput = $('#performancePercentageInput');
-        this.documentTemplateIdInput = $('#documentTemplateIdInput');
-        this.letterTemplateIdInput = $('#letterTemplateIdInput');
-        this.agreementIdInput = $('#i2iAgreementIdInput');
+        this.nameInput = $("#nameInput");
+        this.enabledCheckbox = $("#enabledCheck");
+        this.fixedPremiumInput = $("#fixedPremiumInput");
+        this.hasMaintenanceCheckbox = $("#maintenanceCheck");
+        this.maintenancePercentageInput = $("#maintenancePercentageInput");
+        this.maintenancePeriodInMonthsInput = $("#maintenancePeriodInMonthsInput");
+        this.hasPerformanceCheckbox = $("#performanceCheck");
+        this.performancePercentageInput = $("#performancePercentageInput");
+        this.documentTemplateIdInput = $("#documentTemplateIdInput");
+        this.letterTemplateIdInput = $("#letterTemplateIdInput");
+        this.agreementIdInput = $("#i2iAgreementIdInput");
         this.enabledLabel = $('label[for="enabledCheck"]');
         this.hasMaintenanceLabel = $('label[for="maintenanceCheck"]');
         this.hasPerformanceLabel = $('label[for="performanceCheck"]');
-        this.nameFeedback = element(by.cssContainingText('.form-control-feedback', 'Name is required.'));
-        this.fixedPremiumFeedback = element(by.cssContainingText('.form-control-feedback',
-            'Fixed Premium is required.'));
-        this.maintenancePercentageFeedback = element(by.cssContainingText('.form-control-feedback',
-            'Mainteneance Percentage is required.'));
-        this.maintenancePeriodInMonthsFeedback = element(by.cssContainingText('.form-control-feedback',
-            'Mainteneance Period In Months is required.'));
-        this.performancePercentageFeedback = element(by.cssContainingText('.form-control-feedback',
-            'Performance Percentage is required.'));
-        this.documentTemplateIdFeedback = element(by.cssContainingText('.form-control-feedback',
-            'Document Template Id is required.'));
-        this.letterTemplateIdFeedback = element(by.cssContainingText('.form-control-feedback',
-            'Letter Template Id is required.'));
-        this.agreementIdFeedback = element(by.cssContainingText('.form-control-feedback',
-            'Agreement Id is required.'));
+        this.nameFeedback = element(by.cssContainingText(".form-control-feedback", "Name is required."));
+        this.fixedPremiumFeedback = element(by.cssContainingText(".form-control-feedback",
+            "Fixed Premium is required."));
+        this.maintenancePercentageFeedback = element(by.cssContainingText(".form-control-feedback",
+            "Mainteneance Percentage is required."));
+        this.maintenancePeriodInMonthsFeedback = element(by.cssContainingText(".form-control-feedback",
+            "Mainteneance Period In Months is required."));
+        this.performancePercentageFeedback = element(by.cssContainingText(".form-control-feedback",
+            "Performance Percentage is required."));
+        this.documentTemplateIdFeedback = element(by.cssContainingText(".form-control-feedback",
+            "Document Template Id is required."));
+        this.letterTemplateIdFeedback = element(by.cssContainingText(".form-control-feedback",
+            "Letter Template Id is required."));
+        this.agreementIdFeedback = element(by.cssContainingText(".form-control-feedback",
+            "Agreement Id is required."));
     }
 
-    isNameFeedbackDisplayed() {
+    public isNameFeedbackDisplayed() {
         return this.nameFeedback.isWebElementDisplayed();
     }
 
-    isFixedPremiumFeedbackDisplayed() {
+    public isFixedPremiumFeedbackDisplayed() {
         return this.fixedPremiumFeedback.isWebElementDisplayed();
     }
 
-    isMaintenancePercentageFeedbackDisplayed() {
+    public isMaintenancePercentageFeedbackDisplayed() {
         return this.maintenancePercentageFeedback.isWebElementDisplayed();
     }
 
-    isMaintenancePeriodInMonthsFeedbackDisplayed() {
+    public isMaintenancePeriodInMonthsFeedbackDisplayed() {
         return this.maintenancePeriodInMonthsFeedback.isWebElementDisplayed();
     }
 
-    isPerformancePercentageFeedbackDisplayed() {
+    public isPerformancePercentageFeedbackDisplayed() {
         return this.performancePercentageFeedback.isWebElementDisplayed();
     }
 
-    isDocumentTemplateIdFeedbackDisplayed() {
+    public isDocumentTemplateIdFeedbackDisplayed() {
         return this.documentTemplateIdFeedback.isWebElementDisplayed();
     }
 
-    isLetterTemplateIdFeedbackDisplayed() {
+    public isLetterTemplateIdFeedbackDisplayed() {
         return this.letterTemplateIdFeedback.isWebElementDisplayed();
     }
 
-    isAgreementIdFeedbackDisplayed() {
+    public isAgreementIdFeedbackDisplayed() {
         return this.agreementIdFeedback.isWebElementDisplayed();
     }
 
-    isNameInputDisplayed() {
+    public isNameInputDisplayed() {
         return this.nameInput.isWebElementDisplayed();
     }
 
-    isFixedPremiumInputDisplayed() {
+    public isFixedPremiumInputDisplayed() {
         return this.fixedPremiumInput.isWebElementDisplayed();
     }
 
-    isMaintenancePercentageInputDisplayed() {
+    public isMaintenancePercentageInputDisplayed() {
         return this.maintenancePercentageInput.isWebElementDisplayed();
     }
 
-    async isGuaranteeTypePageDisplayed() {
+    public async isGuaranteeTypePageDisplayed() {
         return await this.isNameInputDisplayed() && await this.isFixedPremiumInputDisplayed()
             && await this.isMaintenancePercentageInputDisplayed();
     }
 
-    setGuaranteeTypeName(name: string) {
+    public setGuaranteeTypeName(name: string) {
         return this.nameInput.clearAndSendKeys(name);
     }
 
-    clearGuaranteeTypeNameInput() {
+    public clearGuaranteeTypeNameInput() {
         return this.nameInput.clear();
     }
 
-    getGuaranteeTypeName() {
+    public getGuaranteeTypeName() {
         return this.nameInput.getValue();
     }
 
-    async setEnabledCheckbox() {
-        if (!await this.enabledCheckbox.isSelected())
+    public async setEnabledCheckbox() {
+        if (!await this.enabledCheckbox.isSelected()) {
             return this.enabledLabel.waitAndClick();
+        }
     }
 
-    async setDisabledCheckbox() {
-        if (await this.enabledCheckbox.isSelected())
+    public async setDisabledCheckbox() {
+        if (await this.enabledCheckbox.isSelected()) {
             return this.enabledLabel.waitAndClick();
+        }
     }
 
-    setFixedPremium(fixedPremium: number) {
+    public async selectEnabledCheckbox(isEnabled: string) {
+        if (eval(isEnabled)) {
+            await this.setEnabledCheckbox();
+        } else {
+            await this.setDisabledCheckbox();
+        }
+    }
+
+    public setFixedPremium(fixedPremium: number) {
         return this.fixedPremiumInput.clearAndSendKeys(fixedPremium);
     }
 
-    getFixedPremium() {
+    public getFixedPremium() {
         return this.fixedPremiumInput.getValue();
     }
 
-    clearFixedPremiumInput() {
-        return this.fixedPremiumInput.clearAndSendKeys(' ');
+    public clearFixedPremiumInput() {
+        return this.fixedPremiumInput.clearAndSendKeys(" ");
     }
 
-    async setHasMaintenanceCheckbox(isEnabled: string) {
-        if (eval(isEnabled)) await this.setHasMaintenanceCheckboxEnabled();
-        else return this.setHasMaintenanceCheckboxDisabled();
+    public async setHasMaintenanceCheckbox(isEnabled: string) {
+        if (eval(isEnabled)) {
+            await this.setHasMaintenanceCheckboxEnabled();
+        } else {
+            return this.setHasMaintenanceCheckboxDisabled();
+        }
     }
 
-    async setHasMaintenanceCheckboxEnabled() {
-        if (!await this.hasMaintenanceCheckbox.isSelected())
+    public async setHasMaintenanceCheckboxEnabled() {
+        if (!await this.hasMaintenanceCheckbox.isSelected()) {
             return this.hasMaintenanceLabel.waitAndClick();
+        }
     }
 
-    async setHasMaintenanceCheckboxDisabled() {
-        if (await this.hasMaintenanceCheckbox.isSelected())
+    public async setHasMaintenanceCheckboxDisabled() {
+        if (await this.hasMaintenanceCheckbox.isSelected()) {
             return this.hasMaintenanceLabel.waitAndClick();
+        }
     }
 
-    setMaintenancePercentage(percentage: number) {
+    public setMaintenancePercentage(percentage: string) {
         return this.maintenancePercentageInput.clearAndSendKeys(percentage);
     }
 
-    clearMaintenancePercentageInput() {
-        return this.maintenancePercentageInput.clearAndSendKeys(' ');
+    public clearMaintenancePercentageInput() {
+        return this.maintenancePercentageInput.clearAndSendKeys(" ");
     }
 
-    getMaintenancePercentage() {
+    public getMaintenancePercentage() {
         return this.maintenancePercentageInput.getValue();
     }
 
-    setMaintenancePeriodInMonths(monthsAmount: number) {
+    public setMaintenancePeriodInMonths(monthsAmount: number) {
         return this.maintenancePeriodInMonthsInput.clearAndSendKeys(monthsAmount);
     }
 
-    clearMaintenancePeriodInMonthsInput() {
-        return this.maintenancePeriodInMonthsInput.clearAndSendKeys(' ');
+    public clearMaintenancePeriodInMonthsInput() {
+        return this.maintenancePeriodInMonthsInput.clearAndSendKeys(" ");
     }
 
-    getMaintenancePeriodInMonths() {
+    public getMaintenancePeriodInMonths() {
         return this.maintenancePeriodInMonthsInput.getValue();
     }
 
-    async setHasPerformanceCheckbox(isEnabled: string) {
-        if (eval(isEnabled)) await this.setHasPerformanceCheckboxEnabled();
-        else return this.setHasPerformanceCheckboxDisabled();
+    public async setHasPerformanceCheckbox(isEnabled: string) {
+        if (eval(isEnabled)) {
+            await this.setHasPerformanceCheckboxEnabled();
+        } else {
+            return this.setHasPerformanceCheckboxDisabled();
+        }
     }
 
-    async setHasPerformanceCheckboxEnabled() {
-        if (!await this.hasPerformanceCheckbox.isSelected())
+    public async setHasPerformanceCheckboxEnabled() {
+        if (!await this.hasPerformanceCheckbox.isSelected()) {
             return this.hasPerformanceLabel.waitAndClick();
+        }
     }
 
-    async setHasPerformanceCheckboxDisabled() {
-        if (await this.hasPerformanceCheckbox.isSelected())
+    public async setHasPerformanceCheckboxDisabled() {
+        if (await this.hasPerformanceCheckbox.isSelected()) {
             return this.hasPerformanceLabel.waitAndClick();
+        }
     }
 
-    setPerformancePercentage(percentage: number) {
+    public setPerformancePercentage(percentage: string) {
         return this.performancePercentageInput.clearAndSendKeys(percentage);
     }
 
-    getPerformancePercentage() {
+    public getPerformancePercentage() {
         return this.performancePercentageInput.getValue();
     }
 
-    clearPerformancePercentageInput() {
-        return this.performancePercentageInput.clearAndSendKeys(' ');
+    public clearPerformancePercentageInput() {
+        return this.performancePercentageInput.clearAndSendKeys(" ");
     }
 
-    setDocumentTemplateId(id: string) {
+    public setDocumentTemplateId(id: string) {
         return this.documentTemplateIdInput.clearAndSendKeys(id);
     }
 
-    clearDocumentTemplateIdInput() {
+    public clearDocumentTemplateIdInput() {
         return this.documentTemplateIdInput.clear();
     }
 
-    getDocumentTemplateId() {
+    public getDocumentTemplateId() {
         return this.documentTemplateIdInput.getValue();
     }
 
-    setLetterTemplateId(id: string) {
+    public setLetterTemplateId(id: string) {
         return this.letterTemplateIdInput.clearAndSendKeys(id);
     }
 
-    clearLetterTemplateIdInput() {
+    public clearLetterTemplateIdInput() {
         return this.letterTemplateIdInput.clear();
     }
 
-    getLetterTemplateId() {
+    public getLetterTemplateId() {
         return this.letterTemplateIdInput.getValue();
     }
 
-    setAgreementId(id: number) {
+    public setAgreementId(id: string) {
         return this.agreementIdInput.clearAndSendKeys(id);
     }
 
-    clearAgreementIdInput() {
+    public clearAgreementIdInput() {
         return this.agreementIdInput.clear();
     }
 
-    getAgreementId() {
+    public getAgreementId() {
         return this.agreementIdInput.getValue();
     }
 
-    async getDetailsFromGuaranteeTypesList(recordName: string, columnName: string) {
+    public async getDetailsFromGuaranteeTypesList(recordName: string, columnName: string) {
         return await this.adminTable.getCellDataFor(recordName, columnName);
     }
 
-    isEnabledCheckboxSelected() {
+    public isEnabledCheckboxSelected() {
         return this.enabledCheckbox.isSelected();
     }
 
-    isHasMaintenanceCheckboxSelected() {
+    public isHasMaintenanceCheckboxSelected() {
         return this.hasMaintenanceCheckbox.isSelected();
     }
 
-    isHasPerformanceCheckboxSelected() {
+    public isHasPerformanceCheckboxSelected() {
         return this.hasPerformanceCheckbox.isSelected();
     }
 }

@@ -1,4 +1,4 @@
-import {element, by, $} from "protractor";
+import {$, by, element} from "protractor";
 
 export class Header {
     private userIcon: any;
@@ -7,25 +7,25 @@ export class Header {
     private logoutLink: any;
 
     constructor() {
-        this.userIcon = $('.user-icon');
-        this.selvaagLink = element(by.cssContainingText('a', 'SELVAAG'));
-        this.adminLink = element(by.cssContainingText('.dropdown-item', 'admin'));
-        this.logoutLink = element(by.cssContainingText('.dropdown-item', 'log out'));
+        this.userIcon = $(".user-icon");
+        this.selvaagLink = element(by.cssContainingText("a", "SELVAAG"));
+        this.adminLink = element(by.cssContainingText(".dropdown-item", "admin"));
+        this.logoutLink = element(by.cssContainingText(".dropdown-item", "log out"));
     }
 
-    isUserIconPresent() {
+    public isUserIconPresent() {
         return this.userIcon.isWebElementPresent();
     }
 
-    clickUserIcon() {
+    public clickUserIcon() {
         return this.userIcon.waitAndClick();
     }
 
-    clickAdminLink() {
+    public clickAdminLink() {
         return this.adminLink.waitAndClick();
     }
 
-    clickLogoutLink() {
+    public clickLogoutLink() {
         return this.logoutLink.waitAndClick();
     }
 }

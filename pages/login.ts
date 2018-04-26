@@ -1,4 +1,4 @@
-import {$, element, by, browser} from "protractor";
+import {$, browser, by, element} from "protractor";
 
 export class LoginPage {
     private title: any;
@@ -7,33 +7,33 @@ export class LoginPage {
     private loginButton: any;
 
     constructor() {
-        this.title = element(by.cssContainingText('.login-form', 'SELVAAG'));
+        this.title = element(by.cssContainingText(".login-form", "SELVAAG"));
         this.usernameInput = $("input[formcontrolname='username']");
         this.passwordInput = $("input[formcontrolname='password']");
-        this.loginButton = element(by.cssContainingText('.btn', 'LOG IN'));
+        this.loginButton = element(by.cssContainingText(".btn", "LOG IN"));
     }
 
-    setUsername(username: string) {
+    public setUsername(username: string) {
         return this.usernameInput.clearAndSendKeys(username);
     }
 
-    setPassword(password: string) {
+    public setPassword(password: string) {
         return this.passwordInput.clearAndSendKeys(password);
     }
 
-    clickLoginButton() {
+    public clickLoginButton() {
         return this.loginButton.waitAndClick();
     }
 
-    isTitleDisplayed() {
+    public isTitleDisplayed() {
         return this.title.isWebElementDisplayed();
     }
 
-    getPageTitle() {
+    public getPageTitle() {
         return browser.getTitle();
     }
 
-    async isLoginButtonEnabled() {
-        return this.loginButton.hasClass('enabled');
+    public async isLoginButtonEnabled() {
+        return this.loginButton.hasClass("enabled");
     }
 }
