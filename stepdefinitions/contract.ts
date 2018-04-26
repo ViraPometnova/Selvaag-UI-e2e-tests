@@ -4,6 +4,7 @@ import {ContractAssertions} from "../assertions/contractAssertions";
 import {GuaranteeAssertions} from "../assertions/guaranteeAssertions";
 import {ListingAssertions} from "../assertions/listingAssertions";
 import {WebServiceAssertions} from "../assertions/webServiceAssertions";
+import {ContractFunctions} from "../business-functions/contractFunctions";
 import {SearchFunctions} from "../business-functions/searchFunctions";
 import {AddressForm} from "../pages/addressForm";
 import {ContractPage} from "../pages/contract";
@@ -21,7 +22,8 @@ const {When, Then} = require("cucumber"),
     guaranteeAssertions = new GuaranteeAssertions(),
     addressFormAssertions = new AddressFormAssertions(),
     searchFunctions = new SearchFunctions(),
-    addressForm = new AddressForm();
+    addressForm = new AddressForm(),
+    contractFunctions = new ContractFunctions();
 
 let contractData, editedContractData;
 
@@ -55,8 +57,7 @@ When(/^Contract is created$/, async () => {
 });
 
 Then(/^User opens contract page$/, async () => {
-    await searchFunctions.openStartPageAndSearch(contractData[0].number);
-    await listingPage.clickEditContractLinkFor(contractData[0].name);
+    await contractFunctions.openContract(contractData[0].number, contractData[0].name);
     await contractAssertions.checkContractPageIsOpened();
 });
 
@@ -145,4 +146,18 @@ Then(/^edited contract is created$/, async () => {
 
     await listingAssertions.checkProjectDateFor(editedContractData[0].name, editedContractData[0].date);
     await contractAssertions.checkProjectDateEqualTo(editedContractData[0].date);
+});
+
+When(/^deletes contract$/, async () => {
+    await contractPage.clickDeleteButton();
+});
+
+Then(/^contract is not present in start page listing$/, async () => {
+    await searchFunctions.openStartPageAndSearch(editedContractData[0].number);
+    await listingAssertions.checkItemIsNotDisplayed(editedContractData[0].name);
+});
+
+Then(/^User opens edited contract$/, async () => {
+    await contractFunctions.openContract(editedContractData[0].number, editedContractData[0].name);
+    await contractAssertions.checkContractPageIsOpened();
 });

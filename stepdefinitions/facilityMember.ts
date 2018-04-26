@@ -1,4 +1,5 @@
 import {TableDefinition} from "cucumber";
+import {browser} from "protractor";
 import {ContractAssertions} from "../assertions/contractAssertions";
 import {FacilityMemberAssertions} from "../assertions/facilityMemberAssertions";
 import {ListingAssertions} from "../assertions/listingAssertions";
@@ -12,7 +13,6 @@ import {UrlNavigation} from "../pages/urlNavigation";
 import {CurrentRun} from "../support/currentRun";
 import {WebService} from "../support/rest/webService";
 import {facilityData} from "../test-data/facilityData";
-import {browser} from "protractor";
 
 const {When, Then} = require("cucumber"),
     manageFacilityMembersPage = new ManageFacilityMembersPage(),

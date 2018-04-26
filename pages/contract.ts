@@ -7,6 +7,7 @@ export class ContractPage {
     public projectNameFeedback: any;
     private projectNameInput: any;
     private contractNumberInput: any;
+    private deleteButton: any;
 
     constructor() {
         this.projectNameInput = $("#projectNameInput");
@@ -15,6 +16,7 @@ export class ContractPage {
         this.projectNameFeedback = element(by.cssContainingText(".form-control-feedback", "Project Name is required."));
         this.projectDateFeedback = element(by.cssContainingText(".form-control-feedback", "Project Date is required."));
         this.contractNumberFeedback = element(by.cssContainingText(".form-control-feedback", "Contract Number is required."));
+        this.deleteButton = $("#btnDelete");
     }
 
     public isProjectNameInputDisplayed() {
@@ -71,5 +73,9 @@ export class ContractPage {
 
     public getProjectName() {
         return this.projectNameInput.getValue();
+    }
+
+    public clickDeleteButton() {
+        return this.deleteButton.waitAndClick();
     }
 }

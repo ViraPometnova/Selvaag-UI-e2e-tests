@@ -23,7 +23,7 @@ export const config: Config = {
     frameworkPath: require.resolve("protractor-cucumber-framework"),
 
     specs: [
-        "../../features/facilityMember.feature"],
+        "../../features/contract.feature"],
 
     onPrepare: () => {
         browser.waitForAngularEnabled(false);

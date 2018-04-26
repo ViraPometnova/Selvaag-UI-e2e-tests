@@ -20,7 +20,6 @@ Feature: Contract
     And address line 3 validation message is shown
     And project date validation message is shown
 
-
   Scenario: Create contract
     Given opens new contract page
     And fill contract card with values
@@ -38,6 +37,11 @@ Feature: Contract
     When User submits changes
     Then old contract is not created
     And edited contract is created
+
+   Scenario: Delete unused contract
+     Given User opens edited contract
+     And deletes contract
+     Then contract is not present in start page listing
 
 
 
