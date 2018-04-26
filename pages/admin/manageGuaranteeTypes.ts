@@ -131,6 +131,14 @@ export class ManageGuaranteeTypesPage {
         }
     }
 
+    public async selectEnabledCheckbox(isEnabled: string) {
+        if (eval(isEnabled)) {
+            await this.setEnabledCheckbox();
+        } else {
+            await this.setDisabledCheckbox();
+        }
+    }
+
     public setFixedPremium(fixedPremium: number) {
         return this.fixedPremiumInput.clearAndSendKeys(fixedPremium);
     }
@@ -144,7 +152,11 @@ export class ManageGuaranteeTypesPage {
     }
 
     public async setHasMaintenanceCheckbox(isEnabled: string) {
-        if (eval(isEnabled)) { await this.setHasMaintenanceCheckboxEnabled(); } else { return this.setHasMaintenanceCheckboxDisabled(); }
+        if (eval(isEnabled)) {
+            await this.setHasMaintenanceCheckboxEnabled();
+        } else {
+            return this.setHasMaintenanceCheckboxDisabled();
+        }
     }
 
     public async setHasMaintenanceCheckboxEnabled() {
@@ -159,7 +171,7 @@ export class ManageGuaranteeTypesPage {
         }
     }
 
-    public setMaintenancePercentage(percentage: number) {
+    public setMaintenancePercentage(percentage: string) {
         return this.maintenancePercentageInput.clearAndSendKeys(percentage);
     }
 
@@ -184,7 +196,11 @@ export class ManageGuaranteeTypesPage {
     }
 
     public async setHasPerformanceCheckbox(isEnabled: string) {
-        if (eval(isEnabled)) { await this.setHasPerformanceCheckboxEnabled(); } else { return this.setHasPerformanceCheckboxDisabled(); }
+        if (eval(isEnabled)) {
+            await this.setHasPerformanceCheckboxEnabled();
+        } else {
+            return this.setHasPerformanceCheckboxDisabled();
+        }
     }
 
     public async setHasPerformanceCheckboxEnabled() {
@@ -199,7 +215,7 @@ export class ManageGuaranteeTypesPage {
         }
     }
 
-    public setPerformancePercentage(percentage: number) {
+    public setPerformancePercentage(percentage: string) {
         return this.performancePercentageInput.clearAndSendKeys(percentage);
     }
 
@@ -235,7 +251,7 @@ export class ManageGuaranteeTypesPage {
         return this.letterTemplateIdInput.getValue();
     }
 
-    public setAgreementId(id: number) {
+    public setAgreementId(id: string) {
         return this.agreementIdInput.clearAndSendKeys(id);
     }
 

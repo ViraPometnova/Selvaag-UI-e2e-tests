@@ -4,7 +4,7 @@ Feature: Guarantee type
     Given User is logged in
     And opens admin page
     And opens Manage guarantee types page
-    And performs new guarantee creation
+    And performs new guarantee type creation
     And clears guarantee type name
     And clears fixed premium
     And clears maintenance percentage
@@ -24,103 +24,50 @@ Feature: Guarantee type
     And agreement id validation message is shown
 
 
-  Scenario Outline: Create guarantee type
+  Scenario: Create guarantee type
     Given User is on Manage guarantee types page
-    And performs new guarantee creation
-    And types guarantee type name <name>
-    And makes guarantee type enabled
-    And types fixed premium <fixedPremium>
-    And makes guarantee type has maintenance <hasMaintenance>
-    And types maintenance percentage <maintenancePercentage>
-    And types maintenance period in months <monthsAmount>
-    And makes guarantee type has performance <hasPerformance>
-    And types performance percentage <performancePercentage>
-    And types document template id <documentTemplateId>
-    And types letter template id <letterTemplateId>
-    And types agreement id <agreementId>
+    And performs new guarantee type creation
+    And fills guarantee type card with values
+      | name     | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
+      | Combined | 4200         | true           | 5                     | 60           | true           | 3                     | CDTID              | CLTID            | 1398        | true    |
     When User submits changes
-    Then guarantee type <name> is created
-    And <name> has guarantee type enabled <enabled> in Guarantee Types list
-    And <name> has fixed premium <fixedPremium> in Guarantee Types list
-    And <name> has maintenance enabled <hasMaintenance> in Guarantee Types list
-    And <name> has maintenance percentage <maintenancePercentage> in Guarantee Types list
-    And <name> has maintenance period in months <monthsAmount> in Guarantee Types list
-    And <name> has performance enabled <hasPerformance> in Guarantee Types list
-    And <name> has performance percentage <performancePercentage> in Guarantee Types list
-    And User opens guarantee type <name> to edit
-    And has guarantee type enabled <enabled> on Edit Guarantee Type page
-    And has fixed premium <fixedPremium> on Edit Guarantee Type page
-    And has maintenance enabled <hasMaintenance> on Edit Guarantee Type page
-    And has maintenance percentage <maintenancePercentage> on Edit Guarantee Type page
-    And has maintenance period in months <monthsAmount> on Edit Guarantee Type page
-    And has performance enabled <hasPerformance> on Edit Guarantee Type page
-    And has performance percentage <performancePercentage> on Edit Guarantee Type page
-    And has document template id <documentTemplateId> on Edit Guarantee Type page
-    And has letter template id <letterTemplateId> on Edit Guarantee Type page
-    And has agreement id <agreementId> on Edit Guarantee Type page
+    Then guarantee type is present in Guarantee Types list
+    And User opens guarantee type to edit
+    And guarantee type is present on Edit Guarantee Type page
 
-    Examples:
+  Scenario: Edit guarantee type
+    Given User is on Manage guarantee types page
+    And Guarantee type is created with values
       | name        | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
-      | Combined    | 4200         | true           | 5                     | 60           | true           | 3                     | CDTID              | CLTID            | 1398        | true    |
       | Maintenance | 4200         | true           | 5                     | 60           | false          | 0                     | MDTID              | MLTID            | 1376        | true    |
-      | Advanced    | 2400         | false          | 0                     | 0            | true           | 10                    | ADTID              | ALTID            | 1405        | true    |
-
-  Scenario Outline: Edit guarantee type
-    Given User is on Manage guarantee types page
-    And User opens guarantee type <oldName> to edit
-    And types guarantee type name <newName>
-    And makes guarantee type disabled
-    And types fixed premium <newFixedPremium>
-    And makes guarantee type has maintenance <newHasMaintenance>
-    And types maintenance percentage <newMaintenancePercentage>
-    And types maintenance period in months <newMonthsAmount>
-    And makes guarantee type has performance <newHasPerformance>
-    And types performance percentage <newPerformancePercentage>
+    And User opens guarantee type to edit
+    And edits guarantee type data
+      | name           | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
+      | MaintenanceNew | 5678         | false          | 0                     | 37           | true           | 48                    | MNDTID             | MNLTID           | 1377        | false   |
     When User submits changes
-    Then guarantee type <newName> is created
-    And guarantee type <oldName> is not created
-    And <newName> has guarantee type enabled <newEnabled> in Guarantee Types list
-    And <newName> has fixed premium <newFixedPremium> in Guarantee Types list
-    And <newName> has maintenance enabled <newHasMaintenance> in Guarantee Types list
-    And <newName> has maintenance percentage <newMaintenancePercentage> in Guarantee Types list
-    And <newName> has maintenance period in months <newMonthsAmount> in Guarantee Types list
-    And <newName> has performance enabled <newHasPerformance> in Guarantee Types list
-    And <newName> has performance percentage <newPerformancePercentage> in Guarantee Types list
-    And User opens guarantee type <newName> to edit
-    And has guarantee type enabled <newEnabled> on Edit Guarantee Type page
-    And has fixed premium <newFixedPremium> on Edit Guarantee Type page
-    And has maintenance enabled <newHasMaintenance> on Edit Guarantee Type page
-    And has maintenance percentage <newMaintenancePercentage> on Edit Guarantee Type page
-    And has maintenance period in months <newMonthsAmount> on Edit Guarantee Type page
-    And has performance enabled <newHasPerformance> on Edit Guarantee Type page
-    And has performance percentage <newPerformancePercentage> on Edit Guarantee Type page
+    Then old guarantee type is not created
+    And edited guarantee type is created
 
-    Examples:
-      | oldName     | newName        | newFixedPremium | newMaintenancePercentage | newPerformancePercentage | newMonthsAmount | newHasMaintenance | newHasPerformance | newEnabled |
-      | Combined    | CombinedNew    | 1234            | 24                       | 95                       | 120             | false             | false             | false      |
-      | Maintenance | MaintenanceNew | 5678            | 0                        | 48                       | 37              | false             | true              | false      |
-      | Advanced    | AdvancedNew    | 900             | 6                        | 237                      | 42              | true              | false             | false      |
 
-  Scenario Outline: Disable guarantee type
-    Given Facility is created
-    And Organisation is created
-    And Contract is created
-    And Enabled guarantee type is created
-    And User performs search by <contractNumber>
-    And performs new guarantee creation for <projectName>
-    And <name> is able to be selected on New Guarantee page
+  Scenario: Disable guarantee type
+    Given Organisation is created with values
+      | facilityName | name         | number | address                  | city     | zip   | enabled |
+      | Facility     | Organisation | ON     | 1255, 5th Ave, Manhattan | New York | 10029 | true    |
+    And Contract is created with values
+      | name     | address                 | city      | zip   | date       | number | organisationName |
+      | Contract | 1297, Massachusetts Ave | Arlington | 02476 | 01.01.2010 | HG     | Organisation     |
+    And Guarantee type is created with values
+      | name     | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
+      | Advanced | 2400         | false          | 0                     | 0            | true           | 10                    | ADTID              | ALTID            | 1405        | true    |
+    And performs new guarantee creation
+    And guarantee type is able to be selected on New Guarantee page
     And User is on Manage guarantee types page
-    And User opens guarantee type <name> to edit
-    And types guarantee type name <newName>
+    And User opens guarantee type to edit
     And makes guarantee type disabled
     And User submits changes
-    And User performs search by <contractNumber>
-    When performs new guarantee creation for <projectName>
-    Then <newName> is not able to be selected on New Guarantee page
+    When performs new guarantee creation
+    Then guarantee type is not able to be selected on New Guarantee page
 
-    Examples:
-      | name             | contractNumber | projectName | newName            |
-      | Enabled Combined | CN             | Sun Risky   | Disabled Guarantee |
 
 
 

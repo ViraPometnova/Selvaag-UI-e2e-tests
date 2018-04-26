@@ -22,7 +22,7 @@ Feature: Contract
 
   Scenario: Create contract
     Given opens new contract page
-    And fill contract card with values
+    And fills contract card with values
       | name      | address                 | city      | zip   | date       | number | guaranteesAmount |
       | Sun Risky | 1297, Massachusetts Ave | Arlington | 02476 | 01.01.2010 | CN     | 0                |
     When User submits changes
@@ -31,7 +31,7 @@ Feature: Contract
 
   Scenario: Edit contract details
     Given User opens contract page
-    And edit contract data
+    And edits contract data
       | name         | number | date       |
       | Cheerful sun | NN     | 31.12.2015 |
     When User submits changes

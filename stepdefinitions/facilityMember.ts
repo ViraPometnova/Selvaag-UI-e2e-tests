@@ -12,7 +12,6 @@ import {ListingPage} from "../pages/listing";
 import {UrlNavigation} from "../pages/urlNavigation";
 import {CurrentRun} from "../support/currentRun";
 import {WebService} from "../support/rest/webService";
-import {facilityData} from "../test-data/facilityData";
 
 const {When, Then} = require("cucumber"),
     manageFacilityMembersPage = new ManageFacilityMembersPage(),
@@ -53,10 +52,6 @@ When(/^User is on Facility members page$/, async () => {
     await facilityMemberAssertions.checkManageFacilityMembersPageIsOpened();
 });
 
-When(/^chooses Facility$/, async () => {
-    await manageFacilityMembersPage.selectFacility(facilityData.name);
-});
-
 When(/^makes organisation enabled$/, async () => {
     await manageFacilityMembersPage.setEnabledCheckbox();
 });
@@ -68,6 +63,7 @@ When(/^makes organisation disabled$/, async () => {
 When(/^Organisation is created with values$/, async (table: TableDefinition) => {
     organisationData = await table.hashes();
     CurrentRun.uniquePerTestRun(organisationData);
+
     await webService.createFacility(organisationData[0].facilityName);
     await webService.createFacilityMember(organisationData[0]);
     await webServiceAssertions.checkFacilityMemberIsCreated(organisationData[0].name);

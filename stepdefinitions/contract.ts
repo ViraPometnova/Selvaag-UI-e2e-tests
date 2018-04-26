@@ -51,9 +51,12 @@ Then(/^project date validation message is shown$/, async () => {
     await contractAssertions.checkProjectDateValidationMessageIsDisplayed();
 });
 
-When(/^Contract is created$/, async () => {
-    await webService.createContract(contractData);
-    await webServiceAssertions.checkContractIsCreated(contractData.organisationName, contractData.projectName);
+When(/^Contract is created with values$/, async (table: TableDefinition) => {
+    contractData = await table.hashes();
+    CurrentRun.uniquePerTestRun(contractData);
+
+    await webService.createContract(contractData[0]);
+    await webServiceAssertions.checkContractIsCreated(contractData[0].organisationName, contractData[0].name);
 });
 
 Then(/^User opens contract page$/, async () => {
@@ -66,7 +69,7 @@ Then(/^old contract is not created$/, async () => {
     await listingAssertions.checkItemIsNotDisplayed(contractData[0].name);
 });
 
-When(/^fill contract card with values$/, async (table: TableDefinition) => {
+When(/^fills contract card with values$/, async (table: TableDefinition) => {
     contractData = await table.hashes();
     CurrentRun.uniquePerTestRun(contractData);
 
@@ -121,7 +124,7 @@ Then(/^contract is present on Contract page$/, async () => {
     await listingAssertions.checkCounterFor(contractData[0].name, contractData[0].guaranteesAmount);
 });
 
-When(/^edit contract data$/, async (table: TableDefinition) => {
+When(/^edits contract data$/, async (table: TableDefinition) => {
     editedContractData = table.hashes();
     CurrentRun.uniquePerTestRun(editedContractData);
 
@@ -160,4 +163,11 @@ Then(/^contract is not present in start page listing$/, async () => {
 Then(/^User opens edited contract$/, async () => {
     await contractFunctions.openContract(editedContractData[0].number, editedContractData[0].name);
     await contractAssertions.checkContractPageIsOpened();
+});
+
+When(/^performs new guarantee creation$/, async () => {
+    await searchFunctions.openStartPageAndSearch(contractData[0].number);
+    await listingPage.clickAddNewGuaranteeLinkFor(contractData[0].name);
+
+    await guaranteeAssertions.checkGuaranteePageIsOpened();
 });

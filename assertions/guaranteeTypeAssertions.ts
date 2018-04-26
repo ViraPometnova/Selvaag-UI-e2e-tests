@@ -149,4 +149,15 @@ export class GuaranteeTypeAssertions {
     public async checkAgreementIdOnGuaranteeTypePageEqualTo(agreementId: number) {
         assert.equal(await manageGuaranteeTypesPage.getAgreementId(), agreementId, `Agreement id is not equal to ${agreementId}`);
     }
+
+    public async checkGuaranteeTypeIsPresentInGuaranteeTypesList(guaranteeType) {
+        await this.checkGuaranteeTypeIsCreated(guaranteeType.name);
+        await this.checkGuaranteeTypeEnabledInGuaranteeTypesListEqualTo(guaranteeType.name, guaranteeType.enabled);
+        await this.checkFixedPremiumInGuaranteeTypesListEqualTo(guaranteeType.name, guaranteeType.fixedPremium);
+        await this.checkHasMaintenanceInGuaranteeTypesListEqualTo(guaranteeType.name, guaranteeType.hasMaintenance);
+        await this.checkMaintenancePercentageInGuaranteeTypesListEqualTo(guaranteeType.name, guaranteeType.maintenancePercentage);
+        await this.checkMonthsAmountInGuaranteeTypesListEqualTo(guaranteeType.name, guaranteeType.monthsAmount);
+        await this.checkHasPerformanceInGuaranteeTypesListEqualTo(guaranteeType.name, guaranteeType.hasPerformance);
+        await this.checkPerformancePercentageInGuaranteeTypesListEqualTo(guaranteeType.name, guaranteeType.performancePercentage);
+    }
 }

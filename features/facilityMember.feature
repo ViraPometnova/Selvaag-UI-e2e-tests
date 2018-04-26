@@ -41,15 +41,15 @@ Feature: Facility Member
 
   Scenario: Disable Facility member
     Given Organisation is created with values
-      | facilityName | name              | number | address        | city  | zip   | enabled |
-      | Facility     | Disabled facility | DFN    | Ocean drive 12 | Miami | 33139 | true    |
+      | facilityName            | name              | number | address        | city  | zip   | enabled |
+      | Facility to be disabled | Disabled facility | DFN    | Ocean drive 12 | Miami | 33139 | true    |
     And User is on Facility members page
     And opens Facility member to disable
     And makes organisation disabled
     When User submits changes
-#    Then Facility member is disabled in Facility members list
+    Then Facility member is disabled in Facility members list
     And Facility member is disabled for adding contracts from start page listing
-    And Facility member is disabled for adding contracts from Facility member page
+#    And Facility member is disabled for adding contracts from Facility member page
 
 #TODO: Add checks for disabled contract and guarantee creation
 
