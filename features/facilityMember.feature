@@ -41,8 +41,8 @@ Feature: Facility Member
 
   Scenario: Disable Facility member
     Given Organisation is created with values
-      | facilityName            | name              | number | address        | city  | zip   | enabled |
-      | Facility to be disabled | Disabled facility | DFN    | Ocean drive 12 | Miami | 33139 | true    |
+      | facilityName  | name                     | number | address        | city  | zip   | enabled |
+      | Test Facility | Disabled facility member | DFN    | Ocean drive 12 | Miami | 33139 | true    |
     And User is on Facility members page
     And opens Facility member to disable
     And makes organisation disabled
