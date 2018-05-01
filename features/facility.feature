@@ -31,8 +31,6 @@ Feature: Facility
     And  old Facility is not created
 
 
-#TODO: Add check if facilities ordered alphabetically
-
 
 
 

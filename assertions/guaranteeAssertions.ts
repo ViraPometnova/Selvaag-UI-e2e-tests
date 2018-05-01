@@ -77,4 +77,10 @@ export class GuaranteeAssertions {
     public async checkPerformanceEndDateIsNotSet() {
         assert.isNotOk(await guaranteePage.getPerformanceEndDate(), "End date should be empty");
     }
+
+    public async checkContractAddressEqualTo(contractAddress) {
+        assert.equal(await guaranteePage.getContractAddress(), contractAddress.address, `Address should be equal to ${contractAddress.address}`);
+        assert.equal(await guaranteePage.getContractCity(), contractAddress.city, `City should be equal to ${contractAddress.city}`);
+        assert.equal(await guaranteePage.getContractZip(), contractAddress.zip, `Zip should be equal to ${contractAddress.zip}`);
+    }
 }

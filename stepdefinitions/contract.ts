@@ -73,12 +73,7 @@ When(/^fills contract card with values$/, async (table: TableDefinition) => {
     contractData = await table.hashes();
     CurrentRun.uniquePerTestRun(contractData);
 
-    await contractPage.setProjectName(contractData[0].name);
-    await contractPage.setContractNumber(contractData[0].number);
-    await contractPage.setProjectDate(contractData[0].date);
-    await addressForm.setAddressLine1(contractData[0].address);
-    await addressForm.setAddressLine2(contractData[0].city);
-    await addressForm.setAddressLine3(contractData[0].zip);
+    await contractFunctions.populateContractCard(contractData[0]);
 });
 
 Then(/^contract is present in start page listing$/, async () => {
@@ -128,9 +123,7 @@ When(/^edits contract data$/, async (table: TableDefinition) => {
     editedContractData = table.hashes();
     CurrentRun.uniquePerTestRun(editedContractData);
 
-    await contractPage.setProjectName(editedContractData[0].name);
-    await contractPage.setContractNumber(editedContractData[0].number);
-    await contractPage.setProjectDate(editedContractData[0].date);
+    await contractFunctions.populateContractCard(editedContractData[0]);
 });
 
 Then(/^edited contract is created$/, async () => {
@@ -170,4 +163,19 @@ When(/^performs new guarantee creation$/, async () => {
     await listingPage.clickAddNewGuaranteeLinkFor(contractData[0].name);
 
     await guaranteeAssertions.checkGuaranteePageIsOpened();
+});
+
+When(/^performs new guarantee creation for edited contract$/, async () => {
+    await searchFunctions.openStartPageAndSearch(editedContractData[0].number);
+    await listingPage.clickAddNewGuaranteeLinkFor(editedContractData[0].name);
+
+    await guaranteeAssertions.checkGuaranteePageIsOpened();
+});
+
+Then(/^contract data is present on new guarantee page$/, async () => {
+    await guaranteeAssertions.checkContractAddressEqualTo(contractData[0]);
+});
+
+Then(/^edited contract data is present on new guarantee page$/, async () => {
+    await guaranteeAssertions.checkContractAddressEqualTo(editedContractData[0]);
 });

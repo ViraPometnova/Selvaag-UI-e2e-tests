@@ -3,11 +3,11 @@ Feature: Guarantee card validation
   Scenario: Guarantee card empty inputs
     Given User is logged in
     And Organisation is created with values
-      | facilityName    | name           | number | address                  | city     | zip   | enabled |
-      | White Tombstone | Strong Lobster | ON     | 1255, 5th Ave, Manhattan | New York | 10029 | true    |
+      | facilityName    | name           | number | address                    | city   | zip   | enabled |
+      | White Tombstone | Strong Lobster | ON     | 45, Paseo de la Castellana | Madrid | 28046 | true    |
     And Contract is created with values
-      | name          | address                 | city      | zip   | date       | number | organisationName |
-      | Eastern Moose | 1297, Massachusetts Ave | Arlington | 02476 | 01.01.2010 | HG     | Strong Lobster   |
+      | name          | address                          | city         | zip   | date       | number | organisationName |
+      | Eastern Moose | 897, Av. Corrientes, San Nicolas | Buenos Aires | C1043 | 01.01.2010 | HG     | Strong Lobster   |
     And Guarantee type is created with values
       | name           | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
       | Blue Plutonium | 4200         | true           | 5                     | 60           | true           | 3                     | CDTID              | CLTID            | 1398        | true    |

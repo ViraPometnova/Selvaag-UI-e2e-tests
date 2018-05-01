@@ -16,6 +16,9 @@ export class GuaranteePage {
     private contractAmountInputLimitFeedback: any;
     private performanceStartDateInputFeedback: any;
     private performanceEndDateInputFeedback: any;
+    private contractAddressField: any;
+    private contractCityField: any;
+    private contractZipField: any;
 
     constructor() {
         this.unitNumberInput = $("#unitNumberInput");
@@ -33,6 +36,9 @@ export class GuaranteePage {
         this.contractAmountInputLimitFeedback = element(by.cssContainingText(".form-control-feedback", "Guarantee amount can't be greater than 5 000 000."));
         this.performanceStartDateInputFeedback = element(by.cssContainingText(".form-control-feedback", "Start Date is required."));
         this.performanceEndDateInputFeedback = element(by.cssContainingText(".form-control-feedback", "End Date is required."));
+        this.contractAddressField = $$(".readonly-address .form-control").get(0);
+        this.contractCityField = $$(".readonly-address .form-control").get(1);
+        this.contractZipField = $$(".readonly-address .form-control").get(2);
     }
 
     public isUnitNumberInputDisplayed() {
@@ -148,6 +154,26 @@ export class GuaranteePage {
 
     public setContractAmount(amount: string) {
         return this.contractAmountInput.sendKeys(amount);
+    }
+
+    public setUnitNumber(unitNumber: string) {
+        return this.unitNumberInput.sendKeys(unitNumber);
+    }
+
+    public setBeneficiaryName(beneficiaryName: string) {
+        return this.beneficiaryNameInput.sendKeys(beneficiaryName);
+    }
+
+    public getContractAddress() {
+        return this.contractAddressField.getText();
+    }
+
+    public getContractCity() {
+        return this.contractCityField.getText();
+    }
+
+    public getContractZip() {
+        return this.contractZipField.getText();
     }
 
     private getSelectedDropdownItem() {
