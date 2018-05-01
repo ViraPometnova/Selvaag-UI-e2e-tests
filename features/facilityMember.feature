@@ -10,7 +10,7 @@ Feature: Facility Member
     And clears address line 1
     And clears address line 2
     And clears address line 3
-    And clicks on zero coordinates
+    And clicks on top zero coordinates
     Then organisation name validation message is shown
     And organisation number validation message is shown
     And address line 1 validation message is shown
@@ -21,8 +21,8 @@ Feature: Facility Member
     Given User is on Facility members page
     And performs new Facility member creation
     And fills organisation card with values
-      | facilityName | name            | number | address        | city  | zip   | enabled | contractsAmount |
-      | Facility     | Facility member | FMN    | Ocean drive 12 | Miami | 33139 | true    | 0               |
+      | facilityName  | name            | number | address        | city  | zip   | enabled | contractsAmount |
+      | Rich Railroad | Facility member | FMN    | Ocean drive 12 | Miami | 33139 | true    | 0               |
     When User submits changes
     Then Facility member is present in Facility member list
     And Facility member is present in start page listing
@@ -41,8 +41,8 @@ Feature: Facility Member
 
   Scenario: Disable Facility member
     Given Organisation is created with values
-      | facilityName  | name                     | number | address        | city  | zip   | enabled |
-      | Test Facility | Disabled facility member | DFN    | Ocean drive 12 | Miami | 33139 | true    |
+      | facilityName     | name                     | number | address        | city  | zip   | enabled |
+      | Barbershop Rapid | Disabled facility member | DFN    | Ocean drive 12 | Miami | 33139 | true    |
     And User is on Facility members page
     And opens Facility member to disable
     And makes organisation disabled

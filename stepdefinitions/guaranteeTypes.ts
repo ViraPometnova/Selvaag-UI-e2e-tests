@@ -1,4 +1,5 @@
 import {TableDefinition} from "cucumber";
+import {browser} from "protractor";
 import {GuaranteeAssertions} from "../assertions/guaranteeAssertions";
 import {GuaranteeTypeAssertions} from "../assertions/guaranteeTypeAssertions";
 import {WebServiceAssertions} from "../assertions/webServiceAssertions";
@@ -9,7 +10,6 @@ import {GuaranteePage} from "../pages/guarantee";
 import {UrlNavigation} from "../pages/urlNavigation";
 import {CurrentRun} from "../support/currentRun";
 import {WebService} from "../support/rest/webService";
-import {browser} from "protractor";
 
 const {When, Then} = require("cucumber"),
     adminTable = new AdminTable(),
@@ -163,4 +163,8 @@ When(/^edited guarantee type is created$/, async () => {
 
 When(/^old guarantee type is not created$/, async () => {
     await guaranteeTypesAssertions.checkGuaranteeTypeIsNotCreated(guaranteeTypeData[0].name);
+});
+
+When(/^selects guarantee type$/, async () => {
+    await guaranteePage.selectGuaranteeType(guaranteeTypeData[0].name);
 });

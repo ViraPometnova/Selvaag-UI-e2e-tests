@@ -21,8 +21,12 @@ export class GeneralControls {
         return this.cancelButton.waitAndClick();
     }
 
-    public clickOnZeroCoordinates() {
+    public clickOnTopZeroCoordinates() {
         return browser.driver.actions().mouseMove(this.routerElement).click().perform();
+    }
+
+    public clickOnBottomZeroCoordinates() {
+        return browser.driver.actions().mouseMove(this.toastElement).click().perform();
     }
 
     public hideToasts() {

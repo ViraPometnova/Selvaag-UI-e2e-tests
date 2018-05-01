@@ -13,7 +13,7 @@ Feature: Guarantee type
     And clears document template id
     And clears letter template id
     And clears agreement id
-    And clicks on zero coordinates
+    And clicks on top zero coordinates
     Then guarantee type name validation message is shown
     And fixed premium validation message is shown
     And maintenance percentage validation message is shown

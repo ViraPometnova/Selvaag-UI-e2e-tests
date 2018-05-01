@@ -12,7 +12,7 @@ Feature: Contract
     And clears address line 2
     And clears address line 3
     And clears project date
-    And clicks on zero coordinates
+    And clicks on top zero coordinates
     Then project name validation message is shown
     And contract number validation message is shown
     And address line 1 validation message is shown

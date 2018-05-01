@@ -10,6 +10,12 @@ export class GuaranteePage {
     private performanceEndDateInput: any;
     private previewDraftButton: any;
     private guaranteeDetails: any;
+    private unitNumberInputFeedback: any;
+    private beneficiaryNameInputFeedback: any;
+    private contractAmountInputIsRequiredFeedback: any;
+    private contractAmountInputLimitFeedback: any;
+    private performanceStartDateInputFeedback: any;
+    private performanceEndDateInputFeedback: any;
 
     constructor() {
         this.unitNumberInput = $("#unitNumberInput");
@@ -21,6 +27,12 @@ export class GuaranteePage {
         this.performanceEndDateInput = $('app-date[formcontrolname="performanceEndDate"] input');
         this.previewDraftButton = $("#btnPreview");
         this.guaranteeDetails = element(by.cssContainingText(".form-group", "Guarantee Details"));
+        this.unitNumberInputFeedback = element(by.cssContainingText(".form-control-feedback", "Unit Number is required."));
+        this.beneficiaryNameInputFeedback = element(by.cssContainingText(".form-control-feedback", "Beneficiary Name is required."));
+        this.contractAmountInputIsRequiredFeedback = element(by.cssContainingText(".form-control-feedback", "Contract Amount is required."));
+        this.contractAmountInputLimitFeedback = element(by.cssContainingText(".form-control-feedback", "Guarantee amount can't be greater than 5 000 000."));
+        this.performanceStartDateInputFeedback = element(by.cssContainingText(".form-control-feedback", "Start Date is required."));
+        this.performanceEndDateInputFeedback = element(by.cssContainingText(".form-control-feedback", "End Date is required."));
     }
 
     public isUnitNumberInputDisplayed() {
@@ -72,6 +84,70 @@ export class GuaranteePage {
         const dropdownItem = await this.getSelectedDropdownItem(),
             itemText = await dropdownItem.getText();
         return itemText.trim();
+    }
+
+    public clearUnitNumberInput() {
+        return this.unitNumberInput.clear();
+    }
+
+    public clearBeneficiaryNameInput() {
+        return this.beneficiaryNameInput.clear();
+    }
+
+    public clearContractAmount() {
+        return this.contractAmountInput.clear();
+    }
+
+    public clearPerformanceStartDate() {
+        return this.performanceStartDateInput.clear();
+    }
+
+    public clearPerformanceEndDate() {
+        return this.performanceEndDateInput.clear();
+    }
+
+    public isUnitNumberFeedbackDisplayed() {
+        return this.unitNumberInputFeedback.isWebElementDisplayed();
+    }
+
+    public isBeneficiaryNameFeedbackDisplayed() {
+        return this.beneficiaryNameInputFeedback.isWebElementDisplayed();
+    }
+
+    public isContractAmountIsRequiredFeedbackDisplayed() {
+        return this.contractAmountInputIsRequiredFeedback.isWebElementDisplayed();
+    }
+
+    public isContractAmountLimitFeedbackIsDisplayed() {
+        return this.contractAmountInputLimitFeedback.isWebElementDisplayed();
+    }
+
+    public isPerformanceStartDateFeedbackDisplayed() {
+        return this.performanceStartDateInputFeedback.isWebElementDisplayed();
+    }
+
+    public isPerformanceEndDateFeedbackDisplayed() {
+        return this.performanceEndDateInputFeedback.isWebElementDisplayed();
+    }
+
+    public setPerformanceStartDate(date: string) {
+        return this.performanceStartDateInput.sendKeys(date);
+    }
+
+    public setPerformanceEndDate(date: string) {
+        return this.performanceEndDateInput.sendKeys(date);
+    }
+
+    public getPerformanceStartDate() {
+        return this.performanceStartDateInput.getValue();
+    }
+
+    public getPerformanceEndDate() {
+        return this.performanceEndDateInput.getValue();
+    }
+
+    public setContractAmount(amount: string) {
+        return this.contractAmountInput.sendKeys(amount);
     }
 
     private getSelectedDropdownItem() {

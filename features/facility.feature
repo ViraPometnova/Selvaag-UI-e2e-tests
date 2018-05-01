@@ -15,8 +15,8 @@ Feature: Facility
     Given User is on facilities page
     And performs new Facility creation
     And populate facility card with values
-      | name          |
-      | Test Facility |
+      | name         |
+      | TestFacility |
     When User submits changes
     Then Facility is created
 
@@ -24,8 +24,8 @@ Feature: Facility
     Given User is on facilities page
     And opens Facility
     And edit facility data
-      | name         |
-      | New Facility |
+      | name        |
+      | NewFacility |
     When User submits changes
     Then edited Facility is created
     And  old Facility is not created

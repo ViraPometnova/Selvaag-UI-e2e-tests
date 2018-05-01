@@ -12,6 +12,10 @@ When(/^User submits changes$/, async () => {
     await generalControls.hideToasts();
 });
 
-When(/^clicks on zero coordinates$/, async () => {
-    await generalControls.clickOnZeroCoordinates();
+When(/^clicks on top zero coordinates$/, async () => {
+    await generalControls.clickOnTopZeroCoordinates();
+});
+
+When(/^clicks on bottom zero coordinates$/, async () => {
+    await generalControls.clickOnBottomZeroCoordinates();
 });
