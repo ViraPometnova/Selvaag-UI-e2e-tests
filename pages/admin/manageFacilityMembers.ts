@@ -1,6 +1,5 @@
 import {$, browser, by, element} from "protractor";
 import {AdminTable} from "./adminTable";
-import {WebService} from "../../support/rest/webService";
 
 export class ManageFacilityMembersPage {
     public adminTable = new AdminTable();
@@ -11,7 +10,6 @@ export class ManageFacilityMembersPage {
     private enabledLabel: any;
     private organizationNameFeedback: any;
     private organizationNumberFeedback: any;
-    private webService = new WebService();
 
     constructor() {
         this.organisationNameInput = $("#organisationNameInput");

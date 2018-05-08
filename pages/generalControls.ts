@@ -7,8 +7,8 @@ export class GeneralControls {
     private toastElement: any;
 
     constructor() {
-        this.submitButton = element(by.cssContainingText(".btn", "SUBMIT"));
-        this.cancelButton = element(by.cssContainingText(".btn", "CANCEL"));
+        this.submitButton = element.all(by.cssContainingText(".btn-primary", "SUBMIT")).first();
+        this.cancelButton = element(by.cssContainingText(".btn-secondary", "CANCEL"));
         this.routerElement = $$("router-outlet").first();
         this.toastElement = $("app-toasts");
     }

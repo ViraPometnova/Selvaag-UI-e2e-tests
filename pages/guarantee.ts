@@ -19,6 +19,13 @@ export class GuaranteePage {
     private contractAddressField: any;
     private contractCityField: any;
     private contractZipField: any;
+    private maintenanceStartDateInput: any;
+    private performancePercentageInput: any;
+    private performanceAmountInput: any;
+    private maintenanceEndDateInput: any;
+    private maintenancePercentageInput: any;
+    private maintenanceAmountInput: any;
+    private organisationNumberInput: any;
 
     constructor() {
         this.unitNumberInput = $("#unitNumberInput");
@@ -39,6 +46,13 @@ export class GuaranteePage {
         this.contractAddressField = $$(".readonly-address .form-control").get(0);
         this.contractCityField = $$(".readonly-address .form-control").get(1);
         this.contractZipField = $$(".readonly-address .form-control").get(2);
+        this.maintenanceStartDateInput = $('app-date[formcontrolname="maintenanceStartDate"] input');
+        this.maintenanceEndDateInput = $('app-date[formcontrolname="maintenanceEndDate"] input');
+        this.performancePercentageInput = $("#performancePercentageInput");
+        this.performanceAmountInput = $("#performanceAmountInput");
+        this.maintenancePercentageInput = $("#maintenancePercentageInput");
+        this.maintenanceAmountInput = $("#maintenanceAmountInput");
+        this.organisationNumberInput = $("#organisationNumberInput");
     }
 
     public isUnitNumberInputDisplayed() {
@@ -112,6 +126,10 @@ export class GuaranteePage {
         return this.performanceEndDateInput.clear();
     }
 
+    public getContractAmount() {
+        return this.contractAmountInput.getValue();
+    }
+
     public isUnitNumberFeedbackDisplayed() {
         return this.unitNumberInputFeedback.isWebElementDisplayed();
     }
@@ -137,11 +155,11 @@ export class GuaranteePage {
     }
 
     public setPerformanceStartDate(date: string) {
-        return this.performanceStartDateInput.sendKeys(date);
+        return this.performanceStartDateInput.clearAndSendKeys(date);
     }
 
     public setPerformanceEndDate(date: string) {
-        return this.performanceEndDateInput.sendKeys(date);
+        return this.performanceEndDateInput.clearAndSendKeys(date);
     }
 
     public getPerformanceStartDate() {
@@ -153,15 +171,15 @@ export class GuaranteePage {
     }
 
     public setContractAmount(amount: string) {
-        return this.contractAmountInput.sendKeys(amount);
+        return this.contractAmountInput.clearAndSendKeys(amount);
     }
 
     public setUnitNumber(unitNumber: string) {
-        return this.unitNumberInput.sendKeys(unitNumber);
+        return this.unitNumberInput.clearAndSendKeys(unitNumber);
     }
 
     public setBeneficiaryName(beneficiaryName: string) {
-        return this.beneficiaryNameInput.sendKeys(beneficiaryName);
+        return this.beneficiaryNameInput.clearAndSendKeys(beneficiaryName);
     }
 
     public getContractAddress() {
@@ -174,6 +192,50 @@ export class GuaranteePage {
 
     public getContractZip() {
         return this.contractZipField.getText();
+    }
+
+    public setMaintenanceStartDate(date: string) {
+        return this.maintenanceStartDateInput.clearAndSendKeys(date);
+    }
+
+    public clickPreviewDraftButton() {
+        return this.previewDraftButton.waitAndClick();
+    }
+
+    public getUnitNumber() {
+        return this.unitNumberInput.getValue();
+    }
+
+    public getBeneficiaryName() {
+        return this.beneficiaryNameInput.getValue();
+    }
+
+    public getPerformancePercentage() {
+        return this.performancePercentageInput.getValue();
+    }
+
+    public getPerformanceAmount() {
+        return this.performanceAmountInput.getValue();
+    }
+
+    public getMaintenanceStartDate() {
+        return this.maintenanceStartDateInput.getValue();
+    }
+
+    public getMaintenanceEndDate() {
+        return this.maintenanceEndDateInput.getValue();
+    }
+
+    public getMaintenancePercentage() {
+        return this.maintenancePercentageInput.getValue();
+    }
+
+    public getMaintenanceAmount() {
+        return this.maintenanceAmountInput.getValue();
+    }
+
+    public getOrganisationNumber() {
+        return this.organisationNumberInput.getValue();
     }
 
     private getSelectedDropdownItem() {
@@ -193,10 +255,10 @@ export class GuaranteePage {
     }
 
     private isDropdownOpened() {
-        return this.getDropdownGroupelement().hasClass("open");
+        return this.getDropdownGroupElement().hasClass("open");
     }
 
-    private getDropdownGroupelement() {
+    private getDropdownGroupElement() {
         return this.guaranteeDetails.$(".btn-group");
     }
 }

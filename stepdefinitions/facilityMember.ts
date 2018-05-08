@@ -72,6 +72,7 @@ When(/^Organisation is created with values$/, async (table: TableDefinition) => 
 When(/^opens new contract page$/, async () => {
     await searchFunctions.openStartPageAndSearch(organisationData[0].number);
     await listingPage.clickAddNewContractFor(organisationData[0].name);
+    await contractAssertions.checkContractUrl();
     await contractAssertions.checkContractPageIsOpened();
 });
 
@@ -119,6 +120,7 @@ Then(/^Facility member is present in start page listing$/, async () => {
 
     await listingAssertions.checkAddNewContractLinkIsNotDisabledFor(organisationData[0].name);
     await listingPage.clickAddNewContractFor(organisationData[0].name);
+    await contractAssertions.checkContractUrl();
     await contractAssertions.checkContractPageIsOpened();
 });
 
@@ -137,6 +139,7 @@ Then(/^Facility member is present on Facility member page$/, async () => {
 
     await listingAssertions.checkAddNewContractLinkIsNotDisabledFor(organisationData[0].name);
     await listingPage.clickAddNewContractFor(organisationData[0].name);
+    await contractAssertions.checkContractUrl();
     await contractAssertions.checkContractPageIsOpened();
 });
 

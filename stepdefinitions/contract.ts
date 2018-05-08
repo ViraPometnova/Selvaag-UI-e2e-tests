@@ -6,7 +6,6 @@ import {ListingAssertions} from "../assertions/listingAssertions";
 import {WebServiceAssertions} from "../assertions/webServiceAssertions";
 import {ContractFunctions} from "../business-functions/contractFunctions";
 import {SearchFunctions} from "../business-functions/searchFunctions";
-import {AddressForm} from "../pages/addressForm";
 import {ContractPage} from "../pages/contract";
 import {ListingPage} from "../pages/listing";
 import {CurrentRun} from "../support/currentRun";
@@ -22,7 +21,6 @@ const {When, Then} = require("cucumber"),
     guaranteeAssertions = new GuaranteeAssertions(),
     addressFormAssertions = new AddressFormAssertions(),
     searchFunctions = new SearchFunctions(),
-    addressForm = new AddressForm(),
     contractFunctions = new ContractFunctions();
 
 let contractData, editedContractData;
@@ -61,6 +59,7 @@ When(/^Contract is created with values$/, async (table: TableDefinition) => {
 
 Then(/^User opens contract page$/, async () => {
     await contractFunctions.openContract(contractData[0].number, contractData[0].name);
+    await contractAssertions.checkContractUrl();
     await contractAssertions.checkContractPageIsOpened();
 });
 
@@ -85,10 +84,11 @@ Then(/^contract is present in start page listing$/, async () => {
 
     await listingAssertions.checkContractNumberFor(contractData[0].name, contractData[0].number);
     await listingAssertions.checkProjectDateFor(contractData[0].name, contractData[0].date);
-    await listingAssertions.checkCounterFor(contractData[0].name, contractData[0].guaranteesAmount);
+    await listingAssertions.checkCounterFor(contractData[0].name, "0");
 
     await listingAssertions.checkEditContractLinkIsNotDisabledFor(contractData[0].name);
     await listingPage.clickEditContractLinkFor(contractData[0].name);
+    await contractAssertions.checkContractUrl();
     await contractAssertions.checkContractPageIsOpened();
 
     await searchFunctions.openStartPageAndSearch(contractData[0].number);
@@ -100,6 +100,7 @@ Then(/^contract is present in start page listing$/, async () => {
 Then(/^contract is present on Contract page$/, async () => {
     await searchFunctions.openStartPageAndSearch(contractData[0].number);
     await listingPage.clickEditContractLinkFor(contractData[0].name);
+    await contractAssertions.checkContractUrl();
     await contractAssertions.checkContractPageIsOpened();
 
     await contractAssertions.checkProjectNameEqualTo(contractData[0].name);
@@ -116,7 +117,8 @@ Then(/^contract is present on Contract page$/, async () => {
     await listingAssertions.checkProjectDateFor(contractData[0].name, contractData[0].date);
     await contractAssertions.checkProjectDateEqualTo(contractData[0].date);
 
-    await listingAssertions.checkCounterFor(contractData[0].name, contractData[0].guaranteesAmount);
+    await listingAssertions.checkCounterFor(contractData[0].name, "0");
+    await listingAssertions.checkCounterFor(contractData[0].organisationName, "1");
 });
 
 When(/^edits contract data$/, async (table: TableDefinition) => {
@@ -134,6 +136,7 @@ Then(/^edited contract is created$/, async () => {
     await listingAssertions.checkContractNumberFor(editedContractData[0].name, editedContractData[0].number);
 
     await listingPage.clickEditContractLinkFor(editedContractData[0].name);
+    await contractAssertions.checkContractUrl();
     await contractAssertions.checkContractPageIsOpened();
 
     await contractAssertions.checkProjectNameEqualTo(editedContractData[0].name);
@@ -155,6 +158,7 @@ Then(/^contract is not present in start page listing$/, async () => {
 
 Then(/^User opens edited contract$/, async () => {
     await contractFunctions.openContract(editedContractData[0].number, editedContractData[0].name);
+    await contractAssertions.checkContractUrl();
     await contractAssertions.checkContractPageIsOpened();
 });
 
@@ -178,4 +182,12 @@ Then(/^contract data is present on new guarantee page$/, async () => {
 
 Then(/^edited contract data is present on new guarantee page$/, async () => {
     await guaranteeAssertions.checkContractAddressEqualTo(editedContractData[0]);
+});
+
+Then(/^contract is not present on Facility member page$/, async () => {
+    await searchFunctions.openStartPageAndSearch(contractData[0].organisationName);
+    await listingPage.clickCounterFor(contractData[0].organisationName);
+
+    await listingAssertions.checkCounterFor(contractData[0].organisationName, "0");
+    await listingAssertions.checkItemIsNotDisplayed(editedContractData[0].name);
 });

@@ -1,13 +1,28 @@
-import {GuaranteePage} from "../pages/guarantee";
-import {GuaranteeAssertions} from "../assertions/guaranteeAssertions";
-import {DateParser} from "../support/dateParser";
+import {TableDefinition} from "cucumber";
+import moment = require("moment");
 import {browser} from "protractor";
+import {GuaranteeAssertions} from "../assertions/guaranteeAssertions";
+import {ListingAssertions} from "../assertions/listingAssertions";
+import {WordingAssertions} from "../assertions/wordingAssertions";
+import {GuaranteeFunctions} from "../business-functions/guaranteeFunctions";
+import {SearchFunctions} from "../business-functions/searchFunctions";
+import {GuaranteePage} from "../pages/guarantee";
+import {ListingPage} from "../pages/listing";
+import {WordingPage} from "../pages/wording";
+import {CurrentRun} from "../support/currentRun";
+import {DateParser} from "../support/dateParser";
 
 const {Then, When} = require("cucumber"),
     guaranteePage = new GuaranteePage(),
-    guaranteeAssertions = new GuaranteeAssertions();
+    guaranteeAssertions = new GuaranteeAssertions(),
+    guaranteeFunctions = new GuaranteeFunctions(),
+    wording = new WordingPage(),
+    wordingAssertions = new WordingAssertions(),
+    listingAssertions = new ListingAssertions(),
+    listingPage = new ListingPage(),
+    searchFunctions = new SearchFunctions();
 
-let performanceEndDate;
+let performanceEndDate, combinedGuaranteeData, guaranteeData;
 
 When(/^clears unit number$/, async () => {
     await guaranteePage.clearUnitNumberInput();
@@ -91,4 +106,71 @@ Then(/^contract amount validation message is not shown$/, async () => {
 
 Then(/^contract amount limit validation message is shown$/, async () => {
     await guaranteeAssertions.checkContractAmountLimitValidationMessageIsDisplayed();
+});
+
+Then(/^fills guarantee card with values$/, async (table: TableDefinition) => {
+    guaranteeData = await table.hashes();
+    CurrentRun.uniquePerTestRun(guaranteeData);
+
+    await guaranteeFunctions.populateGuaranteeCard(guaranteeData[0]);
+});
+
+When(/^goes to preview draft wording$/, async () => {
+    combinedGuaranteeData = await guaranteeFunctions.getCombinedGuaranteeDataFromCard();
+
+    await guaranteePage.clickPreviewDraftButton();
+    await wordingAssertions.checkDraftWordingIsPresent();
+    await wording.waitPageToLoadData();
+    await wordingAssertions.checkDraftWaterMarkIsDisplayed();
+});
+
+Then(/^wording for combined bond is shown$/, async () => {
+    await wordingAssertions.checkGuaranteeCreationDateEqualTo(moment().format("DD.MM.YYYY"));
+
+    await wordingAssertions.checkBeneficiaryDetails(combinedGuaranteeData);
+    await wordingAssertions.checkOrganisationDetails(combinedGuaranteeData);
+    await wordingAssertions.checkContractDetails(combinedGuaranteeData);
+    await wordingAssertions.checkPerformanceStartDateEqualTo(combinedGuaranteeData.performanceStartDate);
+    await wordingAssertions.checkPerformanceAmountEqualTo(combinedGuaranteeData.performanceAmount);
+    await wordingAssertions.checkMaintenanceAmountEqualTo(combinedGuaranteeData.maintenanceAmount);
+
+});
+
+Then(/^processing guarantee is present on contract page$/, async () => {
+    await listingAssertions.checkItemIsDisplayed(combinedGuaranteeData.beneficiaryName);
+    await listingAssertions.checkItemIsDisplayed(combinedGuaranteeData.projectName);
+    await listingAssertions.checkCounterFor(combinedGuaranteeData.projectName, "1");
+
+    await listingAssertions.checkGuaranteeStatusFor(combinedGuaranteeData.beneficiaryName, "Processing");
+    await listingAssertions.checkGuaranteeNumberFor(combinedGuaranteeData.beneficiaryName, "");
+    await listingAssertions.checkGuaranteeDateOpenedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.performanceStartDate);
+    await listingAssertions.checkGuaranteeDateClosedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.maintenanceEndDate);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.beneficiaryAddress);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.beneficiaryCity);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.beneficiaryZip);
+    await listingAssertions.checkEditGuaranteeLinkIsDisabledFor(combinedGuaranteeData.beneficiaryName);
+
+    await listingPage.clickViewGuaranteeLinkFor(combinedGuaranteeData.beneficiaryName);
+    await listingAssertions.checkBeneficiaryDetailsOnViewGuarantee(combinedGuaranteeData);
+    await listingAssertions.checkGuaranteeDetailsOnViewGuarantee(combinedGuaranteeData);
+    await listingAssertions.checkPerformanceDetailsOnViewGuarantee(combinedGuaranteeData);
+    await listingAssertions.checkMaintenanceDetailsOnViewGuarantee(combinedGuaranteeData);
+});
+
+Then(/^processing guarantee is present on start page$/, async () => {
+    await searchFunctions.openStartPageAndSearch(combinedGuaranteeData.beneficiaryName);
+    await listingAssertions.checkItemIsDisplayed(combinedGuaranteeData.beneficiaryName);
+    await listingAssertions.checkGuaranteeStatusFor(combinedGuaranteeData.beneficiaryName, "Processing");
+    await listingAssertions.checkGuaranteeNumberFor(combinedGuaranteeData.beneficiaryName, "");
+    await listingAssertions.checkGuaranteeDateOpenedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.performanceStartDate);
+    await listingAssertions.checkGuaranteeDateClosedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.maintenanceEndDate);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.organisationName);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.projectName);
+
+    await listingAssertions.checkEditGuaranteeLinkIsDisabledFor(combinedGuaranteeData.beneficiaryName);
+    await listingAssertions.checkViewGuaranteeLinkIsNotDisabledFor(combinedGuaranteeData.beneficiaryName);
+
+    await listingAssertions.checkViewContractLinkIsNotDisabledFor(combinedGuaranteeData.beneficiaryName);
+    await listingPage.clickViewContractLinkFor(combinedGuaranteeData.beneficiaryName);
+    await listingAssertions.checkItemIsDisplayed(combinedGuaranteeData.projectName);
 });

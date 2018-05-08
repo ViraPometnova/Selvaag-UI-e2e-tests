@@ -1,7 +1,5 @@
 import {browser} from "protractor";
 import {GuaranteePage} from "../pages/guarantee";
-import moment = require("moment");
-import {start} from "repl";
 import {DateParser} from "../support/dateParser";
 
 const assert = require("chai").assert,

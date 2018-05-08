@@ -20,6 +20,7 @@ export class CurrentRun {
         testData.forEach((item) => item.number = this.uniqueNumber(item.number));
         testData.forEach((item) => item.facilityName = this.uniqueName(item.facilityName));
         testData.forEach((item) => item.organisationName = this.uniqueName(item.organisationName));
+        testData.forEach((item) => item.beneficiaryName = this.uniqueName(item.beneficiaryName));
     }
 
     private static timeStamp = moment().format("DD/MM/YYYY hh:mm:ss");

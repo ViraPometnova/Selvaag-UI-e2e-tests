@@ -53,5 +53,4 @@ Feature: Facility Member
 
 #TODO: Add checks for disabled contract and guarantee creation
 
-#TODO: Add check if organisations ordered alphabetically
 

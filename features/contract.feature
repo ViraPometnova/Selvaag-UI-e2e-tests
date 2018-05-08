@@ -23,8 +23,8 @@ Feature: Contract
   Scenario: Create contract
     Given opens new contract page
     And fills contract card with values
-      | name      | address                 | city      | zip   | date       | number | guaranteesAmount |
-      | Sun Risky | 1297, Massachusetts Ave | Arlington | 02476 | 01.01.2010 | CN     | 0                |
+      | name      | address                 | city      | zip   | date       | number | organisationName |
+      | Sun Risky | 1297, Massachusetts Ave | Arlington | 02476 | 01.01.2010 | CN     | Svartis          |
     When User submits changes
     And contract is present in start page listing
     And contract is present on Contract page
@@ -46,6 +46,7 @@ Feature: Contract
     Given User opens edited contract
     And deletes contract
     Then contract is not present in start page listing
+    And contract is not present on Facility member page
 
 
 

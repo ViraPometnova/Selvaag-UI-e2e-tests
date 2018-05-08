@@ -1,4 +1,4 @@
-import {browser, by, element, ElementArrayFinder, ElementFinder, promise, protractor} from "protractor";
+import {browser, ElementArrayFinder, ElementFinder, promise, protractor} from "protractor";
 
 const EC = protractor.ExpectedConditions;
 
@@ -65,7 +65,7 @@ ElementFinder.prototype.isWebElementDisplayed = function () {
 
 ElementFinder.prototype.isWebElementPresent = function () {
     const self = this;
-    return browser.wait(EC.presenceOf(self), 5000)
+    return browser.wait(EC.presenceOf(self), 10000)
         .then(() => true, () => false);
 };
 
