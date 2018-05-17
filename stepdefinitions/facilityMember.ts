@@ -194,5 +194,6 @@ Then(/^Facility member is disabled for adding contracts from start page listing$
 
 Then(/^Facility member is disabled for adding contracts from Facility member page$/, async () => {
     await listingPage.clickCounterFor(organisationData[0].name);
+    await facilityMemberAssertions.checkFacilityMemberPageIsOpened();
     await listingAssertions.checkAddNewContractLinkIsDisabledFor(organisationData[0].name);
 });
