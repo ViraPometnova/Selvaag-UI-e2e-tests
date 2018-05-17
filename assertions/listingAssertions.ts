@@ -14,12 +14,6 @@ export class ListingAssertions {
             `${cardName} doesn't contain ${detailText} ${details}`);
     }
 
-    public async checkContractNumberFor(cardName: string, details: string) {
-        const detailText = "Contract number:";
-        assert.equal(await listingPage.getItemDetailsFor(cardName, detailText), `${detailText} ${details}`,
-            `${cardName} doesn't contain ${detailText} ${details}`);
-    }
-
     public async checkProjectDateFor(cardName: string, details: string) {
         const detailText = "Project Date:";
         assert.equal(await listingPage.getItemDetailsFor(cardName, detailText), `${detailText} ${details}`,

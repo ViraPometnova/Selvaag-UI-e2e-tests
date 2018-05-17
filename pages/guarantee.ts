@@ -155,11 +155,11 @@ export class GuaranteePage {
     }
 
     public setPerformanceStartDate(date: string) {
-        return this.performanceStartDateInput.clearAndSendKeys(date);
+        return this.performanceStartDateInput.sendKeys(date);
     }
 
     public setPerformanceEndDate(date: string) {
-        return this.performanceEndDateInput.clearAndSendKeys(date);
+        return this.performanceEndDateInput.sendKeys(date);
     }
 
     public getPerformanceStartDate() {

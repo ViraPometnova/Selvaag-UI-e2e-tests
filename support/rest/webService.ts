@@ -68,7 +68,6 @@ export class WebService {
         return await WebRequest.post(contractUrl,
             {
                 json: {
-                    contractNumber: contract.number,
                     facilityMemberGuid: organisationGuid,
                     projectAddressLine1: contract.address,
                     projectAddressLine2: contract.city,

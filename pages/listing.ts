@@ -125,18 +125,12 @@ export class ListingPage {
         return organisationZip.getText();
     }
 
-    public async getContractNumber() {
-        const contractNumberElement = this.contractDetails.get(0),
-            contractNumberText = await contractNumberElement.getText();
-        return this.getDetailValue(contractNumberText);
-    }
-
     public getProjectName() {
         return this.contractHeader.getText();
     }
 
     public async getProjectDate() {
-        const projectDateElement = this.contractDetails.get(1),
+        const projectDateElement = this.contractDetails.get(0),
             projectDateText = await projectDateElement.getText();
         return this.getDetailValue(projectDateText);
     }
