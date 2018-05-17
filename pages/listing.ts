@@ -77,8 +77,9 @@ export class ListingPage {
         return this.getEditContractLinkFor(itemName).waitAndClick();
     }
 
-    public clickCounterFor(itemName: string) {
-        return this.getItemCounterElementFor(itemName).waitAndClick();
+    public async clickCounterFor(itemName: string) {
+        const counter = await this.getItemCounterElementFor(itemName);
+        return counter.waitAndClick();
     }
 
     public async isItemCardAndDetailsDisplayed() {
@@ -87,7 +88,7 @@ export class ListingPage {
     }
 
     public async getItemCounterFor(itemName: string) {
-        const counterElement = this.getItemCounterElementFor(itemName),
+        const counterElement = await this.getItemCounterElementFor(itemName),
             elementText = await counterElement.getText();
         return this.getCounterValueFrom(elementText);
     }
@@ -295,8 +296,8 @@ export class ListingPage {
         return splittedValue[0].trim();
     }
 
-    private getItemCounterElementFor(itemName: string) {
-        const itemElement = this.getItem(itemName);
+    private async getItemCounterElementFor(itemName: string) {
+        const itemElement = await this.getItem(itemName);
         return itemElement.$(".count");
     }
 

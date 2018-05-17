@@ -10,14 +10,13 @@ const searchFunctions = new SearchFunctions(),
 
 export class ContractFunctions {
 
-    public async openContract(contractNumber: string, contractName: string) {
-        await searchFunctions.openStartPageAndSearch(contractNumber);
+    public async openContract(contractName: string) {
+        await searchFunctions.openStartPageAndSearch(contractName);
         await listingPage.clickEditContractLinkFor(contractName);
     }
 
     public async populateContractCard(contractData) {
         await contractPage.setProjectName(contractData.name);
-        await contractPage.setContractNumber(contractData.number);
         await contractPage.setProjectDate(contractData.date);
         await addressForm.setAddressLine1(contractData.address);
         await addressForm.setAddressLine2(contractData.city);
