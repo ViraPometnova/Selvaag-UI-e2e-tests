@@ -35,7 +35,7 @@ export class WordingAssertions {
         assert.equal(await wording.getProjectDate(), guaranteeData.projectDate, `Project date should be equal to ${guaranteeData.projectDate}`);
     }
 
-    public async checkPerformanceStartDateEqualTo(performanceStartDate: string) {
+    public async checkCombinedPerformanceStartDateEqualTo(performanceStartDate: string) {
         assert.equal(await wording.getPerformanceStartDate(), performanceStartDate, `Performance start date should be equal to ${performanceStartDate}`);
     }
 

@@ -124,19 +124,19 @@ When(/^goes to preview draft wording$/, async () => {
     await wordingAssertions.checkDraftWaterMarkIsDisplayed();
 });
 
-Then(/^wording for combined bond is shown$/, async () => {
+Then(/^wording for combined guarantee is shown$/, async () => {
     await wordingAssertions.checkGuaranteeCreationDateEqualTo(moment().format("DD.MM.YYYY"));
 
     await wordingAssertions.checkBeneficiaryDetails(combinedGuaranteeData);
     await wordingAssertions.checkOrganisationDetails(combinedGuaranteeData);
     await wordingAssertions.checkContractDetails(combinedGuaranteeData);
-    await wordingAssertions.checkPerformanceStartDateEqualTo(combinedGuaranteeData.performanceStartDate);
+    await wordingAssertions.checkCombinedPerformanceStartDateEqualTo(combinedGuaranteeData.performanceStartDate);
     await wordingAssertions.checkPerformanceAmountEqualTo(combinedGuaranteeData.performanceAmount);
     await wordingAssertions.checkMaintenanceAmountEqualTo(combinedGuaranteeData.maintenanceAmount);
 
 });
 
-Then(/^processing guarantee is present on contract page$/, async () => {
+Then(/^processing combined guarantee is present on contract page$/, async () => {
     await listingAssertions.checkItemIsDisplayed(combinedGuaranteeData.beneficiaryName);
     await listingAssertions.checkItemIsDisplayed(combinedGuaranteeData.projectName);
     await listingAssertions.checkCounterFor(combinedGuaranteeData.projectName, "1");
@@ -157,7 +157,7 @@ Then(/^processing guarantee is present on contract page$/, async () => {
     await listingAssertions.checkMaintenanceDetailsOnViewGuarantee(combinedGuaranteeData);
 });
 
-Then(/^processing guarantee is present on start page$/, async () => {
+Then(/^processing combined guarantee is present on start page$/, async () => {
     await searchFunctions.openStartPageAndSearch(combinedGuaranteeData.beneficiaryName);
     await listingAssertions.checkItemIsDisplayed(combinedGuaranteeData.beneficiaryName);
     await listingAssertions.checkGuaranteeStatusFor(combinedGuaranteeData.beneficiaryName, "Processing");
@@ -173,4 +173,16 @@ Then(/^processing guarantee is present on start page$/, async () => {
     await listingAssertions.checkViewContractLinkIsNotDisabledFor(combinedGuaranteeData.beneficiaryName);
     await listingPage.clickViewContractLinkFor(combinedGuaranteeData.beneficiaryName);
     await listingAssertions.checkItemIsDisplayed(combinedGuaranteeData.projectName);
+});
+
+Then(/^wording for performance guarantee is shown$/, async () => {
+    await wordingAssertions.checkGuaranteeCreationDateEqualTo(moment().format("DD.MM.YYYY"));
+
+    await wordingAssertions.checkBeneficiaryDetails(combinedGuaranteeData);
+    await wordingAssertions.checkOrganisationDetails(combinedGuaranteeData);
+    await wordingAssertions.checkContractDetails(combinedGuaranteeData);
+    await wordingAssertions.checkPerformanceStartDateEqualTo(combinedGuaranteeData.performanceStartDate);
+    await wordingAssertions.checkPerformanceEndDateEqualTo(combinedGuaranteeData.performanceStartDate);
+    await wordingAssertions.checkPerformanceAmountEqualTo(combinedGuaranteeData.performanceAmount);
+
 });
