@@ -7,14 +7,12 @@ Feature: Contract
       | Facility     | Svartis | ON     | 1255, 5th Ave, Manhattan | New York | 10029 | true    |
     And opens new contract page
     And clears project name
-    And clears contract number
     And clears address line 1
     And clears address line 2
     And clears address line 3
     And clears project date
     And clicks on top zero coordinates
     Then project name validation message is shown
-    And contract number validation message is shown
     And address line 1 validation message is shown
     And address line 2 validation message is shown
     And address line 3 validation message is shown
@@ -23,8 +21,8 @@ Feature: Contract
   Scenario: Create contract
     Given opens new contract page
     And fills contract card with values
-      | name      | address                 | city      | zip   | date       | number | organisationName |
-      | Sun Risky | 1297, Massachusetts Ave | Arlington | 02476 | 01.01.2010 | CN     | Svartis          |
+      | name      | address                 | city      | zip   | date       | organisationName |
+      | Sun Risky | 1297, Massachusetts Ave | Arlington | 02476 | 01.01.2010 | Svartis          |
     When User submits changes
     And contract is present in start page listing
     And contract is present on Contract page
@@ -34,8 +32,8 @@ Feature: Contract
   Scenario: Edit contract details
     Given User opens contract page
     And edits contract data
-      | name         | number | date       | address                   | city     | zip   |
-      | Cheerful sun | NN     | 31.12.2015 | 413, W 34th St, Manhattan | New York | 10001 |
+      | name         | date       | address                   | city     | zip   |
+      | Cheerful sun | 31.12.2015 | 413, W 34th St, Manhattan | New York | 10001 |
     When User submits changes
     Then old contract is not created
     And edited contract is created

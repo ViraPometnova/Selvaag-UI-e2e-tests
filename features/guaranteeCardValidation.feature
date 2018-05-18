@@ -6,8 +6,8 @@ Feature: Guarantee card validation
       | facilityName    | name           | number | address                    | city   | zip   | enabled |
       | White Tombstone | Strong Lobster | ON     | 45, Paseo de la Castellana | Madrid | 28046 | true    |
     And Contract is created with values
-      | name          | address                          | city         | zip   | date       | number | organisationName |
-      | Eastern Moose | 897, Av. Corrientes, San Nicolas | Buenos Aires | C1043 | 01.01.2010 | HG     | Strong Lobster   |
+      | name          | address                          | city         | zip   | date       | organisationName |
+      | Eastern Moose | 897, Av. Corrientes, San Nicolas | Buenos Aires | C1043 | 01.01.2010 | Strong Lobster   |
     And Guarantee type is created with values
       | name           | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
       | Blue Plutonium | 4200         | true           | 5                     | 60           | true           | 3                     | CDTID              | CLTID            | 1398        | true    |
@@ -17,7 +17,7 @@ Feature: Guarantee card validation
     And clears address line 1
     And clears address line 2
     And clears address line 3
-    And clicks on bottom zero coordinates
+#    And clicks on bottom zero coordinates
     And selects guarantee type
     And clears contract amount
     And clears performance start date

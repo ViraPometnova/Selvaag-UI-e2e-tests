@@ -66,7 +66,6 @@ export class GuaranteeFunctions {
     }
 
     private async getContractData(guaranteeData) {
-        guaranteeData.contractNumber = await listingPage.getContractNumber();
         guaranteeData.projectName = await listingPage.getProjectName();
         guaranteeData.projectDate = await listingPage.getProjectDate();
 

@@ -30,7 +30,6 @@ export class WordingAssertions {
     }
 
     public async checkContractDetails(guaranteeData) {
-        assert.equal(await wording.getContractNumber(), guaranteeData.contractNumber, `Contract number should be equal to ${guaranteeData.contractNumber}`);
         assert.equal(await wording.getProjectName(), guaranteeData.projectName, `Project name should be equal to ${guaranteeData.projectName}`);
         assert.equal(await wording.getProjectDate(), guaranteeData.projectDate, `Project date should be equal to ${guaranteeData.projectDate}`);
     }

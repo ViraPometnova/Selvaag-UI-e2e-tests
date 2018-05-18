@@ -39,8 +39,8 @@ export class FacilityMemberAssertions {
     }
 
     public async checkFacilityMemberPageIsOpened() {
-        assert.include(await browser.getCurrentUrl(), "/facility-member/", "Url is not included facility member page reference");
         assert.isTrue(await listing.isItemCardAndDetailsDisplayed(), "Item card with details is not displayed");
+        assert.include(await browser.getCurrentUrl(), "/facility-member/", "Url is not included facility member page reference");
     }
 
     public async checkOrganisationNameValidationMessageIsDisplayed() {

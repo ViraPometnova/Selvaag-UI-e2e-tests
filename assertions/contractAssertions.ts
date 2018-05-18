@@ -12,24 +12,14 @@ export class ContractAssertions {
 
     public async checkContractPageIsOpened() {
         assert.isTrue(await contractPage.isProjectNameInputDisplayed(), "Project name input is not displayed");
-        assert.isTrue(await contractPage.isContractNumberInputDisplayed(), "Contract number input is not displayed");
     }
 
     public async checkProjectNameValidationMessageIsDisplayed() {
         assert.isTrue(await contractPage.isProjectNameFeedbackDisplayed(), "Validation message is not shown");
     }
 
-    public async checkContractNumberValidationMessageIsDisplayed() {
-        assert.isTrue(await contractPage.isContractNumberFeedbackDisplayed(), "Validation message is not shown");
-    }
-
     public async checkProjectDateValidationMessageIsDisplayed() {
         assert.isTrue(await contractPage.isProjectDateFeedbackDisplayed(), "Validation message is not shown");
-    }
-
-    public async checkContractNumberEqualTo(contractNumber: string) {
-        assert.equal(await contractPage.getContractNumber(), contractNumber,
-            `Contract number is not equal to ${contractNumber}`);
     }
 
     public async checkProjectNameEqualTo(projectName: string) {

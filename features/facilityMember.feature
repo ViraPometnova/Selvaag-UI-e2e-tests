@@ -49,7 +49,7 @@ Feature: Facility Member
     When User submits changes
     Then Facility member is disabled in Facility members list
     And Facility member is disabled for adding contracts from start page listing
-#    And Facility member is disabled for adding contracts from Facility member page
+    And Facility member is disabled for adding contracts from Facility member page
 
 #TODO: Add checks for disabled contract and guarantee creation
 
