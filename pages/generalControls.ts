@@ -5,12 +5,14 @@ export class GeneralControls {
     private cancelButton: any;
     private routerElement: any;
     private toastElement: any;
+    private backButton: any;
 
     constructor() {
         this.submitButton = element.all(by.cssContainingText(".btn-primary", "SUBMIT")).first();
         this.cancelButton = element(by.cssContainingText(".btn-secondary", "CANCEL"));
         this.routerElement = $$("router-outlet").first();
         this.toastElement = $("app-toasts");
+        this.backButton = $("#btnBack");
     }
 
     public clickSubmitButton() {
@@ -32,5 +34,9 @@ export class GeneralControls {
     public hideToasts() {
         return browser.executeScript("arguments[0].style.display = 'none';", this.toastElement.getWebElement());
 
+    }
+
+    public clickBackButton() {
+        return this.backButton.waitAndClick();
     }
 }

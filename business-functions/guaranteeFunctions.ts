@@ -35,12 +35,25 @@ export class GuaranteeFunctions {
         const guaranteeCardData = {};
 
         await this.getOrganisationData(guaranteeCardData);
-        await this.getContractData(guaranteeCardData);
+        await this.getProjectName(guaranteeCardData);
         await this.getBeneficiaryData(guaranteeCardData);
         await this.getContractAmount(guaranteeCardData);
         await this.getGuaranteeType(guaranteeCardData);
         await this.getPerformanceData(guaranteeCardData);
         await this.getMaintenanceData(guaranteeCardData);
+
+        return guaranteeCardData;
+    }
+
+    public async getPerformanceGuaranteeDataFromCard() {
+        const guaranteeCardData = {};
+
+        await this.getOrganisationData(guaranteeCardData);
+        await this.getProjectName(guaranteeCardData);
+        await this.getBeneficiaryData(guaranteeCardData);
+        await this.getContractAmount(guaranteeCardData);
+        await this.getGuaranteeType(guaranteeCardData);
+        await this.getPerformanceData(guaranteeCardData);
 
         return guaranteeCardData;
     }
@@ -65,10 +78,8 @@ export class GuaranteeFunctions {
         return guaranteeData;
     }
 
-    private async getContractData(guaranteeData) {
+    private async getProjectName(guaranteeData) {
         guaranteeData.projectName = await listingPage.getProjectName();
-        guaranteeData.projectDate = await listingPage.getProjectDate();
-
         return guaranteeData;
     }
 

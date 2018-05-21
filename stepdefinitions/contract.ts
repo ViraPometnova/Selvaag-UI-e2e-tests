@@ -1,6 +1,7 @@
 import {TableDefinition} from "cucumber";
 import {AddressFormAssertions} from "../assertions/addressFormAssertions";
 import {ContractAssertions} from "../assertions/contractAssertions";
+import {FacilityMemberAssertions} from "../assertions/facilityMemberAssertions";
 import {GuaranteeAssertions} from "../assertions/guaranteeAssertions";
 import {ListingAssertions} from "../assertions/listingAssertions";
 import {WebServiceAssertions} from "../assertions/webServiceAssertions";
@@ -10,7 +11,6 @@ import {ContractPage} from "../pages/contract";
 import {ListingPage} from "../pages/listing";
 import {CurrentRun} from "../support/currentRun";
 import {WebService} from "../support/rest/webService";
-import {FacilityMemberAssertions} from "../assertions/facilityMemberAssertions";
 
 const {When, Then} = require("cucumber"),
     listingPage = new ListingPage(),

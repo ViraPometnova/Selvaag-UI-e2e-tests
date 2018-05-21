@@ -154,11 +154,13 @@ export class GuaranteePage {
         return this.performanceEndDateInputFeedback.isWebElementDisplayed();
     }
 
-    public setPerformanceStartDate(date: string) {
+    public async setPerformanceStartDate(date: string) {
+        await this.performanceStartDateInput.clear();
         return this.performanceStartDateInput.sendKeys(date);
     }
 
-    public setPerformanceEndDate(date: string) {
+    public async setPerformanceEndDate(date: string) {
+        await this.performanceEndDateInput.clear();
         return this.performanceEndDateInput.sendKeys(date);
     }
 

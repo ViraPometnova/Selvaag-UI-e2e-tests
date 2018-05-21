@@ -17,14 +17,15 @@ Feature: Performance guarantee
       | unitNumber | beneficiaryName       | address            | city    | zip  | contractAmount | performanceStartDate | performanceEndDate        |
       | 48*26      | Performance Guarantee | F1563, Princes Hwy | Termeil | 2539 | 712500         | today - 3 days       | today + 7 months + 5 days |
     And clicks on bottom zero coordinates
-    And goes to preview draft wording
+    And goes to performance preview draft wording
     And wording for performance guarantee is shown
+    And User goes back
     And edits guarantee data with values
       | unitNumber  | beneficiaryName    | address                  | city          | zip        | contractAmount | performanceStartDate | performanceEndDate |
       | 48*26[Edit] | [Edited] Guarantee | F1563, Princes Hwy[Edit] | Termeil[Edit] | 2539[Edit] | 712501         | today - 7 days       | today + 7 months   |
     And clicks on bottom zero coordinates
-    And goes to preview draft wording
-    And wording for edited performance guarantee is shown
+    And goes to performance preview draft wording
+    And wording for performance guarantee is shown
     When User submits changes
     Then processing performance guarantee is present on contract page
     And processing performance guarantee is present on start page

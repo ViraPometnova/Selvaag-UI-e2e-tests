@@ -17,7 +17,7 @@ Feature: Combined guarantee
       | unitNumber | beneficiaryName    | address    | city   | zip | contractAmount | performanceStartDate | performanceEndDate        |
       | 12-89      | Combined Guarantee | Comber Way | Surrey | V3W | 1230500        | today + 5 days       | today + 9 months + 7 days |
     And clicks on bottom zero coordinates
-    And goes to preview draft wording
+    And goes to combined preview draft wording
     And wording for combined guarantee is shown
     When User submits changes
     Then processing combined guarantee is present on contract page
