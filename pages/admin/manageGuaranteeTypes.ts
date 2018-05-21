@@ -45,9 +45,9 @@ export class ManageGuaranteeTypesPage {
         this.fixedPremiumFeedback = element(by.cssContainingText(".form-control-feedback",
             "Fixed Premium is required."));
         this.maintenancePercentageFeedback = element(by.cssContainingText(".form-control-feedback",
-            "Mainteneance Percentage is required."));
+            "Maintenance Percentage is required."));
         this.maintenancePeriodInMonthsFeedback = element(by.cssContainingText(".form-control-feedback",
-            "Mainteneance Period In Months is required."));
+            "Maintenance Period In Months is required."));
         this.performancePercentageFeedback = element(by.cssContainingText(".form-control-feedback",
             "Performance Percentage is required."));
         this.documentTemplateIdFeedback = element(by.cssContainingText(".form-control-feedback",

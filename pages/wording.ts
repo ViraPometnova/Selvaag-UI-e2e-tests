@@ -6,7 +6,6 @@ export class WordingPage {
     private guaranteeDate: any;
     private textLayer: any;
     private draftWaterMark: any;
-    private contractData: any;
     private beneficiaryName: any;
     private beneficiaryAddress: any;
     private beneficiaryCityAndZip: any;
@@ -14,22 +13,13 @@ export class WordingPage {
     private organisationNumber: any;
     private organisationAddress: any;
     private organisationCityAndZip: any;
-    private contractDate: any;
-    private performanceStartDate: any;
-    private performanceAmount: any;
-    private performanceAmountFromText: any;
-    private maintenanceAmount: any;
-    private maintenanceAmountFromText: any;
-    private unitNumber: any;
 
     constructor() {
         this.pdfViewer = $("pdf-viewer");
         this.page = $$(".page").first();
         this.textLayer = $$(".textLayer").first();
-        this.guaranteeDate = this.textLayer.element(by.xpath("//div[text() = 'UTSTEDELSESDATO:']/following::div[1]"));
         this.draftWaterMark = this.textLayer.element(by.cssContainingText("div", "DRAFT"));
-        this.contractData = this.textLayer.element(by.xpath("//div[text() = 'KONTRAKTSBESKRIVELSE:']/following::div[1]"));
-        this.unitNumber = this.textLayer.element(by.xpath("//div[text() = 'KONTRAKTSBESKRIVELSE:']/following::div[2]"));
+        this.guaranteeDate = this.textLayer.element(by.xpath("//div[text() = 'UTSTEDELSESDATO:']/following::div[1]"));
         this.beneficiaryName = this.textLayer.element(by.xpath("//div[text() = 'GARANTIDEBITOR:']/following::div[1]"));
         this.beneficiaryAddress = this.textLayer.element(by.xpath("//div[text() = 'GARANTIDEBITOR:']/following::div[3]"));
         this.beneficiaryCityAndZip = this.textLayer.element(by.xpath("//div[text() = 'GARANTIDEBITOR:']/following::div[6]"));
@@ -37,12 +27,6 @@ export class WordingPage {
         this.organisationNumber = this.textLayer.element(by.xpath("//div[text() = 'GARANTIDEBITOR:']/following::div[4]"));
         this.organisationAddress = this.textLayer.element(by.xpath("//div[text() = 'GARANTIDEBITOR:']/following::div[5]"));
         this.organisationCityAndZip = this.textLayer.element(by.xpath("//div[text() = 'GARANTIDEBITOR:']/following::div[7]"));
-        this.performanceStartDate = this.textLayer.element(by.xpath("//div[text() = 'GARANTIBELØP:']/following::div[3]"));
-        this.performanceAmount = this.textLayer.element(by.xpath("//div[text() = 'GARANTIBELØP:']/following::div[4]"));
-        this.maintenanceAmount = this.textLayer.element(by.xpath("//div[text() = 'GARANTIBELØP:']/following::div[11]"));
-        this.contractDate = this.textLayer.element(by.xpath("//div[text() = 'GARANTIENS OMFANG:']/preceding::div[1]"));
-        this.performanceAmountFromText = this.textLayer.all(by.cssContainingText("div", "NOK")).get(2);
-        this.maintenanceAmountFromText = this.textLayer.all(by.cssContainingText("div", "NOK")).get(3);
     }
 
     public isPdfViewerPresent() {
@@ -65,9 +49,9 @@ export class WordingPage {
         return this.guaranteeDate.getText();
     }
 
-    public async getUnitNumber() {
-        const unitNumber = await this.unitNumber.getText();
-        return unitNumber.substr(2);
+    public isTextPresentOnWording(text: string) {
+        const elementToFind = this.textLayer.element(by.cssContainingText("div", text));
+        return elementToFind.isWebElementPresent();
     }
 
     public getBeneficiaryName() {
@@ -110,37 +94,9 @@ export class WordingPage {
         return cityZip[0];
     }
 
-    public async getProjectName() {
-        return this.contractData.getText();
-    }
-
-    public getProjectDate() {
-        return this.contractDate.getText();
-    }
-
-    public async getPerformanceStartDate() {
-        const performanceStartDateText = await this.getPerformanceStartDateText();
-        return performanceStartDateText.substr(2);
-    }
-
-    public getPerformanceAmount() {
-        return this.performanceAmount.getText();
-    }
-
-    public getMaintenanceAmount() {
-        return this.maintenanceAmount.getText();
-    }
-
-    public getPerformanceAmountFromText() {
-        return this.performanceAmountFromText.getText();
-    }
-
-    public getMaintenanceAmountFromText() {
-        return this.maintenanceAmountFromText.getText();
-    }
-
-    private getPerformanceStartDateText() {
-        return this.performanceStartDate.getText();
+    public async getElementsAmountContain(text: string) {
+        const elementToFind = this.textLayer.all(by.cssContainingText("div", text));
+        return elementToFind.count();
     }
 
     private getBeneficiaryCityZip() {

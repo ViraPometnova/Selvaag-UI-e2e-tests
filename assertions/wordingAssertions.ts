@@ -14,7 +14,7 @@ export class WordingAssertions {
     }
 
     public async checkBeneficiaryDetails(guaranteeData) {
-        assert.equal(await wording.getUnitNumber(), guaranteeData.unitNumber, `Unit number should be equal to ${guaranteeData.unitNumber}`);
+        assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.unitNumber), `Unit number should be present on draft wording`);
         assert.equal(await wording.getBeneficiaryName(), guaranteeData.beneficiaryName, `Beneficiary name should be equal to ${guaranteeData.beneficiaryName}`);
         assert.equal(await wording.getBeneficiaryAddress(), guaranteeData.beneficiaryAddress, `Beneficiary address should be equal to ${guaranteeData.beneficiaryAddress}`);
         assert.equal(await wording.getBeneficiaryCity(), guaranteeData.beneficiaryCity, `Beneficiary city should be equal to ${guaranteeData.beneficiaryCity}`);
@@ -30,25 +30,28 @@ export class WordingAssertions {
     }
 
     public async checkContractDetails(guaranteeData) {
-        assert.equal(await wording.getProjectName(), guaranteeData.projectName, `Project name should be equal to ${guaranteeData.projectName}`);
-        assert.equal(await wording.getProjectDate(), guaranteeData.projectDate, `Project date should be equal to ${guaranteeData.projectDate}`);
+        assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.projectName), `Project name should be present on draft wording`);
     }
 
-    public async checkPerformanceStartDateEqualTo(performanceStartDate: string) {
-        assert.equal(await wording.getPerformanceStartDate(), performanceStartDate, `Performance start date should be equal to ${performanceStartDate}`);
+    public async checkPerformanceStartDate(performanceStartDate: string) {
+        assert.isTrue(await wording.isTextPresentOnWording(performanceStartDate), `Performance start date should be present on draft wording`);
     }
 
-    public async checkPerformanceAmountEqualTo(performanceAmount: string) {
-        assert.include(await wording.getPerformanceAmount(), AmountParser.stringToNumber(performanceAmount), `Performance amount should include ${performanceAmount}`);
-        assert.include(await wording.getPerformanceAmountFromText(), AmountParser.stringToNumber(performanceAmount), `Text should include ${performanceAmount}`);
+    public async checkPerformanceAmount(performanceAmount: string, count: number) {
+        assert.equal(await wording.getElementsAmountContain(AmountParser.stringToNumber(performanceAmount)), count,
+            `Performance amount ${performanceAmount} should be present ${count} time(s)`);
     }
 
-    public async checkMaintenanceAmountEqualTo(maintenanceAmount: string) {
-        assert.include(await wording.getMaintenanceAmount(), AmountParser.stringToNumber(maintenanceAmount), `Maintenance amount should include ${maintenanceAmount}`);
-        assert.include(await wording.getMaintenanceAmountFromText(), AmountParser.stringToNumber(maintenanceAmount), `Text should include ${maintenanceAmount}`);
+    public async checkMaintenanceAmountEqualTo(maintenanceAmount: string, count: number) {
+        assert.equal(await wording.getElementsAmountContain(AmountParser.stringToNumber(maintenanceAmount)), count,
+            `Maintenance amount ${maintenanceAmount} should be present ${count} time(s)`);
     }
 
     public async checkDraftWaterMarkIsDisplayed() {
         assert.isTrue(await wording.isDraftWaterMarkDisplayed(), "Water mark is not displayed");
+    }
+
+    public async checkPerformanceEndDate(performanceEndDate: string) {
+        assert.isTrue(await wording.isTextPresentOnWording(performanceEndDate), `Performance end date should be present on draft wording`);
     }
 }

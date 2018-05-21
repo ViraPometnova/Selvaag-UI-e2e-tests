@@ -5,3 +5,4 @@ reports/
 .vscode
 .idea/
 images/
+debug.log

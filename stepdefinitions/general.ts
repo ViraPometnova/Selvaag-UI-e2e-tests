@@ -19,3 +19,7 @@ When(/^clicks on top zero coordinates$/, async () => {
 When(/^clicks on bottom zero coordinates$/, async () => {
     await generalControls.clickOnBottomZeroCoordinates();
 });
+
+When(/^User goes back$/, async () => {
+    await generalControls.clickBackButton();
+});
