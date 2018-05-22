@@ -51,6 +51,5 @@ Feature: Facility Member
     And Facility member is disabled for adding contracts from start page listing
     And Facility member is disabled for adding contracts from Facility member page
 
-#TODO: Add checks for disabled contract and guarantee creation
 
 

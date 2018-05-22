@@ -17,16 +17,19 @@ export class AddressForm {
         this.zipInputFeedback = element(by.cssContainingText(".form-control-feedback", "Zip is required."));
     }
 
-    public setAddressLine1(address: string) {
-        return this.addressLine1Input.clearAndSendKeys(address);
+    public async setAddressLine1(address: string) {
+        await this.clearAddressLine1();
+        return this.addressLine1Input.sendKeys(address);
     }
 
-    public setAddressLine2(city: string) {
-        return this.addressLine2Input.clearAndSendKeys(city);
+    public async setAddressLine2(city: string) {
+        await this.clearAddressLine2();
+        return this.addressLine2Input.sendKeys(city);
     }
 
-    public setAddressLine3(zip: string) {
-        return this.addressLine3Input.clearAndSendKeys(zip);
+    public async setAddressLine3(zip: string) {
+        await this.clearAddressLine3();
+        return this.addressLine3Input.sendKeys(zip);
     }
 
     public clearAddressLine1() {

@@ -24,14 +24,16 @@ export const config: Config = {
 
     specs:
     // [
-    // "../../features/login.feature",
-    // "../../features/facility.feature",
-    // "../../features/facilityMember.feature",
-    // "../../features/contract.feature",
-    // "../../features/guaranteeType.feature",
-    // "../../features/guaranteeCardValidation.feature",
-    // "../../features/combinedGuarantee.feature"],
-        ["../../features/contract.feature"],
+    //     "../../features/login.feature",
+    //     "../../features/facility.feature",
+    //     "../../features/facilityMember.feature",
+    //     "../../features/contract.feature",
+    //     "../../features/guaranteeType.feature",
+    //     "../../features/guaranteeCardValidation.feature",
+    //     "../../features/combinedGuarantee.feature",
+    //     "../../features/performanceGuarantee.feature",
+    //     "../../features/maintenanceGuarantee.feature"],
+        ["../../features/performanceGuarantee.feature"],
 
     onPrepare: () => {
         browser.waitForAngularEnabled(false);

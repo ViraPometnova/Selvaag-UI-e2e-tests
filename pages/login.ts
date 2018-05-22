@@ -1,4 +1,4 @@
-import {$, browser, by, element} from "protractor";
+import {$, by, element} from "protractor";
 
 export class LoginPage {
     private title: any;
@@ -29,11 +29,7 @@ export class LoginPage {
         return this.title.isWebElementDisplayed();
     }
 
-    public getPageTitle() {
-        return browser.getTitle();
-    }
-
-    public async isLoginButtonEnabled() {
+    public isLoginButtonEnabled() {
         return this.loginButton.hasClass("enabled");
     }
 }

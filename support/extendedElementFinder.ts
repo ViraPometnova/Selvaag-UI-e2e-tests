@@ -48,7 +48,7 @@ declare module "protractor/built/element" {
  */
 ElementFinder.prototype.clearAndSendKeys = function (text: string) {
     const self = this;
-    return browser.wait(EC.visibilityOf(self), 10000)
+    return browser.wait(EC.visibilityOf(self), 7000)
         .then(() => {
             self.sendKeys("")
                 .then(() => {
@@ -59,13 +59,13 @@ ElementFinder.prototype.clearAndSendKeys = function (text: string) {
 
 ElementFinder.prototype.isWebElementDisplayed = function () {
     const self = this;
-    return browser.wait(EC.visibilityOf(self), 10000)
+    return browser.wait(EC.visibilityOf(self), 5000)
         .then(() => true, () => false);
 };
 
 ElementFinder.prototype.isWebElementPresent = function () {
     const self = this;
-    return browser.wait(EC.presenceOf(self), 10000)
+    return browser.wait(EC.presenceOf(self), 3000)
         .then(() => true, () => false);
 };
 

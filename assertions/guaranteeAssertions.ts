@@ -81,4 +81,8 @@ export class GuaranteeAssertions {
         assert.equal(await guaranteePage.getContractCity(), contractAddress.city, `City should be equal to ${contractAddress.city}`);
         assert.equal(await guaranteePage.getContractZip(), contractAddress.zip, `Zip should be equal to ${contractAddress.zip}`);
     }
+
+    public async checkModalConfirmWindowIsDisplayed() {
+        assert.isTrue(await guaranteePage.isModalConfirmWindowDisplayed(), "Modal Confirm? window is not displayed");
+    }
 }

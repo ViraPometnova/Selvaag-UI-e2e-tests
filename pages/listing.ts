@@ -15,6 +15,7 @@ export class ListingPage {
     private organisationAddress: any;
     private contractDetails: any;
     private contractHeader: any;
+    private timer: any;
 
     constructor() {
         this.itemCard = $$(".item-card").first();
@@ -30,6 +31,11 @@ export class ListingPage {
         this.organisationAddress = this.organisationItemCard.$$(".sub-details div");
         this.contractDetails = this.contractItemCard.$$(".details span");
         this.contractHeader = this.contractItemCard.$(".details h6");
+    }
+
+    public isTimerDisplayedFor(itemName: string) {
+        const item = this.getItem(itemName);
+        return item.$(".timer").isWebElementDisplayed();
     }
 
     public isItemDisplayed(itemName: string) {
@@ -226,6 +232,10 @@ export class ListingPage {
 
     public clickViewContractLinkFor(itemName: string) {
         return this.getItem(itemName).waitAndClick();
+    }
+
+    public isEditGuaranteeLinkDisplayedFor(itemName: string) {
+        return this.getEditGuaranteeLinkFor(itemName).isWebElementDisplayed();
     }
 
     private getMaintenanceDetailsElementFor(itemName: string) {

@@ -15,25 +15,25 @@ export class WordingAssertions {
 
     public async checkBeneficiaryDetails(guaranteeData) {
         assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.unitNumber), `Unit number should be present on draft wording`);
-        assert.equal(await wording.getBeneficiaryName(), guaranteeData.beneficiaryName, `Beneficiary name should be equal to ${guaranteeData.beneficiaryName}`);
-        assert.equal(await wording.getBeneficiaryAddress(), guaranteeData.beneficiaryAddress, `Beneficiary address should be equal to ${guaranteeData.beneficiaryAddress}`);
-        assert.equal(await wording.getBeneficiaryCity(), guaranteeData.beneficiaryCity, `Beneficiary city should be equal to ${guaranteeData.beneficiaryCity}`);
-        assert.equal(await wording.getBeneficiaryZip(), guaranteeData.beneficiaryZip, `Beneficiary zip should be equal to ${guaranteeData.beneficiaryZip}`);
+        assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.beneficiaryName), `Beneficiary name should be present on draft wording`);
+        assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.beneficiaryAddress), `Beneficiary address should be present on draft wording`);
+        assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.beneficiaryCity), `Beneficiary city should be present on draft wording`);
+        assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.beneficiaryZip), `Beneficiary zip should be present on draft wording`);
     }
 
     public async checkOrganisationDetails(guaranteeData) {
-        assert.equal(await wording.getOrganisationName(), guaranteeData.organisationName, `Organisation name should be equal to ${guaranteeData.organisationName}`);
-        assert.equal(await wording.getOrganisationNumber(), guaranteeData.organisationNumber, `Organisation number should be equal to ${guaranteeData.organisationNumber}`);
-        assert.equal(await wording.getOrganisationAddress(), guaranteeData.organisationAddress, `Organisation address should be equal to ${guaranteeData.organisationAddress}`);
-        assert.equal(await wording.getOrganisationCity(), guaranteeData.organisationCity, `Organisation city should be equal to ${guaranteeData.organisationCity}`);
-        assert.equal(await wording.getOrganisationZip(), guaranteeData.organisationZip, `Organisation zip should be equal to ${guaranteeData.organisationZip}`);
+        assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.organisationName), `Organisation name should be present on draft wording`);
+        assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.organisationNumber), `Organisation number should be present on draft wording`);
+        assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.organisationAddress), `Organisation address should be present on draft wording`);
+        assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.organisationCity), `Organisation city should be present on draft wording`);
+        assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.organisationZip), `Organisation zip should be present on draft wording}`);
     }
 
     public async checkContractDetails(guaranteeData) {
         assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.projectName), `Project name should be present on draft wording`);
     }
 
-    public async checkPerformanceStartDate(performanceStartDate: string) {
+    public async checkStartDate(performanceStartDate: string) {
         assert.isTrue(await wording.isTextPresentOnWording(performanceStartDate), `Performance start date should be present on draft wording`);
     }
 
@@ -51,7 +51,7 @@ export class WordingAssertions {
         assert.isTrue(await wording.isDraftWaterMarkDisplayed(), "Water mark is not displayed");
     }
 
-    public async checkPerformanceEndDate(performanceEndDate: string) {
+    public async checkEndDate(performanceEndDate: string) {
         assert.isTrue(await wording.isTextPresentOnWording(performanceEndDate), `Performance end date should be present on draft wording`);
     }
 }

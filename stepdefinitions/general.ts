@@ -1,4 +1,5 @@
 import {GeneralControls} from "../pages/generalControls";
+import {browser} from "protractor";
 
 const {When} = require("cucumber"),
     generalControls = new GeneralControls();
@@ -22,4 +23,8 @@ When(/^clicks on bottom zero coordinates$/, async () => {
 
 When(/^User goes back$/, async () => {
     await generalControls.clickBackButton();
+});
+
+When(/^User waits for pdf to be reloaded$/, async () => {
+    await browser.sleep(10000);
 });

@@ -38,9 +38,9 @@ Then(/^Login action is not available$/, async () => {
 });
 
 When(/^User is logged in with (.*?) and (.*?)$/, async (username: string, password: string) => {
-    await LoginFunctions.login(username, password);
+    await LoginFunctions.clearSessionAndLogin(username, password);
 });
 
 When(/^User is logged in$/, async () => {
-    await LoginFunctions.login(credentials.username, credentials.password);
+    await LoginFunctions.clearSessionAndLogin(credentials.username, credentials.password);
 });

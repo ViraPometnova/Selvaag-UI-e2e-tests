@@ -45,7 +45,7 @@ Then(/^project date validation message is shown$/, async () => {
 
 When(/^Contract is created with values$/, async (table: TableDefinition) => {
     contractData = await table.hashes();
-    CurrentRun.uniquePerTestRun(contractData);
+    await CurrentRun.uniquePerTestRun(contractData);
 
     await webService.createContract(contractData[0]);
     await webServiceAssertions.checkContractIsCreated(contractData[0].organisationName, contractData[0].name);

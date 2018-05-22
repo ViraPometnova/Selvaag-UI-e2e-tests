@@ -26,6 +26,10 @@ export class GuaranteePage {
     private maintenancePercentageInput: any;
     private maintenanceAmountInput: any;
     private organisationNumberInput: any;
+    private submitAndApproveButton: any;
+    private yesButton: any;
+    private noButton: any;
+    private modalConfirmWindow: any;
 
     constructor() {
         this.unitNumberInput = $("#unitNumberInput");
@@ -53,6 +57,10 @@ export class GuaranteePage {
         this.maintenancePercentageInput = $("#maintenancePercentageInput");
         this.maintenanceAmountInput = $("#maintenanceAmountInput");
         this.organisationNumberInput = $("#organisationNumberInput");
+        this.submitAndApproveButton = $("#btnSubmitApprove");
+        this.modalConfirmWindow = $(".modal-dialog");
+        this.yesButton = this.modalConfirmWindow.element(by.cssContainingText(".btn-primary", "YES"));
+        this.noButton = this.modalConfirmWindow.element(by.cssContainingText(".btn-secondary", "NO"));
     }
 
     public isUnitNumberInputDisplayed() {
@@ -86,7 +94,7 @@ export class GuaranteePage {
         if (!isDropdownOpened) {
             await this.clickGuaranteeDetailsDropdown();
         }
-        return this.getDropdownItemFor(optionName).waitAndClick();
+        return await this.getDropdownItemFor(optionName).waitAndClick();
     }
 
     public async clickGuaranteeDetailsDropdown() {
@@ -97,7 +105,7 @@ export class GuaranteePage {
     public async getDropdownOptionsText() {
         await this.clickGuaranteeDetailsDropdown();
         const dropdownOptionsElement = await this.getDropdownMenuElement();
-        return dropdownOptionsElement.getText();
+        return await dropdownOptionsElement.getText();
     }
 
     public async getSelectedDropdownItemText() {
@@ -155,13 +163,13 @@ export class GuaranteePage {
     }
 
     public async setPerformanceStartDate(date: string) {
-        await this.performanceStartDateInput.clear();
-        return this.performanceStartDateInput.sendKeys(date);
+        await this.clearPerformanceStartDate();
+        return await this.performanceStartDateInput.sendKeys(date);
     }
 
     public async setPerformanceEndDate(date: string) {
-        await this.performanceEndDateInput.clear();
-        return this.performanceEndDateInput.sendKeys(date);
+        await this.clearPerformanceEndDate();
+        return await this.performanceEndDateInput.sendKeys(date);
     }
 
     public getPerformanceStartDate() {
@@ -172,16 +180,19 @@ export class GuaranteePage {
         return this.performanceEndDateInput.getValue();
     }
 
-    public setContractAmount(amount: string) {
-        return this.contractAmountInput.clearAndSendKeys(amount);
+    public async setContractAmount(amount: string) {
+        await this.clearContractAmount();
+        return await this.contractAmountInput.sendKeys(amount);
     }
 
-    public setUnitNumber(unitNumber: string) {
-        return this.unitNumberInput.clearAndSendKeys(unitNumber);
+    public async setUnitNumber(unitNumber: string) {
+        await this.clearUnitNumberInput();
+        return await this.unitNumberInput.sendKeys(unitNumber);
     }
 
-    public setBeneficiaryName(beneficiaryName: string) {
-        return this.beneficiaryNameInput.clearAndSendKeys(beneficiaryName);
+    public async setBeneficiaryName(beneficiaryName: string) {
+        await this.clearBeneficiaryNameInput();
+        return await this.beneficiaryNameInput.sendKeys(beneficiaryName);
     }
 
     public getContractAddress() {
@@ -197,7 +208,7 @@ export class GuaranteePage {
     }
 
     public setMaintenanceStartDate(date: string) {
-        return this.maintenanceStartDateInput.clearAndSendKeys(date);
+        return this.maintenanceStartDateInput.sendKeys(date);
     }
 
     public clickPreviewDraftButton() {
@@ -238,6 +249,18 @@ export class GuaranteePage {
 
     public getOrganisationNumber() {
         return this.organisationNumberInput.getValue();
+    }
+
+    public clickSubmitAndApproveButton() {
+        return this.submitAndApproveButton.waitAndClick();
+    }
+
+    public clickYesButton() {
+        return this.yesButton.waitAndClick();
+    }
+
+    public isModalConfirmWindowDisplayed() {
+        return this.modalConfirmWindow.isWebElementDisplayed();
     }
 
     private getSelectedDropdownItem() {

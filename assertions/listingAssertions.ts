@@ -143,4 +143,16 @@ export class ListingAssertions {
     public async checkViewContractLinkIsNotDisabledFor(itemName: string) {
         assert.isFalse(await listingPage.isViewContractLinkDisabledFor(itemName), `View contract link is disabled for ${itemName}`);
     }
+
+    public async checkTimerIsDisplayedFor(itemName: string) {
+        assert.isTrue(await listingPage.isTimerDisplayedFor(itemName), `Timer is not shown for ${itemName}`);
+    }
+
+    public async checkEditGuaranteeLinkIsNotDisplayed(itemName: string) {
+        assert.isFalse(await listingPage.isEditGuaranteeLinkDisplayedFor(itemName), `Edit guarantee link is shown for ${itemName}`);
+    }
+
+    public async checkTimerIsNotDisplayedFor(itemName: string) {
+        assert.isFalse(await listingPage.isTimerDisplayedFor(itemName), `Timer is displayed for ${itemName}`);
+    }
 }

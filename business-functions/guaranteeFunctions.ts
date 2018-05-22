@@ -2,10 +2,12 @@ import {AddressForm} from "../pages/addressForm";
 import {GuaranteePage} from "../pages/guarantee";
 import {ListingPage} from "../pages/listing";
 import {DateParser} from "../support/dateParser";
+import {GeneralControls} from "../pages/generalControls";
 
 const guaranteePage = new GuaranteePage(),
     addressForm = new AddressForm(),
-    listingPage = new ListingPage();
+    listingPage = new ListingPage(),
+    generalControls = new GeneralControls();
 
 export class GuaranteeFunctions {
 
@@ -27,7 +29,7 @@ export class GuaranteeFunctions {
         }
 
         if (guaranteeData.maintenanceStartDate) {
-            await guaranteePage.setMaintenanceStartDate(guaranteeData.maintenanceStartDate);
+            await guaranteePage.setMaintenanceStartDate(DateParser.textToDate(guaranteeData.maintenanceStartDate));
         }
     }
 
@@ -56,6 +58,25 @@ export class GuaranteeFunctions {
         await this.getPerformanceData(guaranteeCardData);
 
         return guaranteeCardData;
+    }
+
+    public async getMaintenanceGuaranteeDataFromCard() {
+        const guaranteeCardData = {};
+
+        await this.getOrganisationData(guaranteeCardData);
+        await this.getProjectName(guaranteeCardData);
+        await this.getBeneficiaryData(guaranteeCardData);
+        await this.getContractAmount(guaranteeCardData);
+        await this.getGuaranteeType(guaranteeCardData);
+        await this.getMaintenanceData(guaranteeCardData);
+
+        return guaranteeCardData;
+    }
+
+    public async submitAndApprove() {
+        await guaranteePage.clickSubmitAndApproveButton();
+        await guaranteePage.clickYesButton();
+        await generalControls.hideToasts();
     }
 
     private async getContractAmount(guaranteeData) {

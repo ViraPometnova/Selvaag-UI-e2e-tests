@@ -1,5 +1,4 @@
 import {TableDefinition} from "cucumber";
-import moment = require("moment");
 import {browser} from "protractor";
 import {GuaranteeAssertions} from "../assertions/guaranteeAssertions";
 import {ListingAssertions} from "../assertions/listingAssertions";
@@ -11,6 +10,7 @@ import {ListingPage} from "../pages/listing";
 import {WordingPage} from "../pages/wording";
 import {CurrentRun} from "../support/currentRun";
 import {DateParser} from "../support/dateParser";
+import moment = require("moment");
 
 const {Then, When} = require("cucumber"),
     guaranteePage = new GuaranteePage(),
@@ -22,7 +22,8 @@ const {Then, When} = require("cucumber"),
     listingPage = new ListingPage(),
     searchFunctions = new SearchFunctions();
 
-let performanceEndDate, combinedGuaranteeData, guaranteeData, performanceGuaranteeData, editedGuaranteeData;
+let performanceEndDate, combinedGuaranteeData, guaranteeData, performanceGuaranteeData, editedGuaranteeData,
+    maintenanceGuaranteeData;
 
 When(/^clears unit number$/, async () => {
     await guaranteePage.clearUnitNumberInput();
@@ -133,13 +134,13 @@ When(/^goes to performance preview draft wording$/, async () => {
     await wordingAssertions.checkDraftWaterMarkIsDisplayed();
 });
 
-Then(/^wording for combined guarantee is shown$/, async () => {
+When(/^wording for combined guarantee is shown$/, async () => {
     await wordingAssertions.checkGuaranteeCreationDateEqualTo(moment().format("DD.MM.YYYY"));
 
     await wordingAssertions.checkBeneficiaryDetails(combinedGuaranteeData);
     await wordingAssertions.checkOrganisationDetails(combinedGuaranteeData);
     await wordingAssertions.checkContractDetails(combinedGuaranteeData);
-    await wordingAssertions.checkPerformanceStartDate(combinedGuaranteeData.performanceStartDate);
+    await wordingAssertions.checkStartDate(combinedGuaranteeData.performanceStartDate);
     await wordingAssertions.checkPerformanceAmount(combinedGuaranteeData.performanceAmount, 2);
     await wordingAssertions.checkMaintenanceAmountEqualTo(combinedGuaranteeData.maintenanceAmount, 2);
 
@@ -158,6 +159,7 @@ Then(/^processing combined guarantee is present on contract page$/, async () => 
     await listingAssertions.checkSubDetailsAreDisplayedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.beneficiaryCity);
     await listingAssertions.checkSubDetailsAreDisplayedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.beneficiaryZip);
     await listingAssertions.checkEditGuaranteeLinkIsDisabledFor(combinedGuaranteeData.beneficiaryName);
+    await listingAssertions.checkTimerIsDisplayedFor(combinedGuaranteeData.beneficiaryName);
 
     await listingPage.clickViewGuaranteeLinkFor(combinedGuaranteeData.beneficiaryName);
     await listingAssertions.checkBeneficiaryDetailsOnViewGuarantee(combinedGuaranteeData);
@@ -175,6 +177,7 @@ Then(/^processing combined guarantee is present on start page$/, async () => {
     await listingAssertions.checkGuaranteeDateClosedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.maintenanceEndDate);
     await listingAssertions.checkSubDetailsAreDisplayedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.organisationName);
     await listingAssertions.checkSubDetailsAreDisplayedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.projectName);
+    await listingAssertions.checkTimerIsDisplayedFor(combinedGuaranteeData.beneficiaryName);
 
     await listingAssertions.checkEditGuaranteeLinkIsDisabledFor(combinedGuaranteeData.beneficiaryName);
     await listingAssertions.checkViewGuaranteeLinkIsNotDisabledFor(combinedGuaranteeData.beneficiaryName);
@@ -184,14 +187,14 @@ Then(/^processing combined guarantee is present on start page$/, async () => {
     await listingAssertions.checkItemIsDisplayed(combinedGuaranteeData.projectName);
 });
 
-Then(/^wording for performance guarantee is shown$/, async () => {
+When(/^wording for performance guarantee is shown$/, async () => {
     await wordingAssertions.checkGuaranteeCreationDateEqualTo(moment().format("DD.MM.YYYY"));
 
     await wordingAssertions.checkBeneficiaryDetails(performanceGuaranteeData);
     await wordingAssertions.checkOrganisationDetails(performanceGuaranteeData);
     await wordingAssertions.checkContractDetails(performanceGuaranteeData);
-    await wordingAssertions.checkPerformanceStartDate(performanceGuaranteeData.performanceStartDate);
-    await wordingAssertions.checkPerformanceEndDate(performanceGuaranteeData.performanceEndDate);
+    await wordingAssertions.checkStartDate(performanceGuaranteeData.performanceStartDate);
+    await wordingAssertions.checkEndDate(performanceGuaranteeData.performanceEndDate);
     await wordingAssertions.checkPerformanceAmount(performanceGuaranteeData.performanceAmount, 1);
 
 });
@@ -209,6 +212,7 @@ Then(/^processing performance guarantee is present on contract page$/, async () 
     await listingAssertions.checkSubDetailsAreDisplayedFor(performanceGuaranteeData.beneficiaryName, performanceGuaranteeData.beneficiaryCity);
     await listingAssertions.checkSubDetailsAreDisplayedFor(performanceGuaranteeData.beneficiaryName, performanceGuaranteeData.beneficiaryZip);
     await listingAssertions.checkEditGuaranteeLinkIsDisabledFor(performanceGuaranteeData.beneficiaryName);
+    await listingAssertions.checkTimerIsDisplayedFor(performanceGuaranteeData.beneficiaryName);
 
     await listingPage.clickViewGuaranteeLinkFor(performanceGuaranteeData.beneficiaryName);
     await listingAssertions.checkBeneficiaryDetailsOnViewGuarantee(performanceGuaranteeData);
@@ -225,6 +229,7 @@ Then(/^processing performance guarantee is present on start page$/, async () => 
     await listingAssertions.checkGuaranteeDateClosedFor(performanceGuaranteeData.beneficiaryName, performanceGuaranteeData.performanceEndDate);
     await listingAssertions.checkSubDetailsAreDisplayedFor(performanceGuaranteeData.beneficiaryName, performanceGuaranteeData.organisationName);
     await listingAssertions.checkSubDetailsAreDisplayedFor(performanceGuaranteeData.beneficiaryName, performanceGuaranteeData.projectName);
+    await listingAssertions.checkTimerIsDisplayedFor(performanceGuaranteeData.beneficiaryName);
 
     await listingAssertions.checkEditGuaranteeLinkIsDisabledFor(performanceGuaranteeData.beneficiaryName);
     await listingAssertions.checkViewGuaranteeLinkIsNotDisabledFor(performanceGuaranteeData.beneficiaryName);
@@ -239,4 +244,68 @@ Then(/^edits guarantee data with values$/, async (table: TableDefinition) => {
     await CurrentRun.uniquePerTestRun(editedGuaranteeData);
 
     await guaranteeFunctions.populateGuaranteeCard(editedGuaranteeData[0]);
+});
+
+When(/^goes to maintenance preview draft wording$/, async () => {
+    maintenanceGuaranteeData = await guaranteeFunctions.getMaintenanceGuaranteeDataFromCard();
+
+    await guaranteePage.clickPreviewDraftButton();
+    await wordingAssertions.checkDraftWordingIsPresent();
+    await wording.waitPageToLoadData();
+    await wordingAssertions.checkDraftWaterMarkIsDisplayed();
+});
+
+When(/^wording for maintenance guarantee is shown$/, async () => {
+    await wordingAssertions.checkGuaranteeCreationDateEqualTo(moment().format("DD.MM.YYYY"));
+
+    await wordingAssertions.checkBeneficiaryDetails(maintenanceGuaranteeData);
+    await wordingAssertions.checkOrganisationDetails(maintenanceGuaranteeData);
+    await wordingAssertions.checkContractDetails(maintenanceGuaranteeData);
+    await wordingAssertions.checkStartDate(maintenanceGuaranteeData.maintenanceStartDate);
+    await wordingAssertions.checkEndDate(maintenanceGuaranteeData.maintenanceEndDate);
+    await wordingAssertions.checkPerformanceAmount(maintenanceGuaranteeData.maintenanceAmount, 2);
+});
+
+When(/^User approves immediate guarantee creation$/, async () => {
+    await guaranteeFunctions.submitAndApprove();
+});
+
+Then(/^processing maintenance guarantee is present on contract page$/, async () => {
+    await listingAssertions.checkItemIsDisplayed(maintenanceGuaranteeData.beneficiaryName);
+    await listingAssertions.checkItemIsDisplayed(maintenanceGuaranteeData.projectName);
+    await listingAssertions.checkCounterFor(maintenanceGuaranteeData.projectName, "1");
+
+    await listingAssertions.checkGuaranteeStatusFor(maintenanceGuaranteeData.beneficiaryName, "Processing");
+    await listingAssertions.checkGuaranteeNumberFor(maintenanceGuaranteeData.beneficiaryName, "");
+    await listingAssertions.checkGuaranteeDateOpenedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.maintenanceStartDate);
+    await listingAssertions.checkGuaranteeDateClosedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.maintenanceEndDate);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.beneficiaryAddress);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.beneficiaryCity);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.beneficiaryZip);
+    await listingAssertions.checkEditGuaranteeLinkIsNotDisplayed(maintenanceGuaranteeData.beneficiaryName);
+    await listingAssertions.checkTimerIsNotDisplayedFor(maintenanceGuaranteeData.beneficiaryName);
+
+    await listingPage.clickViewGuaranteeLinkFor(maintenanceGuaranteeData.beneficiaryName);
+    await listingAssertions.checkBeneficiaryDetailsOnViewGuarantee(maintenanceGuaranteeData);
+    await listingAssertions.checkGuaranteeDetailsOnViewGuarantee(maintenanceGuaranteeData);
+    await listingAssertions.checkMaintenanceDetailsOnViewGuarantee(maintenanceGuaranteeData);
+});
+
+Then(/^processing maintenance guarantee is present on start page$/, async () => {
+    await searchFunctions.openStartPageAndSearch(maintenanceGuaranteeData.beneficiaryName);
+    await listingAssertions.checkItemIsDisplayed(maintenanceGuaranteeData.beneficiaryName);
+    await listingAssertions.checkGuaranteeStatusFor(maintenanceGuaranteeData.beneficiaryName, "Processing");
+    await listingAssertions.checkGuaranteeNumberFor(maintenanceGuaranteeData.beneficiaryName, "");
+    await listingAssertions.checkGuaranteeDateOpenedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.maintenanceStartDate);
+    await listingAssertions.checkGuaranteeDateClosedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.maintenanceEndDate);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.organisationName);
+    await listingAssertions.checkSubDetailsAreDisplayedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.projectName);
+    await listingAssertions.checkTimerIsNotDisplayedFor(maintenanceGuaranteeData.beneficiaryName);
+
+    await listingAssertions.checkEditGuaranteeLinkIsNotDisplayed(maintenanceGuaranteeData.beneficiaryName);
+    await listingAssertions.checkViewGuaranteeLinkIsNotDisabledFor(maintenanceGuaranteeData.beneficiaryName);
+
+    await listingAssertions.checkViewContractLinkIsNotDisabledFor(maintenanceGuaranteeData.beneficiaryName);
+    await listingPage.clickViewContractLinkFor(maintenanceGuaranteeData.beneficiaryName);
+    await listingAssertions.checkItemIsDisplayed(maintenanceGuaranteeData.projectName);
 });
