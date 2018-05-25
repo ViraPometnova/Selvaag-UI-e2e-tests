@@ -12,10 +12,18 @@ export class DateParser {
                 result = result.subtract(eval(splittedText[i + 1]), splittedText[i + 2]);
             }
         }
-        return result.format("DDMMYYYY");
+        return result.format("DD.MM.YYYY");
     }
 
     public static dateToString(value: string) {
         return value.replace(/[.]/g, "");
+    }
+
+    public static dateToSqlFormat(date: string) {
+        return date.split(".").reverse().join("-");
+    }
+
+    public static dateFromSqlFormat(date: string) {
+        return date.split("-").reverse().join(".");
     }
 }

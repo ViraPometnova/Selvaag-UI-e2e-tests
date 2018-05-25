@@ -180,7 +180,7 @@ Then(/^contract is not present on Facility member page$/, async () => {
     await listingAssertions.checkItemIsNotDisplayed(editedContractData[0].name);
 });
 
-When(/^deletes contract via WebApi$/, async () => {
+When(/^deletes used contract via WebApi$/, async () => {
     await webServiceAssertions.checkContractDeletionFails(contractData[0].organisationName, contractData[0].name);
 });
 

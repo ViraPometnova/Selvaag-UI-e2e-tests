@@ -1,5 +1,6 @@
 import * as WebRequest from "web-request";
 import {config} from "../../config/config";
+import {DateParser} from "../dateParser";
 import {AccessToken} from "./accessToken";
 
 const baseUrl = config.baseUrl + "v1/",
@@ -7,6 +8,7 @@ const baseUrl = config.baseUrl + "v1/",
     facilityMemberUrl = baseUrl + "facilitymember",
     contractUrl = baseUrl + "contract",
     guaranteeTypesUrl = baseUrl + "guaranteetypes",
+    guaranteeUrl = baseUrl + "guarantee",
     accessToken = new AccessToken();
 
 export class WebService {
@@ -50,7 +52,7 @@ export class WebService {
 
     public async getFacilityMembersNames() {
         const facilityMembers = await this.getFacilityMembers(),
-            content = JSON.parse(facilityMembers.content);
+            content = await JSON.parse(facilityMembers.content);
         return content.map((item) => item.organisationName);
     }
 
@@ -74,7 +76,7 @@ export class WebService {
 
     public async getFacilityMemberGuidFor(organisationName: string) {
         const facilityMembers = await this.getFacilityMembers(),
-            content = JSON.parse(facilityMembers.content),
+            content = await JSON.parse(facilityMembers.content),
             guid = content.filter((item) => item.organisationName === organisationName)
                 .map((item) => item.guid);
         return guid[0];
@@ -83,7 +85,7 @@ export class WebService {
 
     public async getContractNames(organisationName: string) {
         const contracts = await this.getContractsFor(organisationName),
-            content = JSON.parse(contracts.content);
+            content = await JSON.parse(contracts.content);
         return content.filter((item) => item.contract != null && item.contract.projectName != null)
             .map((item) => item.contract.projectName);
     }
@@ -117,7 +119,7 @@ export class WebService {
 
     public async getGuaranteeTypesNames() {
         const guaranteeTypes = await this.getGuaranteeTypes(),
-            content = JSON.parse(guaranteeTypes.content);
+            content = await JSON.parse(guaranteeTypes.content);
         return content.map((item) => item.name);
     }
 
@@ -130,6 +132,50 @@ export class WebService {
         } catch (e) {
             return await JSON.stringify(e);
         }
+    }
+
+    public async createGuarantee(guarantee) {
+        const auth = await accessToken.getAuthOption(),
+            contractGuid = await this.getContractGuidFor(guarantee.organisationName, guarantee.contractName),
+            facilityMemberGuid = await this.getFacilityMemberGuidFor(guarantee.organisationName),
+            guaranteeTypeGuid = await this.getGuaranteeTypeGuidFor(guarantee.guaranteeType),
+            endDate = await DateParser.textToDate(guarantee.endDate),
+            startDate = await DateParser.textToDate(guarantee.startDate),
+            sqlEndDate = await DateParser.dateToSqlFormat(endDate),
+            sqlStartDate = await DateParser.dateToSqlFormat(startDate);
+        try {
+            await WebRequest.post(guaranteeUrl,
+                {
+                    json: {
+                        approveNow: guarantee.approveNow,
+                        beneficiaryAddressLine1: guarantee.address,
+                        beneficiaryAddressLine2: guarantee.city,
+                        beneficiaryAddressLine3: guarantee.zip,
+                        beneficiaryName: guarantee.beneficiaryName,
+                        contractAmount: guarantee.contractAmount,
+                        contractGuid,
+                        endDate: sqlEndDate,
+                        facilityMemberGuid,
+                        guaranteeTypeGuid,
+                        startDate: sqlStartDate,
+                        unitNumber: guarantee.unitNumber,
+                    },
+                    auth,
+                    throwResponseError: true,
+                });
+        } catch (e) {
+            return await JSON.stringify(e);
+        }
+    }
+
+    public async getGuarantee(guarantee) {
+        const auth = await accessToken.getAuthOption(),
+            contractGuid = await this.getContractGuidFor(guarantee.organisationName, guarantee.contractName),
+            searchGuaranteeUrl = guaranteeUrl + `?contractGuid=${contractGuid}`,
+            response = await WebRequest.get(searchGuaranteeUrl, {auth, throwResponseError: true}),
+            content = await JSON.parse(response.content),
+            foundGuarantee = content.filter((item) => item.beneficiary.beneficiaryName === guarantee.beneficiaryName).map((item) => item.beneficiary.beneficiaryName);
+        return foundGuarantee[0];
     }
 
     private async getFacilityGuidFor(facilityName: string) {
@@ -152,5 +198,12 @@ export class WebService {
             organisationGuid = await this.getFacilityMemberGuidFor(organisationName),
             getContractUrl = facilityMemberUrl + `contract?facilityMemberGuid=${organisationGuid}`;
         return await WebRequest.get(getContractUrl, {auth, throwResponseError: true});
+    }
+
+    private async getGuaranteeTypeGuidFor(guaranteeType: string) {
+        const guaranteeTypes = await this.getGuaranteeTypes(),
+            content = await JSON.parse(guaranteeTypes.content),
+            guid = content.filter((item) => item.name === guaranteeType).map((item) => item.guid);
+        return guid[0];
     }
 }

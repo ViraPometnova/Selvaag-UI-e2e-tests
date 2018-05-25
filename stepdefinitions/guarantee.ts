@@ -2,6 +2,7 @@ import {TableDefinition} from "cucumber";
 import {browser} from "protractor";
 import {GuaranteeAssertions} from "../assertions/guaranteeAssertions";
 import {ListingAssertions} from "../assertions/listingAssertions";
+import {WebServiceAssertions} from "../assertions/webServiceAssertions";
 import {WordingAssertions} from "../assertions/wordingAssertions";
 import {GuaranteeFunctions} from "../business-functions/guaranteeFunctions";
 import {SearchFunctions} from "../business-functions/searchFunctions";
@@ -20,10 +21,11 @@ const {Then, When} = require("cucumber"),
     wordingAssertions = new WordingAssertions(),
     listingAssertions = new ListingAssertions(),
     listingPage = new ListingPage(),
-    searchFunctions = new SearchFunctions();
+    searchFunctions = new SearchFunctions(),
+    webServiceAssertions = new WebServiceAssertions();
 
 let performanceEndDate, combinedGuaranteeData, guaranteeData, performanceGuaranteeData, editedGuaranteeData,
-    maintenanceGuaranteeData;
+    maintenanceGuaranteeData, guaranteeWebApiData;
 
 When(/^clears unit number$/, async () => {
     await guaranteePage.clearUnitNumberInput();
@@ -309,3 +311,37 @@ Then(/^processing maintenance guarantee is present on start page$/, async () => 
     await listingPage.clickViewContractLinkFor(maintenanceGuaranteeData.beneficiaryName);
     await listingAssertions.checkItemIsDisplayed(maintenanceGuaranteeData.projectName);
 });
+
+When(/^Guarantee is created with invalid maintenance amount$/, async (table: TableDefinition) => {
+    guaranteeWebApiData = await table.hashes();
+    await CurrentRun.uniquePerTestRun(guaranteeWebApiData);
+
+    await webServiceAssertions.checkGuaranteeCreationFailsOnMaintenanceAmount(guaranteeWebApiData[0]);
+});
+
+When(/^Guarantee is created with invalid performance amount$/, async (table: TableDefinition) => {
+    guaranteeWebApiData = await table.hashes();
+    await CurrentRun.uniquePerTestRun(guaranteeWebApiData);
+
+    await webServiceAssertions.checkGuaranteeCreationFailsOnPerformanceAmount(guaranteeWebApiData[0]);
+});
+
+When(/^Guarantee is not created$/, async () => {
+    await webServiceAssertions.checkGuaranteeIsNotCreated(guaranteeWebApiData[0]);
+});
+
+When(/^Guarantee is created with invalid start date left limit$/, async (table: TableDefinition) => {
+    guaranteeWebApiData = await table.hashes();
+    await CurrentRun.uniquePerTestRun(guaranteeWebApiData);
+
+    await webServiceAssertions.checkGuaranteeCreationFailsOnStartDateLeftLimit(guaranteeWebApiData[0]);
+});
+
+When(/^Guarantee is created with invalid start date right limit$/, async (table: TableDefinition) => {
+    guaranteeWebApiData = await table.hashes();
+    await CurrentRun.uniquePerTestRun(guaranteeWebApiData);
+
+    await webServiceAssertions.checkGuaranteeCreationFailsOnOnStartDateRightLimit(guaranteeWebApiData[0]);
+});
+
+

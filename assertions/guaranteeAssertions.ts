@@ -1,6 +1,5 @@
 import {browser} from "protractor";
 import {GuaranteePage} from "../pages/guarantee";
-import {DateParser} from "../support/dateParser";
 
 const assert = require("chai").assert,
     guaranteePage = new GuaranteePage();
@@ -59,8 +58,7 @@ export class GuaranteeAssertions {
     }
 
     public async checkPerformanceStartDateEqualTo(startDate: string) {
-        const date = await guaranteePage.getPerformanceStartDate();
-        assert.equal(DateParser.dateToString(date), startDate, `Start date should be equal to ${startDate}`);
+        assert.equal(await guaranteePage.getPerformanceStartDate(), startDate, `Start date should be equal to ${startDate}`);
     }
 
     public async checkPerformanceStartDateIsNotSet() {
@@ -68,8 +66,7 @@ export class GuaranteeAssertions {
     }
 
     public async checkPerformanceEndDateEqualTo(endDate: string) {
-        const date = await guaranteePage.getPerformanceEndDate();
-        assert.equal(DateParser.dateToString(date), endDate, `End date should be equal to ${endDate}`);
+        assert.equal(await guaranteePage.getPerformanceEndDate(), endDate, `End date should be equal to ${endDate}`);
     }
 
     public async checkPerformanceEndDateIsNotSet() {

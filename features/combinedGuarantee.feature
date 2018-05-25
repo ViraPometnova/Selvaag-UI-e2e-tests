@@ -25,7 +25,7 @@ Feature: Combined guarantee
 
   Scenario: Delete used contract via WebApi
     Given User is on start page
-    When deletes contract via WebApi
+    When deletes used contract via WebApi
     Then contract is not deleted
 
 

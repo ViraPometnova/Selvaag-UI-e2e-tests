@@ -79,6 +79,18 @@ Feature: Guarantee card validation
       | today     | today - 1 days |
       | today     | today - 3 days |
 
+  Scenario: Create guarantee with invalid start date left limit via WebApi
+    When Guarantee is created with invalid start date left limit
+      | unitNumber | beneficiaryName       | address | city | zip | contractAmount | startDate                 | endDate          | approveNow | contractName  | organisationName | guaranteeType  |
+      | unitNumber | Left Limit Start Date | Address | City | Zip | 780000         | today - 3 months - 1 days | today + 9 months | False      | Eastern Moose | Strong Lobster   | Blue Plutonium |
+    Then Guarantee is not created
+
+  Scenario: Create guarantee with invalid maintenance amount via WebApi
+    When Guarantee is created with invalid maintenance amount
+      | unitNumber | beneficiaryName    | address | city | zip | contractAmount | startDate | endDate          | approveNow | contractName  | organisationName | guaranteeType  |
+      | unitNumber | Maintenance Amount | Address | City | Zip | 100000100      | today     | today + 9 months | False      | Eastern Moose | Strong Lobster   | Blue Plutonium |
+    Then Guarantee is not created
+
   Scenario: Create guarantee type to test contract amount
     Given Guarantee type is created with values
       | name            | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
@@ -106,6 +118,19 @@ Feature: Guarantee card validation
       | contractAmount |
       | 50000005       |
       | 61234789       |
+
+  Scenario: Create guarantee with invalid start date right limit via WebApi
+    When Guarantee is created with invalid start date right limit
+      | unitNumber | beneficiaryName        | address | city | zip | contractAmount | startDate                 | endDate          | approveNow | contractName  | organisationName | guaranteeType   |
+      | unitNumber | Right Limit Start Date | Address | City | Zip | 1250000        | today + 1 months + 1 days | today + 6 months | False      | Eastern Moose | Strong Lobster   | Strawberry Moon |
+    Then Guarantee is not created
+
+  Scenario: Create guarantee with invalid performance amount via WebApi
+    When Guarantee is created with invalid performance amount
+      | unitNumber | beneficiaryName    | address | city | zip | contractAmount | startDate | endDate          | approveNow | contractName  | organisationName | guaranteeType   |
+      | unitNumber | Performance Amount | Address | City | Zip | 50000100       | today     | today + 5 months | False      | Eastern Moose | Strong Lobster   | Strawberry Moon |
+    Then Guarantee is not created
+
 
 
 
