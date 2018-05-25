@@ -14,7 +14,7 @@ export class Header {
     }
 
     public isUserIconPresent() {
-        return this.userIcon.isWebElementDisplayed();
+        return this.userIcon.isWebElementPresent();
     }
 
     public clickUserIcon() {

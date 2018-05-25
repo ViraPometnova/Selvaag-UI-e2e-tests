@@ -65,7 +65,7 @@ ElementFinder.prototype.isWebElementDisplayed = function () {
 
 ElementFinder.prototype.isWebElementPresent = function () {
     const self = this;
-    return browser.wait(EC.presenceOf(self), 3000)
+    return browser.wait(EC.presenceOf(self), 2000)
         .then(() => true, () => false);
 };
 

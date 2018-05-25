@@ -179,3 +179,11 @@ Then(/^contract is not present on Facility member page$/, async () => {
     await listingAssertions.checkCounterFor(contractData[0].organisationName, "0");
     await listingAssertions.checkItemIsNotDisplayed(editedContractData[0].name);
 });
+
+When(/^deletes contract via WebApi$/, async () => {
+    await webServiceAssertions.checkContractDeletionFails(contractData[0].organisationName, contractData[0].name);
+});
+
+Then(/^contract is not deleted$/, async () => {
+    await webServiceAssertions.checkContractIsCreated(contractData[0].organisationName, contractData[0].name);
+});

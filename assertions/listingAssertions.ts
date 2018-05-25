@@ -2,6 +2,7 @@ import {browser} from "protractor";
 import {config} from "../config/config";
 import {ListingPage} from "../pages/listing";
 import {AmountParser} from "../support/amountParser";
+import moment = require("moment");
 
 const assert = require("chai").assert,
     listingPage = new ListingPage();
@@ -16,7 +17,7 @@ export class ListingAssertions {
 
     public async checkProjectDateFor(cardName: string, details: string) {
         const detailText = "Project Date:";
-        assert.equal(await listingPage.getItemDetailsFor(cardName, detailText), `${detailText} ${details}`,
+        assert.equal(await listingPage.getItemDetailsFor(cardName, detailText), `${detailText} ${moment(details).format("DD.MM.YYYY")}`,
             `${cardName} doesn't contain ${detailText} ${details}`);
     }
 

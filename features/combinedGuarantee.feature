@@ -23,9 +23,10 @@ Feature: Combined guarantee
     Then processing combined guarantee is present on contract page
     And processing combined guarantee is present on start page
 
-
-
-
+  Scenario: Delete used contract via WebApi
+    Given User is on start page
+    When deletes contract via WebApi
+    Then contract is not deleted
 
 
 
