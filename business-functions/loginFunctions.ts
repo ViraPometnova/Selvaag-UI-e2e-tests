@@ -8,7 +8,7 @@ export class LoginFunctions {
 
     public static async clearSessionAndLogin(username: string, password: string) {
         await this.logout();
-        await this.login(username, password);
+        return await this.login(username, password);
     }
 
     private static async login(username: string, password: string) {
@@ -22,7 +22,7 @@ export class LoginFunctions {
     private static async logout() {
         if (await header.isUserIconPresent()) {
             await header.clickUserIcon();
-            return header.clickLogoutLink();
+            return await header.clickLogoutLink();
         }
     }
 }

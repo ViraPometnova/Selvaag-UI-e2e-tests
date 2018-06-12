@@ -343,5 +343,3 @@ When(/^Guarantee is created with invalid start date right limit$/, async (table:
 
     await webServiceAssertions.checkGuaranteeCreationFailsOnOnStartDateRightLimit(guaranteeWebApiData[0]);
 });
-
-

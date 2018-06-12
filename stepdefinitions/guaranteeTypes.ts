@@ -10,6 +10,7 @@ import {GuaranteePage} from "../pages/guarantee";
 import {UrlNavigation} from "../pages/urlNavigation";
 import {CurrentRun} from "../support/currentRun";
 import {WebService} from "../support/rest/webService";
+import {Header} from "../pages/header";
 
 const {When, Then} = require("cucumber"),
     adminTable = new AdminTable(),
@@ -19,7 +20,8 @@ const {When, Then} = require("cucumber"),
     webServiceAssertions = new WebServiceAssertions(),
     guaranteePage = new GuaranteePage(),
     guaranteeAssertions = new GuaranteeAssertions(),
-    guaranteeTypeFunctions = new GuaranteeTypeFunctions();
+    guaranteeTypeFunctions = new GuaranteeTypeFunctions(),
+    header = new Header();
 
 let guaranteeTypeData, editedGuaranteeTypeData;
 
@@ -166,5 +168,6 @@ When(/^old guarantee type is not created$/, async () => {
 });
 
 When(/^selects guarantee type$/, async () => {
+    await header.hideHeader();
     await guaranteePage.selectGuaranteeType(guaranteeTypeData[0].name);
 });

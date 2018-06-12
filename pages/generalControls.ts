@@ -33,7 +33,6 @@ export class GeneralControls {
 
     public hideToasts() {
         return browser.executeScript("arguments[0].style.display = 'none';", this.toastElement.getWebElement());
-
     }
 
     public clickBackButton() {

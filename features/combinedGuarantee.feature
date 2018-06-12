@@ -10,7 +10,7 @@ Feature: Combined guarantee
       | Alien Heart | U11, Princes Hwy | Ulladulla | 2539 | 2013-07-19 | Flaming Drill    |
     And Guarantee type is created with values
       | name          | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
-      | Combined Type | 4200         | true           | 5                     | 60           | true           | 3                     | DTLw180214172650S11ARNUM00939 | DTLw180214174409S11ARNUM00946 | 1398        | true    |
+      | Combined Type | 4200         | true           | 5                     | 60           | true           | 3                     | DTLw180530123634T2-HONUM00000 | DTLw180214174409S11ARNUM00946 | 1398        | true    |
     And performs new guarantee creation
     And selects guarantee type
     And fills guarantee card with values

@@ -187,7 +187,7 @@ Then(/^Facility member is disabled in Facility members list$/, async () => {
 });
 
 Then(/^Facility member is disabled for adding contracts from start page listing$/, async () => {
-    await searchFunctions.openStartPageAndSearch(organisationData[0].number);
+    await searchFunctions.openStartPageAndSearch(organisationData[0].name);
     await listingAssertions.checkItemIsDisplayed(organisationData[0].name);
     await listingAssertions.checkAddNewContractLinkIsDisabledFor(organisationData[0].name);
 });

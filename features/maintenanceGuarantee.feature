@@ -10,7 +10,7 @@ Feature: Maintenance guarantee
       | Serious Laser | 1212, Santa Fe | Rosario | 258 | 2015-02-01 | Brave Electron   |
     And Guarantee type is created with values
       | name             | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
-      | Maintenance Type | 4200         | true           | 5                     | 60           | false          | 0                     | DTLw180214172817S11ARNUM00706 | DTLw180214174502S11ARNUM00962 | 1376        | true    |
+      | Maintenance Type | 4200         | true           | 5                     | 60           | false          | 0                     | DTLw180530124253T2-HONUM00019 | DTLw180214174502S11ARNUM00962 | 1376        | true    |
     And performs new guarantee creation
     And selects guarantee type
     And fills guarantee card with values

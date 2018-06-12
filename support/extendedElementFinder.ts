@@ -18,7 +18,11 @@ declare module "protractor/built/element" {
 
         isWebElementDisplayed(): promise.Promise<boolean>;
 
+        isWebElementNotDisplayed(): promise.Promise<boolean>;
+
         isWebElementPresent(): promise.Promise<boolean>;
+
+        isWebElementNotPresent(): promise.Promise<boolean>;
 
         getValue(): Promise<string>;
 
@@ -48,7 +52,7 @@ declare module "protractor/built/element" {
  */
 ElementFinder.prototype.clearAndSendKeys = function (text: string) {
     const self = this;
-    return browser.wait(EC.visibilityOf(self), 7000)
+    return browser.wait(EC.visibilityOf(self), 1000)
         .then(() => {
             self.sendKeys("")
                 .then(() => {
@@ -63,9 +67,21 @@ ElementFinder.prototype.isWebElementDisplayed = function () {
         .then(() => true, () => false);
 };
 
+ElementFinder.prototype.isWebElementNotPresent = function () {
+    const self = this;
+    return browser.wait(EC.stalenessOf(self), 1000)
+        .then(() => true, () => false);
+};
+
+ElementFinder.prototype.isWebElementNotDisplayed = function () {
+    const self = this;
+    return browser.wait(EC.invisibilityOf(self), 5000)
+        .then(() => true, () => false);
+};
+
 ElementFinder.prototype.isWebElementPresent = function () {
     const self = this;
-    return browser.wait(EC.presenceOf(self), 2000)
+    return browser.wait(EC.presenceOf(self), 1000)
         .then(() => true, () => false);
 };
 
@@ -75,7 +91,7 @@ ElementFinder.prototype.isWebElementPresent = function () {
  */
 ElementFinder.prototype.waitAndClick = function () {
     const self = this;
-    return browser.wait(EC.and(EC.visibilityOf(self), EC.elementToBeClickable(self)), 10000)
+    return browser.wait(EC.and(EC.visibilityOf(self), EC.elementToBeClickable(self)), 1000)
         .then(() => {
             return self.click(); // if found
         }, () => {
