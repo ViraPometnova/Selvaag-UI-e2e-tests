@@ -85,8 +85,7 @@ export class GuaranteePage {
 
     public async isGuaranteePageElementsDisplayed() {
         return await this.isUnitNumberInputDisplayed() && await this.isBeneficiaryNameInputDisplayed()
-            && await this.isGuaranteeDetailsDropdownDisplayed() && await this.isContractAccountInputDispalyed()
-            && await this.isPreviewDrawfButtonDisplayed();
+            && await this.isGuaranteeDetailsDropdownDisplayed() && await this.isPreviewDrawfButtonDisplayed();
     }
 
     public async selectGuaranteeType(optionName: string) {
