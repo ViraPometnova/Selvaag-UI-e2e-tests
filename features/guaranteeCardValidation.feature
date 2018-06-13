@@ -12,17 +12,8 @@ Feature: Guarantee card validation
       | name           | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
       | Blue Plutonium | 4200         | true           | 5                     | 60           | true           | 3                     | CDTID              | CLTID            | 1398        | true    |
     And performs new guarantee creation
-    And clears unit number
-    And clears beneficiary name
-    And clears address line 1
-    And clears address line 2
-    And clears address line 3
-#    And clicks on bottom zero coordinates
     And selects guarantee type
-    And clears contract amount
-    And clears performance start date
-    And clears performance end date
-    And clicks on bottom zero coordinates
+    And clicks preview draft
     Then unit number validation message is shown
     And beneficiary name validation message is shown
     And address line 1 validation message is shown
@@ -34,6 +25,7 @@ Feature: Guarantee card validation
 
   Scenario Outline: Input valid start dates
     Given User is on new guarantee page
+    And selects guarantee type
     When sets performance start date <startDate>
     And clicks on bottom zero coordinates
     Then performance start date is set
@@ -46,6 +38,7 @@ Feature: Guarantee card validation
 
   Scenario Outline: Input invalid start dates
     Given User is on new guarantee page
+    And selects guarantee type
     When sets performance start date <startDate>
     And clicks on bottom zero coordinates
     Then performance start date is not set
@@ -57,6 +50,7 @@ Feature: Guarantee card validation
 
   Scenario Outline: Input valid end dates
     Given User is on new guarantee page
+    And selects guarantee type
     When sets performance start date <startDate>
     And sets performance end date <endDate>
     And clicks on bottom zero coordinates
@@ -69,6 +63,7 @@ Feature: Guarantee card validation
 
   Scenario Outline: Input invalid end dates
     Given User is on new guarantee page
+    And selects guarantee type
     When sets performance start date <startDate>
     And sets performance end date <endDate>
     And clicks on bottom zero coordinates
