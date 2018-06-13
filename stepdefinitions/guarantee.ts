@@ -27,26 +27,6 @@ const {Then, When} = require("cucumber"),
 let performanceEndDate, combinedGuaranteeData, guaranteeData, performanceGuaranteeData, editedGuaranteeData,
     maintenanceGuaranteeData, guaranteeWebApiData;
 
-When(/^clears unit number$/, async () => {
-    await guaranteePage.clearUnitNumberInput();
-});
-
-When(/^clears beneficiary name$/, async () => {
-    await guaranteePage.clearBeneficiaryNameInput();
-});
-
-When(/^clears contract amount$/, async () => {
-    await guaranteePage.clearContractAmount();
-});
-
-When(/^clears performance start date$/, async () => {
-    await guaranteePage.clearPerformanceStartDate();
-});
-
-When(/^clears performance end date$/, async () => {
-    await guaranteePage.clearPerformanceEndDate();
-});
-
 Then(/^unit number validation message is shown$/, async () => {
     await guaranteeAssertions.checkUnitNumberValidationMessageIsDisplayed();
 });
@@ -100,6 +80,10 @@ Then(/^performance end date is not set$/, async () => {
 
 When(/^sets contract amount (.*?)$/, async (contractAmount: string) => {
     await guaranteePage.setContractAmount(contractAmount);
+});
+
+When(/^clicks preview draft$/, async () => {
+    await guaranteePage.clickPreviewDraftButton();
 });
 
 Then(/^contract amount validation message is not shown$/, async () => {
