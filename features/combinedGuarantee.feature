@@ -14,8 +14,8 @@ Feature: Combined guarantee
     And performs new guarantee creation
     And selects guarantee type
     And fills guarantee card with values
-      | unitNumber | beneficiaryName    | address    | city   | zip | contractAmount | performanceStartDate | performanceEndDate        |
-      | 12-89      | Combined Guarantee | Comber Way | Surrey | V3W | 1230500        | today + 5 days       | today + 9 months + 7 days |
+      | unitNumber | beneficiaryName    | address    | city   | zip | contractAmount | performanceStartDate | performanceEndDate |
+      | 12-89      | Combined Guarantee | Comber Way | Surrey | V3W | 1230500        | today + 5 days       | today + 6 days     |
     And clicks on bottom zero coordinates
     And goes to combined preview draft wording
     And wording for combined guarantee is shown
