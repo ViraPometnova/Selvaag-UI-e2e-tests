@@ -3,19 +3,29 @@ Feature: Draft guarantee
   Scenario: Update draft guarantee
     Given User is logged in
     And Organisation is created with values
-      | facilityName | name          | number | address       | city          | zip   | enabled |
-      | New Breeze   | Flaming Drill | RA     | Thadvai, NH65 | Eklashkhanpet | 50233 | true    |
+      | facilityName    | name          | number | address  | city     | zip   | enabled |
+      | Sienna Nitrogen | Maroon Spider | GTI    | Broadway | New York | 00000 | true    |
     And Contract is created with values
-      | name        | address          | city      | zip  | date       | organisationName |
-      | Alien Heart | U11, Princes Hwy | Ulladulla | 2539 | 2013-07-19 | Flaming Drill    |
+      | name         | address  | city       | zip   | date       | organisationName |
+      | Purple Snake | Greenway | Dream town | 00001 | 2017-11-21 | Maroon Spider    |
     And Guarantee type is created with values
       | name          | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
       | Combined Type | 4200         | true           | 5                     | 60           | true           | 3                     | DTLw180530123634T2-HONUM00000 | DTLw180214174409S11ARNUM00946 | 1398        | true    |
     And Combined guarantee is created with values
-      |  |  |  |  |  |  |  |  |
-      |  |  |  |  |  |  |  |  |
-    When
-    Then
+      | unitNumber | beneficiaryName | address | city | zip | contractAmount | startDate        | endDate          | approveNow | contractName | organisationName | guaranteeType |
+      | 61/17      | To be updated   | Address | City | Zip | 61700          | today + 1 months | today + 6 months | False      | Purple Snake | Maroon Spider    | Combined Type |
+    And guarantee status is draft
+    And timer isn't expired
+    And guarantee is able to be edited
+    And fills guarantee card with values
+      | unitNumber | beneficiaryName | address      | city      | zip      | contractAmount | performanceStartDate | performanceEndDate |
+      | 61/17 [Up] | Updated         | Address [Up] | City [Up] | Zip [Up] | 61170          | today + 3 days       | today + 4 days     |
+    And clicks on bottom zero coordinates
+    And goes to combined preview draft wording
+    And wording for combined guarantee is shown
+    When User submits changes
+    Then processing combined guarantee is present on contract page
+    And processing combined guarantee is present on start page
 
 
 
