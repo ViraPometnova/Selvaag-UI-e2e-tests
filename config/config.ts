@@ -9,7 +9,8 @@ export const config: Config = {
 
     SELENIUM_PROMISE_MANAGER: false,
 
-    baseUrl: "http://84.17.193.234:16451/NordicG.Bul.Guarantee/",
+    // baseUrl: "http://84.17.193.234:16451/NordicG.Bul.Guarantee/", // ARNSAAS test env
+    baseUrl: "http://192.168.161.115/NordicG.Bul.Guarantee/", // Infinity test env
 
     directConnect: true,
     noGlobals: true,
@@ -32,14 +33,16 @@ export const config: Config = {
     //     "../../features/guaranteeCardValidation.feature",
     //     "../../features/combinedGuarantee.feature",
     //     "../../features/performanceGuarantee.feature",
-    //     "../../features/maintenanceGuarantee.feature"],
-        ["../../features/performanceGuarantee.feature"],
+    //     "../../features/maintenanceGuarantee.feature",
+    // "../../features/updateDraftGuarantee.feature"], // Uncomment to run all scenarios
+
+        ["../../features/performanceGuarantee.feature"], // Uncomment to run separate test
 
     onPrepare: () => {
         browser.waitForAngularEnabled(false);
         browser.manage().window().setSize(1366, 768);
         browser.manage().timeouts().pageLoadTimeout(40000);
-        browser.manage().timeouts().implicitlyWait(30000);
+        browser.manage().timeouts().implicitlyWait(7000);
         Reporter.createDirectory(jsonReports);
     },
 

@@ -20,8 +20,10 @@ Feature: Combined guarantee
     And goes to combined preview draft wording
     And wording for combined guarantee is shown
     When User submits changes
-    Then processing combined guarantee is present on contract page
-    And processing combined guarantee is present on start page
+    Then combined guarantee is present on contract page
+    And combined guarantee status is processing
+    And combined guarantee is present on start page
+    And combined guarantee status is processing
 
   Scenario: Delete used contract via WebApi
     Given User is on start page

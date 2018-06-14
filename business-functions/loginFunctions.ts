@@ -1,5 +1,5 @@
-import {LoginPage} from "../pages/login";
 import {Header} from "../pages/header";
+import {LoginPage} from "../pages/login";
 
 const loginPage = new LoginPage(),
     header = new Header();

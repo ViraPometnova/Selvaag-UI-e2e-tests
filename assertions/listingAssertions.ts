@@ -150,11 +150,16 @@ export class ListingAssertions {
         assert.isTrue(await listingPage.isTimerDisplayedFor(itemName), `Timer is not shown for ${itemName}`);
     }
 
-    public async checkEditGuaranteeLinkIsNotDisplayed(itemName: string) {
+    public async checkEditGuaranteeLinkIsNotDisplayedFor(itemName: string) {
         assert.isFalse(await listingPage.isEditGuaranteeLinkDisplayedFor(itemName), `Edit guarantee link is shown for ${itemName}`);
     }
 
     public async checkTimerIsNotDisplayedFor(itemName: string) {
         assert.isFalse(await listingPage.isTimerDisplayedFor(itemName), `Timer is displayed for ${itemName}`);
     }
+
+    public async checkEditGuaranteeLinkIsNotDisabledFor(itemName: string) {
+        assert.isFalse(await listingPage.isEditGuaranteeLinkDisabledFor(itemName), `Edit guarantee link is disabled for ${itemName}`);
+    }
+
 }

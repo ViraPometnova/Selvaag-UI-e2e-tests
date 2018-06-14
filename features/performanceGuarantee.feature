@@ -28,8 +28,10 @@ Feature: Performance guarantee
     And User waits for pdf to be reloaded
     And wording for performance guarantee is shown
     When User submits changes
-    Then processing performance guarantee is present on contract page
-    And processing performance guarantee is present on start page
+    Then performance guarantee is present on contract page
+    And performance guarantee status is processing
+    And performance guarantee is present on start page
+    And performance guarantee status is processing
 
 
 

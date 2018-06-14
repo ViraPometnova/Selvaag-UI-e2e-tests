@@ -168,14 +168,31 @@ export class WebService {
         }
     }
 
-    public async getGuarantee(guarantee) {
+    public async getGuaranteeGuid(guarantee) {
         const auth = await accessToken.getAuthOption(),
             contractGuid = await this.getContractGuidFor(guarantee.organisationName, guarantee.contractName),
             searchGuaranteeUrl = guaranteeUrl + `?contractGuid=${contractGuid}`,
             response = await WebRequest.get(searchGuaranteeUrl, {auth, throwResponseError: true}),
             content = await JSON.parse(response.content),
-            foundGuarantee = content.filter((item) => item.beneficiary.beneficiaryName === guarantee.beneficiaryName).map((item) => item.beneficiary.beneficiaryName);
-        return foundGuarantee[0];
+            guaranteeGuid = content.filter((item) => item.beneficiary.beneficiaryName === guarantee.beneficiaryName).map((item) => item.guid);
+        return guaranteeGuid[0];
+    }
+
+    public async setGuaranteeStatus(guarantee, status: number) {
+        const auth = await accessToken.getAuthOption(),
+            guaranteeGuid = await this.getGuaranteeGuid(guarantee);
+        return await WebRequest.patch(guaranteeUrl,
+            {
+                json: {
+                    guid: guaranteeGuid,
+                    i2iGuaranteeNumber: "Guarantee number",
+                    i2iPolicyNumber: "i2i policy number",
+                    i2iPolicyVersion: 1,
+                    i2iGuaranteeStatus: status,
+                },
+                auth,
+                throwResponseError: true,
+            });
     }
 
     private async getFacilityGuidFor(facilityName: string) {

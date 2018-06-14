@@ -11,11 +11,10 @@ Feature: Draft guarantee
     And Guarantee type is created with values
       | name          | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
       | Combined Type | 4200         | true           | 5                     | 60           | true           | 3                     | DTLw180530123634T2-HONUM00000 | DTLw180214174409S11ARNUM00946 | 1398        | true    |
-    And Combined guarantee is created with values
+    And Guarantee is created with values
       | unitNumber | beneficiaryName | address | city | zip | contractAmount | startDate        | endDate          | approveNow | contractName | organisationName | guaranteeType |
       | 61/17      | To be updated   | Address | City | Zip | 61700          | today + 1 months | today + 6 months | False      | Purple Snake | Maroon Spider    | Combined Type |
-    And guarantee status is draft
-    And timer isn't expired
+    And Guarantee status is draft
     And guarantee is able to be edited
     And fills guarantee card with values
       | unitNumber | beneficiaryName | address      | city      | zip      | contractAmount | performanceStartDate | performanceEndDate |
@@ -24,8 +23,9 @@ Feature: Draft guarantee
     And goes to combined preview draft wording
     And wording for combined guarantee is shown
     When User submits changes
-    Then processing combined guarantee is present on contract page
-    And processing combined guarantee is present on start page
+    Then combined guarantee is present on contract page
+    And combined guarantee is present on start page
+    And combined guarantee status is draft
 
 
 

@@ -7,10 +7,10 @@ import {GuaranteeTypeFunctions} from "../business-functions/guaranteeTypeFunctio
 import {AdminTable} from "../pages/admin/adminTable";
 import {ManageGuaranteeTypesPage} from "../pages/admin/manageGuaranteeTypes";
 import {GuaranteePage} from "../pages/guarantee";
+import {Header} from "../pages/header";
 import {UrlNavigation} from "../pages/urlNavigation";
 import {CurrentRun} from "../support/currentRun";
 import {WebService} from "../support/rest/webService";
-import {Header} from "../pages/header";
 
 const {When, Then} = require("cucumber"),
     adminTable = new AdminTable(),

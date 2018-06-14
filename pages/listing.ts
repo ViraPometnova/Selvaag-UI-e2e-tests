@@ -238,6 +238,10 @@ export class ListingPage {
         return this.getEditGuaranteeLinkFor(itemName).isWebElementDisplayed();
     }
 
+    public clickEditGuaranteeLinkFor(itemName: string) {
+        return this.getEditGuaranteeLinkFor(itemName).waitAndClick();
+    }
+
     private getMaintenanceDetailsElementFor(itemName: string) {
         return element(by.cssContainingText(".item-card-details", itemName)).$(".maintenance");
     }
@@ -345,7 +349,7 @@ export class ListingPage {
     }
 
     private getItem(details: string) {
-        return element(by.cssContainingText(".item-card", details));
+        return element.all(by.cssContainingText(".item-card", details)).first();
     }
 
     private getViewGuaranteeLinkFor(itemName: string) {
