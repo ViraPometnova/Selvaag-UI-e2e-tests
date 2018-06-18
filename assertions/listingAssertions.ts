@@ -162,4 +162,7 @@ export class ListingAssertions {
         assert.isFalse(await listingPage.isEditGuaranteeLinkDisabledFor(itemName), `Edit guarantee link is disabled for ${itemName}`);
     }
 
+    public async checkDownloadPdfButtonIsDisplayedFor(itemName: string) {
+        assert.isTrue(await listingPage.isDownloadBULPdfButtonDisplayedFor(itemName), `Download BUL PDF button is not displayed for ${itemName}`);
+    }
 }

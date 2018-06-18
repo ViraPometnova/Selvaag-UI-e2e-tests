@@ -34,9 +34,10 @@ export const config: Config = {
     //     "../../features/combinedGuarantee.feature",
     //     "../../features/performanceGuarantee.feature",
     //     "../../features/maintenanceGuarantee.feature",
-    // "../../features/updateDraftGuarantee.feature"], // Uncomment to run all scenarios
+    // "../../features/updateGuarantee.feature",
+    // "../../features/approveGuarantee.feature"], // Uncomment to run all scenarios
 
-        ["../../features/performanceGuarantee.feature"], // Uncomment to run separate test
+        ["../../features/approveGuarantee.feature"], // Uncomment to run separate test
 
     onPrepare: () => {
         browser.waitForAngularEnabled(false);

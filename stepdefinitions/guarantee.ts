@@ -1,5 +1,4 @@
 import {TableDefinition} from "cucumber";
-import moment = require("moment");
 import {browser} from "protractor";
 import {GuaranteeAssertions} from "../assertions/guaranteeAssertions";
 import {ListingAssertions} from "../assertions/listingAssertions";
@@ -14,6 +13,7 @@ import {CurrentRun} from "../support/currentRun";
 import {DateParser} from "../support/dateParser";
 import {WebService} from "../support/rest/webService";
 import {GuaranteeStatus} from "../test-data/GuaranteeStatus";
+import moment = require("moment");
 
 const {Then, When} = require("cucumber"),
     guaranteePage = new GuaranteePage(),
@@ -178,7 +178,6 @@ When(/^wording for performance guarantee is shown$/, async () => {
     await wordingAssertions.checkStartDate(performanceGuaranteeData.performanceStartDate);
     await wordingAssertions.checkEndDate(performanceGuaranteeData.performanceEndDate);
     await wordingAssertions.checkPerformanceAmount(performanceGuaranteeData.performanceAmount, 1);
-
 });
 
 Then(/^performance guarantee is present on contract page$/, async () => {
@@ -353,4 +352,37 @@ When(/^guarantee is able to be edited$/, async () => {
 Then(/^combined guarantee status is draft/, async () => {
     await listingAssertions.checkGuaranteeStatusFor(combinedGuaranteeData.beneficiaryName, "Draft");
     await listingAssertions.checkEditGuaranteeLinkIsNotDisabledFor(combinedGuaranteeData.beneficiaryName);
+});
+
+When(/^Guarantee status is accepted/, async () => {
+    await webService.setGuaranteeStatus(guaranteeWebApiData[0], GuaranteeStatus.Accepted);
+    await browser.refresh(); // Refresh page to update guarantee status in UI
+
+    await listingAssertions.checkItemIsDisplayed(guaranteeWebApiData[0].beneficiaryName);
+    await listingAssertions.checkGuaranteeStatusFor(guaranteeWebApiData[0].beneficiaryName, "Accepted");
+    await listingAssertions.checkTimerIsNotDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
+});
+
+When(/^guarantee is approved on start page listing$/, async () => {
+    await listingPage.clickViewGuaranteeLinkFor(guaranteeWebApiData[0].beneficiaryName);
+
+    await listingAssertions.checkDownloadPdfButtonIsDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
+});
+
+When(/^Guarantee status is valid/, async () => {
+    await webService.setGuaranteeStatus(guaranteeWebApiData[0], GuaranteeStatus.Valid);
+    await browser.refresh(); // Refresh page to update guarantee status in UI
+
+    await listingAssertions.checkItemIsDisplayed(guaranteeWebApiData[0].beneficiaryName);
+    await listingAssertions.checkGuaranteeStatusFor(guaranteeWebApiData[0].beneficiaryName, "Valid");
+    await listingAssertions.checkTimerIsNotDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
+});
+
+When(/^Guarantee status is expired/, async () => {
+    await webService.setGuaranteeStatus(guaranteeWebApiData[0], GuaranteeStatus.Expired);
+    await browser.refresh(); // Refresh page to update guarantee status in UI
+
+    await listingAssertions.checkItemIsDisplayed(guaranteeWebApiData[0].beneficiaryName);
+    await listingAssertions.checkGuaranteeStatusFor(guaranteeWebApiData[0].beneficiaryName, "Expired");
+    await listingAssertions.checkTimerIsNotDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
 });

@@ -1,4 +1,4 @@
-Feature: Draft guarantee
+Feature: Update guarantee
 
   Scenario: Update draft guarantee
     Given User is logged in
