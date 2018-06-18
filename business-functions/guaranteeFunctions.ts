@@ -1,8 +1,8 @@
 import {AddressForm} from "../pages/addressForm";
+import {GeneralControls} from "../pages/generalControls";
 import {GuaranteePage} from "../pages/guarantee";
 import {ListingPage} from "../pages/listing";
 import {DateParser} from "../support/dateParser";
-import {GeneralControls} from "../pages/generalControls";
 
 const guaranteePage = new GuaranteePage(),
     addressForm = new AddressForm(),

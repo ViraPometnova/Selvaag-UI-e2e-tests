@@ -1,5 +1,5 @@
-import {GeneralControls} from "../pages/generalControls";
 import {browser} from "protractor";
+import {GeneralControls} from "../pages/generalControls";
 
 const {When} = require("cucumber"),
     generalControls = new GeneralControls();

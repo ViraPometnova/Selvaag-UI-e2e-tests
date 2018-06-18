@@ -31,7 +31,7 @@ export class WebServiceAssertions {
     }
 
     public async checkGuaranteeIsNotCreated(guarantee) {
-        assert.isNotOk(await webService.getGuarantee(guarantee), `Guarante ${guarantee.beneficiaryName} is created`);
+        assert.isNotOk(await webService.getGuaranteeGuid(guarantee), `Guarante ${guarantee.beneficiaryName} is created`);
     }
 
     public async checkGuaranteeCreationFailsOnPerformanceAmount(guarantee) {

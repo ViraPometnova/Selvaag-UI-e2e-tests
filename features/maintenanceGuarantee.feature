@@ -20,8 +20,10 @@ Feature: Maintenance guarantee
     And goes to maintenance preview draft wording
     And wording for maintenance guarantee is shown
     When User approves immediate guarantee creation
-    Then processing maintenance guarantee is present on contract page
-    And processing maintenance guarantee is present on start page
+    Then maintenance guarantee is present on contract page
+    And maintenance guarantee status is processing
+    And maintenance guarantee is present on start page
+    And maintenance guarantee status is processing
 
 
 

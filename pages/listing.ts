@@ -135,12 +135,6 @@ export class ListingPage {
         return this.contractHeader.getText();
     }
 
-    public async getProjectDate() {
-        const projectDateElement = this.contractDetails.get(0),
-            projectDateText = await projectDateElement.getText();
-        return this.getDetailValue(projectDateText);
-    }
-
     public clickViewGuaranteeLinkFor(itemName: string) {
         return this.getViewGuaranteeLinkFor(itemName).waitAndClick();
     }
@@ -238,6 +232,18 @@ export class ListingPage {
         return this.getEditGuaranteeLinkFor(itemName).isWebElementDisplayed();
     }
 
+    public isDownloadBULPdfButtonDisplayedFor(itemName: string) {
+        return this.getDownloadPdfButtonFor(itemName).isWebElementDisplayed();
+    }
+
+    public clickEditGuaranteeLinkFor(itemName: string) {
+        return this.getEditGuaranteeLinkFor(itemName).waitAndClick();
+    }
+
+    public isNotPossibleToDownloadMessageDisplayedFor(itemName: string) {
+        return this.getNotPossibleToDownloadMessageFor(itemName).isWebElementDisplayed();
+    }
+
     private getMaintenanceDetailsElementFor(itemName: string) {
         return element(by.cssContainingText(".item-card-details", itemName)).$(".maintenance");
     }
@@ -265,7 +271,7 @@ export class ListingPage {
     }
 
     private getGuaranteeDetailsElementFor(itemName: string) {
-        return element(by.cssContainingText(".item-card-details", itemName)).$(".guarantee-details");
+        return this.getItemCardDetailsFor(itemName).$(".guarantee-details");
     }
 
     private getGuaranteeDetailsTextFor(itemName: string) {
@@ -282,7 +288,7 @@ export class ListingPage {
     }
 
     private getBeneficicaryDetailsElementFor(itemName: string) {
-        return element(by.cssContainingText(".item-card-details", itemName)).$(".beneficiary-details");
+        return this.getItemCardDetailsFor(itemName).$(".beneficiary-details");
     }
 
     private async splitBeneficiaryDetailsFor(itemName) {
@@ -345,7 +351,7 @@ export class ListingPage {
     }
 
     private getItem(details: string) {
-        return element(by.cssContainingText(".item-card", details));
+        return element.all(by.cssContainingText(".item-card", details)).first();
     }
 
     private getViewGuaranteeLinkFor(itemName: string) {
@@ -361,5 +367,24 @@ export class ListingPage {
     private getViewContractLinkFor(itemName: string) {
         const item = this.getItem(itemName);
         return item.$("#lnkViewContract");
+    }
+
+    private getDownloadPdfButtonFor(itemName: string) {
+        const pdfDetails = this.getPdfDetailsFor(itemName);
+        return pdfDetails.$(".download");
+    }
+
+    private getPdfDetailsFor(itemName: string) {
+        const item = this.getItemCardDetailsFor(itemName);
+        return item.$(".pdf-details");
+    }
+
+    private getItemCardDetailsFor(itemName: string) {
+        return element(by.cssContainingText(".item-card-details", itemName));
+    }
+
+    private getNotPossibleToDownloadMessageFor(itemName: string) {
+        const itemDetails = this.getItemCardDetailsFor(itemName);
+        return itemDetails.all(by.cssContainingText("div", "You are not be able to download BUL PDF, because guarantee is cancelled.")).first();
     }
 }
