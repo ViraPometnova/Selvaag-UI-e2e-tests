@@ -240,6 +240,10 @@ export class ListingPage {
         return this.getEditGuaranteeLinkFor(itemName).waitAndClick();
     }
 
+    public isNotPossibleToDownloadMessageDisplayedFor(itemName: string) {
+        return this.getNotPossibleToDownloadMessageFor(itemName).isWebElementDisplayed();
+    }
+
     private getMaintenanceDetailsElementFor(itemName: string) {
         return element(by.cssContainingText(".item-card-details", itemName)).$(".maintenance");
     }
@@ -377,5 +381,10 @@ export class ListingPage {
 
     private getItemCardDetailsFor(itemName: string) {
         return element(by.cssContainingText(".item-card-details", itemName));
+    }
+
+    private getNotPossibleToDownloadMessageFor(itemName: string) {
+        const itemDetails = this.getItemCardDetailsFor(itemName);
+        return itemDetails.all(by.cssContainingText("div", "You are not be able to download BUL PDF, because guarantee is cancelled.")).first();
     }
 }

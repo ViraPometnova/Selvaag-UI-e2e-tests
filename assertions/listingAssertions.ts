@@ -165,4 +165,12 @@ export class ListingAssertions {
     public async checkDownloadPdfButtonIsDisplayedFor(itemName: string) {
         assert.isTrue(await listingPage.isDownloadBULPdfButtonDisplayedFor(itemName), `Download BUL PDF button is not displayed for ${itemName}`);
     }
+
+    public async checkDownloadPdfButtonIsNotDisplayedFor(itemName: string) {
+        assert.isFalse(await listingPage.isDownloadBULPdfButtonDisplayedFor(itemName), `Download BUL PDF button is displayed for ${itemName}`);
+    }
+
+    public async checkDownloadPdfIsNotPossibleToDownloadMessageIsDisplayedFor(itemName: string) {
+        assert.isTrue(await listingPage.isNotPossibleToDownloadMessageDisplayedFor(itemName), "You are not be able to download BUL PDF message is not displayed");
+    }
 }

@@ -386,3 +386,29 @@ When(/^Guarantee status is expired/, async () => {
     await listingAssertions.checkGuaranteeStatusFor(guaranteeWebApiData[0].beneficiaryName, "Expired");
     await listingAssertions.checkTimerIsNotDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
 });
+
+When(/^Guarantee status is rejected/, async () => {
+    await webService.setGuaranteeStatus(guaranteeWebApiData[0], GuaranteeStatus.Rejected);
+    await browser.refresh(); // Refresh page to update guarantee status in UI
+
+    await listingAssertions.checkItemIsDisplayed(guaranteeWebApiData[0].beneficiaryName);
+    await listingAssertions.checkGuaranteeStatusFor(guaranteeWebApiData[0].beneficiaryName, "Rejected");
+    await listingAssertions.checkTimerIsNotDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
+});
+
+When(/^Guarantee status is cancelled/, async () => {
+    await webService.setGuaranteeStatus(guaranteeWebApiData[0], GuaranteeStatus.Cancelled);
+    await browser.refresh(); // Refresh page to update guarantee status in UI
+
+    await listingAssertions.checkItemIsDisplayed(guaranteeWebApiData[0].beneficiaryName);
+    await listingAssertions.checkGuaranteeStatusFor(guaranteeWebApiData[0].beneficiaryName, "Cancelled");
+    await listingAssertions.checkTimerIsNotDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
+});
+
+When(/^guarantee is cancelled on start page listing$/, async () => {
+    await listingPage.clickViewGuaranteeLinkFor(guaranteeWebApiData[0].beneficiaryName);
+
+    await listingAssertions.checkEditGuaranteeLinkIsNotDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
+    await listingAssertions.checkDownloadPdfButtonIsNotDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
+    await listingAssertions.checkDownloadPdfIsNotPossibleToDownloadMessageIsDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
+});
