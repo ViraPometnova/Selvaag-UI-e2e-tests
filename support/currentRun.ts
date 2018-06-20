@@ -23,6 +23,12 @@ export class CurrentRun {
         testData.forEach((item) => item.beneficiaryName = this.uniqueName(item.beneficiaryName));
         testData.forEach((item) => item.contractName = this.uniqueName(item.contractName));
         testData.forEach((item) => item.guaranteeType = this.uniqueName(item.guaranteeType));
+
+        for (const item in testData[0]) {
+            if (testData[0][item].indexOf("undefined") !== -1) {
+                testData[0][item] = "";
+            }
+        }
     }
 
     private static timeStamp = moment().format("DD/MM/YYYY hh:mm:ss");

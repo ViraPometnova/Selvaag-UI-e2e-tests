@@ -21,6 +21,13 @@ export class GuaranteeFunctions {
             await addressForm.setAddressLine3(guaranteeData.zip);
         }
 
+        if (guaranteeData.organisationNumber) {
+            await guaranteePage.checkIsOrganisationCheckbox();
+            await guaranteePage.setOrganisationNumberInput(guaranteeData.organisationNumber);
+            await guaranteePage.clickFindButton();
+            await guaranteePage.waitForOrganisationDataIsDownloaded();
+        }
+
         await guaranteePage.setContractAmount(guaranteeData.contractAmount);
 
         if (guaranteeData.performanceStartDate) {

@@ -235,6 +235,7 @@ When(/^wording for maintenance guarantee is shown$/, async () => {
 
     await wordingAssertions.checkBeneficiaryDetails(maintenanceGuaranteeData);
     await wordingAssertions.checkOrganisationDetails(maintenanceGuaranteeData);
+    await wordingAssertions.checkOrganisationNumber(maintenanceGuaranteeData.organisationNumber);
     await wordingAssertions.checkContractDetails(maintenanceGuaranteeData);
     await wordingAssertions.checkStartDate(maintenanceGuaranteeData.maintenanceStartDate);
     await wordingAssertions.checkEndDate(maintenanceGuaranteeData.maintenanceEndDate);
@@ -261,22 +262,6 @@ Then(/^maintenance guarantee is present on contract page$/, async () => {
     await listingAssertions.checkBeneficiaryDetailsOnViewGuarantee(maintenanceGuaranteeData);
     await listingAssertions.checkGuaranteeDetailsOnViewGuarantee(maintenanceGuaranteeData);
     await listingAssertions.checkMaintenanceDetailsOnViewGuarantee(maintenanceGuaranteeData);
-});
-
-Then(/^maintenance guarantee is present on start page$/, async () => {
-    await searchFunctions.openStartPageAndSearch(maintenanceGuaranteeData.beneficiaryName);
-    await listingAssertions.checkItemIsDisplayed(maintenanceGuaranteeData.beneficiaryName);
-
-    await listingAssertions.checkGuaranteeDateOpenedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.maintenanceStartDate);
-    await listingAssertions.checkGuaranteeDateClosedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.maintenanceEndDate);
-    await listingAssertions.checkSubDetailsAreDisplayedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.organisationName);
-    await listingAssertions.checkSubDetailsAreDisplayedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.projectName);
-    await listingAssertions.checkTimerIsNotDisplayedFor(maintenanceGuaranteeData.beneficiaryName);
-
-    await listingAssertions.checkViewGuaranteeLinkIsNotDisabledFor(maintenanceGuaranteeData.beneficiaryName);
-    await listingAssertions.checkViewContractLinkIsNotDisabledFor(maintenanceGuaranteeData.beneficiaryName);
-    await listingPage.clickViewContractLinkFor(maintenanceGuaranteeData.beneficiaryName);
-    await listingAssertions.checkItemIsDisplayed(maintenanceGuaranteeData.projectName);
 });
 
 When(/^Guarantee is created with invalid maintenance amount$/, async (table: TableDefinition) => {
