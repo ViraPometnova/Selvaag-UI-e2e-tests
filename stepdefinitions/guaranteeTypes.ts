@@ -150,6 +150,7 @@ When(/^Guarantee type is created with values$/, async (table: TableDefinition) =
     await webService.createGuaranteeType(guaranteeTypeData[0]);
     await browser.refresh();
     await webServiceAssertions.checkGuaranteeTypeIsCreated(guaranteeTypeData[0].name);
+    await browser.driver.sleep(10000); //    wait for backend date to be updated
 });
 
 When(/^edits guarantee type data$/, async (table: TableDefinition) => {

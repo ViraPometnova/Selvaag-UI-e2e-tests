@@ -10,19 +10,18 @@ Feature: Performance guarantee
       | Jupiter Barbaric | 78, Calle Gran Vía | Madrid | 28013 | 1988-05-06 | TRI    | Pointless Lantern |
     And Guarantee type is created with values
       | name             | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
-      | Performance Type | 2400         | false          | 0                     | 0            | true           | 10                    | DTLw180530124330T2-HONUM00002 | DTLw180214174551S11ARNUM00728 | 1405        | true    |
+      | Performance Type | 2400         | false          | 0                     | 0            | true           | 10                    | DTLw180905105249T4-HONUM00000 | DTLw180214174551S11ARNUM00728 | 1405        | true    |
     And performs new guarantee creation
     And selects guarantee type
     And fills guarantee card with values
-      | unitNumber | beneficiaryName       | address            | city    | zip  | contractAmount | performanceStartDate | performanceEndDate        |
-      | 48*26      | Performance Guarantee | F1563, Princes Hwy | Termeil | 2539 | 712500         | today - 3 days       | today + 7 months + 5 days |
-    And clicks on bottom zero coordinates
+      | unitNumber | beneficiaryName | address            | city    | zip  | contractAmount | performanceStartDate | performanceEndDate        |
+      | 48*26      | Performance Gt  | F1563, Princes Hwy | Termeil | 2539 | 712500         | today - 3 days       | today + 7 months + 5 days |
     And goes to performance preview draft wording
     And wording for performance guarantee is shown
     And User goes back
     And edits guarantee data with values
-      | unitNumber  | beneficiaryName    | address                  | city          | zip        | contractAmount | performanceStartDate | performanceEndDate |
-      | 48*26[Edit] | [Edited] Guarantee | F1563, Princes Hwy[Edit] | Termeil[Edit] | 2539[Edit] | 712501         | today - 7 days       | today + 7 months   |
+      | unitNumber  | beneficiaryName | address                  | city          | zip        | contractAmount | performanceStartDate | performanceEndDate |
+      | 48*26[Edit] | [Edited] Gt     | F1563, Princes Hwy[Edit] | Termeil[Edit] | 2539[Edit] | 712501         | today - 7 days       | today + 7 months   |
     And clicks on bottom zero coordinates
     And goes to performance preview draft wording
     And User waits for pdf to be reloaded

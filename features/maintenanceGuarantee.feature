@@ -10,13 +10,12 @@ Feature: Maintenance guarantee
       | Serious Laser | 1212, Santa Fe | Rosario | 258 | 2015-02-01 | Brave Electron   |
     And Guarantee type is created with values
       | name             | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
-      | Maintenance Type | 4200         | true           | 5                     | 60           | false          | 0                     | DTLw180530124253T2-HONUM00019 | DTLw180607111722T2-HONUM00018 | 1376        | true    |
+      | Maintenance Type | 4200         | true           | 5                     | 60           | false          | 0                     | DTLw180905105211T4-HONUM00000 | DTLw180607111722T2-HONUM00018 | 1376        | true    |
     And performs new guarantee creation
     And selects guarantee type
     And fills guarantee card with values
-      | unitNumber | organisationNumber | contractAmount | maintenanceStartDate |
-      | 111/2      | 916489854          | 568000         | today + 2 days       |
-    And clicks on bottom zero coordinates
+      | unitNumber | beneficiaryName | address            | city     | zip      | contractAmount | maintenanceStartDate |
+      | 111/2      | Maintenance Gt  | 584 Oakland Street | Fort Lee | NJ 07024 | 568000         | today + 2 days       |
     And goes to maintenance preview draft wording
     And wording for maintenance guarantee is shown
     When User approves immediate guarantee creation

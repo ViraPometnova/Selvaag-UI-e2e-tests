@@ -67,6 +67,7 @@ When(/^Organisation is created with values$/, async (table: TableDefinition) => 
     await webService.createFacility(organisationData[0].facilityName);
     await webService.createFacilityMember(organisationData[0]);
     await webServiceAssertions.checkFacilityMemberIsCreated(organisationData[0].name);
+    await browser.driver.sleep(10000); //    wait for backend date to be updated
 });
 
 When(/^opens new contract page$/, async () => {
@@ -187,7 +188,7 @@ Then(/^Facility member is disabled in Facility members list$/, async () => {
 });
 
 Then(/^Facility member is disabled for adding contracts from start page listing$/, async () => {
-    await searchFunctions.openStartPageAndSearch(organisationData[0].name);
+    await searchFunctions.openStartPageAndSearch(organisationData[0].number);
     await listingAssertions.checkItemIsDisplayed(organisationData[0].name);
     await listingAssertions.checkAddNewContractLinkIsDisabledFor(organisationData[0].name);
 });

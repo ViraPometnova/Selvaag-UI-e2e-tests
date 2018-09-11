@@ -10,13 +10,14 @@ export class SearchFunctions {
 
     public async search(pattern: string) {
         await search.setSearchPattern(pattern);
-        await browser.driver.sleep(5000);
+        await browser.driver.sleep(3000);
         await search.clickSearchLookup();
         await browser.driver.sleep(3000); //    wait for listing to be filtered by search option
     }
 
     public async openStartPageAndSearch(pattern: string) {
         await UrlNavigation.openStartPageUrl();
+        await browser.refresh();
         await listingAssertions.checkStartPageIsOpened();
         await this.search(pattern);
     }

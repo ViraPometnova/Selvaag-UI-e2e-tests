@@ -10,7 +10,7 @@ Feature: Update guarantee
       | Purple Snake | Greenway | Dream town | 00001 | 2017-11-21 | Maroon Spider    |
     And Guarantee type is created with values
       | name          | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
-      | Combined Type | 4200         | true           | 5                     | 60           | true           | 3                     | DTLw180530123634T2-HONUM00000 | DTLw180214174409S11ARNUM00946 | 1398        | true    |
+      | Combined Type | 4200         | true           | 5                     | 60           | true           | 3                     | DTLw180905105119T4-HONUM00000 | DTLw180214174409S11ARNUM00946 | 1398        | true    |
     And Guarantee is created with values
       | unitNumber | beneficiaryName | address | city | zip | contractAmount | startDate        | endDate          | approveNow | contractName | organisationName | guaranteeType |
       | 61/17      | To be updated   | Address | City | Zip | 61700          | today + 1 months | today + 6 months | False      | Purple Snake | Maroon Spider    | Combined Type |
@@ -19,7 +19,6 @@ Feature: Update guarantee
     And fills guarantee card with values
       | unitNumber | beneficiaryName | address      | city      | zip      | contractAmount | performanceStartDate | performanceEndDate |
       | 61/17 [Up] | Updated         | Address [Up] | City [Up] | Zip [Up] | 61170          | today + 3 days       | today + 4 days     |
-    And clicks on bottom zero coordinates
     And goes to combined preview draft wording
     And wording for combined guarantee is shown
     When User submits changes
