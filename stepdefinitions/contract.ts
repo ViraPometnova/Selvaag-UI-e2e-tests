@@ -1,4 +1,5 @@
 import {TableDefinition} from "cucumber";
+import {browser} from "protractor";
 import {AddressFormAssertions} from "../assertions/addressFormAssertions";
 import {ContractAssertions} from "../assertions/contractAssertions";
 import {FacilityMemberAssertions} from "../assertions/facilityMemberAssertions";
@@ -49,6 +50,7 @@ When(/^Contract is created with values$/, async (table: TableDefinition) => {
 
     await webService.createContract(contractData[0]);
     await webServiceAssertions.checkContractIsCreated(contractData[0].organisationName, contractData[0].name);
+    await browser.driver.sleep(7000); //    wait for backend date to be updated
 });
 
 Then(/^User opens contract page$/, async () => {

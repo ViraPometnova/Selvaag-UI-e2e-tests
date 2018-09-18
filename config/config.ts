@@ -10,7 +10,7 @@ export const config: Config = {
     SELENIUM_PROMISE_MANAGER: false,
 
     // baseUrl: "http://84.17.193.234:16451/NordicG.Bul.Guarantee/", // ARNSAAS test env
-    baseUrl: "http://192.168.161.115/NordicG.Bul.Guarantee/", // Infinity test env
+    baseUrl: "http://t4-host-i1/NordicG.Bul.Guarantee/", // Infinity test env
 
     directConnect: true,
     noGlobals: true,
@@ -24,21 +24,21 @@ export const config: Config = {
     frameworkPath: require.resolve("protractor-cucumber-framework"),
 
     specs:
-    // [
-    //     "../../features/login.feature",
-    //     "../../features/facility.feature",
-    //     "../../features/facilityMember.feature",
-    //     "../../features/contract.feature",
-    //     "../../features/guaranteeType.feature",
-    //     "../../features/guaranteeCardValidation.feature",
-    //     "../../features/combinedGuarantee.feature",
-    //     "../../features/performanceGuarantee.feature",
-    //     "../../features/maintenanceGuarantee.feature",
-    // "../../features/updateGuarantee.feature",
-    // "../../features/approveGuarantee.feature", // Uncomment to run all scenarios
-    // "../../features/cancelGuarantee.feature"], // Uncomment to run all scenarios
+        [
+            "../../features/facility.feature",
+            "../../features/facilityMember.feature",
+            "../../features/contract.feature",
+            "../../features/guaranteeType.feature",
+            "../../features/guaranteeCardValidation.feature",
+            "../../features/combinedGuarantee.feature",
+            "../../features/performanceGuarantee.feature",
+            "../../features/maintenanceGuarantee.feature",
+            "../../features/login.feature",
+            "../../features/updateGuarantee.feature",
+            "../../features/approveGuarantee.feature",
+            "../../features/cancelGuarantee.feature"], // Uncomment to run all scenarios
 
-        ["../../features/cancelGuarantee.feature"], // Uncomment to run separate test
+    // ["../../features/updateGuarantee.feature"], // Uncomment to run separate test
 
     onPrepare: () => {
         browser.waitForAngularEnabled(false);

@@ -54,4 +54,8 @@ export class WordingAssertions {
     public async checkEndDate(performanceEndDate: string) {
         assert.isTrue(await wording.isTextPresentOnWording(performanceEndDate), `Performance end date should be present on draft wording`);
     }
+
+    public async checkOrganisationNumber(organisationNumber: string) {
+        assert.isTrue(await wording.isTextPresentOnWording(organisationNumber), "Beneficiary organisation number should be present on draft wording");
+    }
 }

@@ -30,6 +30,8 @@ export class GuaranteePage {
     private yesButton: any;
     private noButton: any;
     private modalConfirmWindow: any;
+    private isOrganisationCheckbox: any;
+    private findButton: any;
 
     constructor() {
         this.unitNumberInput = $("#unitNumberInput");
@@ -61,6 +63,8 @@ export class GuaranteePage {
         this.modalConfirmWindow = $(".modal-dialog");
         this.yesButton = this.modalConfirmWindow.element(by.cssContainingText(".btn-primary", "YES"));
         this.noButton = this.modalConfirmWindow.element(by.cssContainingText(".btn-secondary", "NO"));
+        this.isOrganisationCheckbox = $("label[for='orgCheck']");
+        this.findButton = element(by.cssContainingText(".btn", "Find"));
     }
 
     public isUnitNumberInputDisplayed() {
@@ -73,10 +77,6 @@ export class GuaranteePage {
 
     public isGuaranteeDetailsDropdownDisplayed() {
         return this.guaranteeDropdown.isWebElementDisplayed();
-    }
-
-    public isContractAccountInputDispalyed() {
-        return this.contractAmountInput.isWebElementDisplayed();
     }
 
     public isPreviewDrawfButtonDisplayed() {
@@ -260,6 +260,28 @@ export class GuaranteePage {
 
     public isModalConfirmWindowDisplayed() {
         return this.modalConfirmWindow.isWebElementDisplayed();
+    }
+
+    public setOrganisationNumberInput(organisationNumber: string) {
+        return this.organisationNumberInput.clearAndSendKeys(organisationNumber);
+    }
+
+    public async checkIsOrganisationCheckbox() {
+        if (!await this.isOrganisationCheckbox.isSelected()) {
+            return this.isOrganisationCheckbox.waitAndClick();
+        }
+    }
+
+    public clickFindButton() {
+        return this.findButton.waitAndClick();
+    }
+
+    public async waitForOrganisationDataIsDownloaded() {
+        let beneficiaryName = await this.getBeneficiaryName();
+        while (!beneficiaryName) {
+            await browser.sleep(200);
+            beneficiaryName = await this.getBeneficiaryName();
+        }
     }
 
     private getSelectedDropdownItem() {

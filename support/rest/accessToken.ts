@@ -1,6 +1,7 @@
 import * as WebRequest from "web-request";
+import {config} from "../../config/config";
 
-const baseUrl = "http://84.17.193.234:16451/NordicG.Bul.Guarantee/v1/";
+const baseUrl = config.baseUrl + "v1/";
 
 export class AccessToken {
 

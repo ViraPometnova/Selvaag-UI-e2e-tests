@@ -41,7 +41,7 @@ export class AdminTable {
     }
 
     public async isAdminTableDisplayed() {
-        return (await this.isTableDisplayed() && await this.isTableRowDisplayed() && await this.isTableDataDisplayed());
+        return await this.isTableDisplayed();
     }
 
     private isTableDisplayed() {

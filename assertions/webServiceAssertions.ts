@@ -1,4 +1,5 @@
 import {WebService} from "../support/rest/webService";
+import {ValidationMessage} from "../test-data/ValidationMessage";
 
 const assert = require("chai").assert,
     webService = new WebService();
@@ -17,16 +18,14 @@ export class WebServiceAssertions {
     }
 
     public async checkContractDeletionFails(organisationName: string, contractName: string) {
-        const response = await webService.deleteContract(organisationName, contractName),
-            validationMessage = "Contract with guarantees can't be removed";
-        assert.isTrue(response.search(validationMessage) !== -1, `Validation message ${validationMessage} should be returned`);
+        const response = await webService.deleteContract(organisationName, contractName);
+        assert.isTrue(response.search(ValidationMessage.DeleteContract) !== -1, `Validation message ${ValidationMessage.DeleteContract} should be returned`);
         assert.isTrue(response.search("\"statusCode\":400") !== -1, `Status code should be 400`);
     }
 
     public async checkGuaranteeCreationFailsOnMaintenanceAmount(guarantee) {
-        const response = await webService.createGuarantee(guarantee),
-            validationMessage = "Maintenance amount can't be greater than 5000000 NOK";
-        assert.isTrue(response.search(validationMessage) !== -1, `Validation message ${validationMessage} should be returned`);
+        const response = await webService.createGuarantee(guarantee);
+        assert.isTrue(response.search(ValidationMessage.MaintenanceAmount) !== -1, `Validation message ${ValidationMessage.MaintenanceAmount} should be returned`);
         assert.isTrue(response.search("\"statusCode\":422") !== -1, `Status code should be 422`);
     }
 
@@ -34,24 +33,25 @@ export class WebServiceAssertions {
         assert.isNotOk(await webService.getGuaranteeGuid(guarantee), `Guarante ${guarantee.beneficiaryName} is created`);
     }
 
+    public async checkGuaranteeIsCreated(guarantee) {
+        assert.isOk(await webService.getGuaranteeGuid(guarantee), `Guarante ${guarantee.beneficiaryName} is not created`);
+    }
+
     public async checkGuaranteeCreationFailsOnPerformanceAmount(guarantee) {
-        const response = await webService.createGuarantee(guarantee),
-            validationMessage = "Performance amount can't be greater than 5000000 NOK";
-        assert.isTrue(response.search(validationMessage) !== -1, `Validation message ${validationMessage} should be returned`);
+        const response = await webService.createGuarantee(guarantee);
+        assert.isTrue(response.search(ValidationMessage.PerformanceAmount) !== -1, `Validation message ${ValidationMessage.PerformanceAmount} should be returned`);
         assert.isTrue(response.search("\"statusCode\":422") !== -1, `Status code should be 422`);
     }
 
     public async checkGuaranteeCreationFailsOnStartDateLeftLimit(guarantee) {
-        const response = await webService.createGuarantee(guarantee),
-            validationMessage = "Start date can't be less than 3 months from now";
-        assert.isTrue(response.search(validationMessage) !== -1, `Validation message ${validationMessage} should be returned`);
+        const response = await webService.createGuarantee(guarantee);
+        assert.isTrue(response.search(ValidationMessage.StartDateLeftLimit) !== -1, `Validation message ${ValidationMessage.StartDateLeftLimit} should be returned`);
         assert.isTrue(response.search("\"statusCode\":422") !== -1, `Status code should be 422`);
     }
 
     public async checkGuaranteeCreationFailsOnOnStartDateRightLimit(guarantee) {
-        const response = await webService.createGuarantee(guarantee),
-            validationMessage = "Start date can't be greater than 1 month from now";
-        assert.isTrue(response.search(validationMessage) !== -1, `Validation message ${validationMessage} should be returned`);
+        const response = await webService.createGuarantee(guarantee);
+        assert.isTrue(response.search(ValidationMessage.StartDateRightLimit) !== -1, `Validation message ${ValidationMessage.StartDateRightLimit} should be returned`);
         assert.isTrue(response.search("\"statusCode\":422") !== -1, `Status code should be 422`);
     }
 }
