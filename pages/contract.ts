@@ -1,7 +1,6 @@
 import {$, by, element} from "protractor";
 
 export class ContractPage {
-    public projectDateInput: any;
     public projectDateFeedback: any;
     public projectNameFeedback: any;
     private projectNameInput: any;
@@ -9,7 +8,6 @@ export class ContractPage {
 
     constructor() {
         this.projectNameInput = $("#projectNameInput");
-        this.projectDateInput = $('app-date[formcontrolname="projectDate"] input');
         this.projectNameFeedback = element(by.cssContainingText(".form-control-feedback", "Project Name is required."));
         this.projectDateFeedback = element(by.cssContainingText(".form-control-feedback", "Project Date is required."));
         this.deleteButton = $("#btnDelete");
@@ -23,16 +21,8 @@ export class ContractPage {
         return this.projectNameInput.clearAndSendKeys(name);
     }
 
-    public setProjectDate(projectDate: string) {
-        return this.projectDateInput.clearAndSendKeys(projectDate);
-    }
-
     public clearProjectName() {
         return this.projectNameInput.clear();
-    }
-
-    public clearProjectDate() {
-        return this.projectDateInput.sendKeys("");
     }
 
     public isProjectNameFeedbackDisplayed() {
@@ -41,10 +31,6 @@ export class ContractPage {
 
     public isProjectDateFeedbackDisplayed() {
         return this.projectDateFeedback.isWebElementDisplayed();
-    }
-
-    public getProjectDate() {
-        return this.projectDateInput.getValue();
     }
 
     public getProjectName() {

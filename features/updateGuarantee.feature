@@ -6,8 +6,8 @@ Feature: Update guarantee
       | facilityName    | name          | number | address  | city     | zip   | enabled |
       | Sienna Nitrogen | Maroon Spider | GTI    | Broadway | New York | 00000 | true    |
     And Contract is created with values
-      | name         | address  | city       | zip   | date       | organisationName |
-      | Purple Snake | Greenway | Dream town | 00001 | 2017-11-21 | Maroon Spider    |
+      | name         | address  | city       | zip   | organisationName |
+      | Purple Snake | Greenway | Dream town | 00001 | Maroon Spider    |
     And Guarantee type is created with values
       | name          | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
       | Combined Type | 4200         | true           | 5                     | 60           | true           | 3                     | DTLw180905105119T4-HONUM00000 | DTLw180214174409S11ARNUM00946 | 1398        | true    |

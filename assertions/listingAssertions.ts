@@ -15,13 +15,6 @@ export class ListingAssertions {
             `${cardName} doesn't contain ${detailText} ${details}`);
     }
 
-    public async checkProjectDateFor(cardName: string, details: string) {
-        const detailText = "Project Date:",
-            date = await DateParser.dateFromSqlFormat(details);
-        assert.equal(await listingPage.getItemDetailsFor(cardName, detailText), `${detailText} ${date}`,
-            `${cardName} doesn't contain ${detailText} ${details}`);
-    }
-
     public async checkSubDetailsAreDisplayedFor(cardName: string, details: string) {
         assert.include(await listingPage.getItemSubDetailsFor(cardName), details, `${cardName} doesn't contain ${details}`);
     }

@@ -6,8 +6,8 @@ Feature: Performance guarantee
       | facilityName   | name              | number | address                    | city      | zip   | enabled |
       | Endless Oyster | Pointless Lantern | SKY    | 7821, Atlantic Ave, Queens | Woodhaven | 11421 | true    |
     And Contract is created with values
-      | name             | address            | city   | zip   | date       | number | organisationName  |
-      | Jupiter Barbaric | 78, Calle Gran Vía | Madrid | 28013 | 1988-05-06 | TRI    | Pointless Lantern |
+      | name             | address            | city   | zip   | number | organisationName  |
+      | Jupiter Barbaric | 78, Calle Gran Vía | Madrid | 28013 | TRI    | Pointless Lantern |
     And Guarantee type is created with values
       | name             | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
       | Performance Type | 2400         | false          | 0                     | 0            | true           | 10                    | DTLw180905105249T4-HONUM00000 | DTLw180214174551S11ARNUM00728 | 1405        | true    |

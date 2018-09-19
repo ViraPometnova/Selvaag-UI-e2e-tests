@@ -6,8 +6,8 @@ Feature: Approve guarantee
       | facilityName    | name        | number | address  | city     | zip   | enabled |
       | Fuschia Davinci | Green Slate | GTI    | Broadway | New York | 00000 | true    |
     And Contract is created with values
-      | name        | address    | city        | zip   | date       | organisationName |
-      | Red Panther | Sunrise St | Violet town | 00002 | 2018-03-18 | Green Slate      |
+      | name        | address    | city        | zip   | organisationName |
+      | Red Panther | Sunrise St | Violet town | 00002 | Green Slate      |
     And Guarantee type is created with values
       | name             | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
       | Maintenance Type | 2400         | true           | 5                     | 60           | false          | 0                     | DTLw180530124253T2-HONUM00019 | DTLw180214174409S11ARNUM00946 | 1398        | true    |

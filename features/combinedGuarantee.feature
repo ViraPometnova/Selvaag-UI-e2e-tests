@@ -6,8 +6,8 @@ Feature: Combined guarantee
       | facilityName | name          | number | address       | city          | zip   | enabled |
       | New Breeze   | Flaming Drill | RA     | Thadvai, NH65 | Eklashkhanpet | 50233 | true    |
     And Contract is created with values
-      | name        | address          | city      | zip  | date       | organisationName |
-      | Alien Heart | U11, Princes Hwy | Ulladulla | 2539 | 2013-07-19 | Flaming Drill    |
+      | name        | address          | city      | zip  | organisationName |
+      | Alien Heart | U11, Princes Hwy | Ulladulla | 2539 | Flaming Drill    |
     And Guarantee type is created with values
       | name          | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
       | Combined Type | 4200         | true           | 5                     | 60           | true           | 3                     | DTLw180905105119T4-HONUM00000 | DTLw180214174409S11ARNUM00946 | 1398        | true    |

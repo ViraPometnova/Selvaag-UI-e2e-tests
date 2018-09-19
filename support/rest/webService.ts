@@ -66,7 +66,6 @@ export class WebService {
                     projectAddressLine1: contract.address,
                     projectAddressLine2: contract.city,
                     projectAddressLine3: contract.zip,
-                    projectDate: contract.date,
                     projectName: contract.name,
                 },
                 auth,

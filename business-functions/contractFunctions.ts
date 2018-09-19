@@ -17,7 +17,6 @@ export class ContractFunctions {
 
     public async populateContractCard(contractData) {
         await contractPage.setProjectName(contractData.name);
-        await contractPage.setProjectDate(contractData.date);
         await addressForm.setAddressLine1(contractData.address);
         await addressForm.setAddressLine2(contractData.city);
         await addressForm.setAddressLine3(contractData.zip);

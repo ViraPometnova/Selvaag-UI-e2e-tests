@@ -54,8 +54,8 @@ Feature: Guarantee type
       | facilityName | name         | number | address                  | city     | zip   | enabled |
       | Facility     | Organisation | ON     | 1255, 5th Ave, Manhattan | New York | 10029 | true    |
     And Contract is created with values
-      | name     | address                 | city      | zip   | date       | number | organisationName |
-      | Contract | 1297, Massachusetts Ave | Arlington | 02476 | 01.01.2010 | HG     | Organisation     |
+      | name     | address                 | city      | zip   | number | organisationName |
+      | Contract | 1297, Massachusetts Ave | Arlington | 02476 | HG     | Organisation     |
     And Guarantee type is created with values
       | name     | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
       | Advanced | 2400         | false          | 0                     | 0            | true           | 10                    | ADTID              | ALTID            | 1405        | true    |

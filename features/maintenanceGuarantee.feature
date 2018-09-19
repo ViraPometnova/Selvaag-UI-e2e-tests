@@ -6,8 +6,8 @@ Feature: Maintenance guarantee
       | facilityName   | name           | number | address           | city   | zip   | enabled |
       | Liquid Morning | Brave Electron | FD     | 776B, Boylston St | Boston | 02199 | true    |
     And Contract is created with values
-      | name          | address        | city    | zip | date       | organisationName |
-      | Serious Laser | 1212, Santa Fe | Rosario | 258 | 2015-02-01 | Brave Electron   |
+      | name          | address        | city    | zip | organisationName |
+      | Serious Laser | 1212, Santa Fe | Rosario | 258 | Brave Electron   |
     And Guarantee type is created with values
       | name             | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
       | Maintenance Type | 4200         | true           | 5                     | 60           | false          | 0                     | DTLw180905105211T4-HONUM00000 | DTLw180607111722T2-HONUM00018 | 1376        | true    |

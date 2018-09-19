@@ -32,16 +32,8 @@ When(/^clears project name$/, async () => {
     await contractPage.clearProjectName();
 });
 
-When(/^clears project date$/, async () => {
-    await contractPage.clearProjectDate();
-});
-
 Then(/^project name validation message is shown$/, async () => {
     await contractAssertions.checkProjectNameValidationMessageIsDisplayed();
-});
-
-Then(/^project date validation message is shown$/, async () => {
-    await contractAssertions.checkProjectDateValidationMessageIsDisplayed();
 });
 
 When(/^Contract is created with values$/, async (table: TableDefinition) => {
@@ -78,7 +70,6 @@ Then(/^contract is present in start page listing$/, async () => {
     await listingAssertions.checkSubDetailsAreDisplayedFor(contractData[0].name, contractData[0].city);
     await listingAssertions.checkSubDetailsAreDisplayedFor(contractData[0].name, contractData[0].zip);
 
-    await listingAssertions.checkProjectDateFor(contractData[0].name, contractData[0].date);
     await listingAssertions.checkCounterFor(contractData[0].name, "0");
 
     await listingAssertions.checkEditContractLinkIsNotDisabledFor(contractData[0].name);
@@ -107,9 +98,6 @@ Then(/^contract is present on Contract page$/, async () => {
     await listingAssertions.checkSubDetailsAreDisplayedFor(contractData[0].name, contractData[0].zip);
     await addressFormAssertions.checkZipEqualTo(contractData[0].zip);
 
-    await listingAssertions.checkProjectDateFor(contractData[0].name, contractData[0].date);
-    await contractAssertions.checkProjectDateEqualTo(contractData[0].date);
-
     await listingAssertions.checkCounterFor(contractData[0].name, "0");
     await listingAssertions.checkCounterFor(contractData[0].organisationName, "1");
 });
@@ -125,15 +113,11 @@ Then(/^edited contract is created$/, async () => {
     await searchFunctions.openStartPageAndSearch(editedContractData[0].name);
     await listingAssertions.checkItemIsDisplayed(editedContractData[0].name);
 
-    await listingAssertions.checkProjectDateFor(editedContractData[0].name, editedContractData[0].date);
-
     await listingPage.clickEditContractLinkFor(editedContractData[0].name);
     await contractAssertions.checkContractUrl();
     await contractAssertions.checkContractPageIsOpened();
 
     await contractAssertions.checkProjectNameEqualTo(editedContractData[0].name);
-    await listingAssertions.checkProjectDateFor(editedContractData[0].name, editedContractData[0].date);
-    await contractAssertions.checkProjectDateEqualTo(editedContractData[0].date);
 });
 
 When(/^deletes contract$/, async () => {
