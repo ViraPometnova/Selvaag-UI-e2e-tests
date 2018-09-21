@@ -32,6 +32,7 @@ export class GuaranteePage {
     private modalConfirmWindow: any;
     private isOrganisationCheckbox: any;
     private findButton: any;
+    private rejectButton: any;
 
     constructor() {
         this.unitNumberInput = $("#unitNumberInput");
@@ -65,6 +66,7 @@ export class GuaranteePage {
         this.noButton = this.modalConfirmWindow.element(by.cssContainingText(".btn-secondary", "NO"));
         this.isOrganisationCheckbox = $("label[for='orgCheck']");
         this.findButton = element(by.cssContainingText(".btn", "Find"));
+        this.rejectButton = $("#btnReject");
     }
 
     public isUnitNumberInputDisplayed() {
@@ -282,6 +284,10 @@ export class GuaranteePage {
             await browser.sleep(200);
             beneficiaryName = await this.getBeneficiaryName();
         }
+    }
+
+    public clickRejectButton() {
+        return this.rejectButton.waitAndClick();
     }
 
     private getSelectedDropdownItem() {

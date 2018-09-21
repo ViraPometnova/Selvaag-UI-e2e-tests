@@ -22,7 +22,6 @@ Feature: Performance guarantee
     And edits guarantee data with values
       | unitNumber  | beneficiaryName | address                  | city          | zip        | contractAmount | performanceStartDate | performanceEndDate |
       | 48*26[Edit] | [Edited] Gt     | F1563, Princes Hwy[Edit] | Termeil[Edit] | 2539[Edit] | 712501         | today - 7 days       | today + 7 months   |
-    And clicks on bottom zero coordinates
     And goes to performance preview draft wording
     And User waits for pdf to be reloaded
     And wording for performance guarantee is shown

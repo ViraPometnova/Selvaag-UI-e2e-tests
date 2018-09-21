@@ -24,25 +24,25 @@ export const config: Config = {
     frameworkPath: require.resolve("protractor-cucumber-framework"),
 
     specs:
-        // [
-        //     "../../features/facility.feature",
-        //     "../../features/facilityMember.feature",
-        //     "../../features/contract.feature",
-        //     "../../features/guaranteeType.feature",
-        //     "../../features/guaranteeCardValidation.feature",
-        //     "../../features/combinedGuarantee.feature",
-        //     "../../features/performanceGuarantee.feature",
-        //     "../../features/maintenanceGuarantee.feature",
-        //     "../../features/login.feature",
-        //     "../../features/updateGuarantee.feature",
-        //     "../../features/approveGuarantee.feature",
-        //     "../../features/cancelGuarantee.feature"], // Uncomment to run all scenarios
+        [
+            "../../features/facility.feature",
+            "../../features/facilityMember.feature",
+            "../../features/contract.feature",
+            "../../features/guaranteeType.feature",
+            "../../features/guaranteeCardValidation.feature",
+            "../../features/combinedGuarantee.feature",
+            "../../features/performanceGuarantee.feature",
+            "../../features/maintenanceGuarantee.feature",
+            "../../features/login.feature",
+            "../../features/updateGuarantee.feature",
+            "../../features/approveGuarantee.feature",
+            "../../features/cancelGuarantee.feature"], // Uncomment to run all scenarios
 
-    ["../../features/updateGuarantee.feature"], // Uncomment to run separate test
+    // ["../../features/cancelGuarantee.feature"], // Uncomment to run separate test
 
     onPrepare: () => {
         browser.waitForAngularEnabled(false);
-        browser.manage().window().setSize(1366, 768);
+        browser.manage().window().maximize();
         browser.manage().timeouts().pageLoadTimeout(40000);
         browser.manage().timeouts().implicitlyWait(7000);
         Reporter.createDirectory(jsonReports);
