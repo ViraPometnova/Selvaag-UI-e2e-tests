@@ -15,6 +15,7 @@ import {CurrentRun} from "../support/currentRun";
 import {DateParser} from "../support/dateParser";
 import {WebService} from "../support/rest/webService";
 import {GuaranteeStatus} from "../test-data/GuaranteeStatus";
+import {ContractAssertions} from "../assertions/contractAssertions";
 
 const {Then, When} = require("cucumber"),
     guaranteePage = new GuaranteePage(),
@@ -27,7 +28,8 @@ const {Then, When} = require("cucumber"),
     searchFunctions = new SearchFunctions(),
     webServiceAssertions = new WebServiceAssertions(),
     webService = new WebService(),
-    generalControls = new GeneralControls();
+    generalControls = new GeneralControls(),
+    contractAssertions = new ContractAssertions();
 
 let performanceEndDate, combinedGuaranteeData, guaranteeData, performanceGuaranteeData, editedGuaranteeData,
     maintenanceGuaranteeData, invalidGuaranteeWebApiData, guaranteeWebApiData;
@@ -142,6 +144,7 @@ Then(/^combined guarantee is present on contract page$/, async () => {
     await listingAssertions.checkItemIsDisplayed(combinedGuaranteeData.beneficiaryName);
     await listingAssertions.checkItemIsDisplayed(combinedGuaranteeData.projectName);
     await listingAssertions.checkCounterFor(combinedGuaranteeData.projectName, "1");
+    await contractAssertions.checkContractUrl();
 
     await listingAssertions.checkGuaranteeDateOpenedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.performanceStartDate);
     await listingAssertions.checkGuaranteeDateClosedFor(combinedGuaranteeData.beneficiaryName, combinedGuaranteeData.maintenanceEndDate);
@@ -188,6 +191,7 @@ Then(/^performance guarantee is present on contract page$/, async () => {
     await listingAssertions.checkItemIsDisplayed(performanceGuaranteeData.beneficiaryName);
     await listingAssertions.checkItemIsDisplayed(performanceGuaranteeData.projectName);
     await listingAssertions.checkCounterFor(performanceGuaranteeData.projectName, "1");
+    await contractAssertions.checkContractUrl();
 
     await listingAssertions.checkGuaranteeDateOpenedFor(performanceGuaranteeData.beneficiaryName, performanceGuaranteeData.performanceStartDate);
     await listingAssertions.checkGuaranteeDateClosedFor(performanceGuaranteeData.beneficiaryName, performanceGuaranteeData.performanceEndDate);
@@ -254,6 +258,7 @@ Then(/^maintenance guarantee is present on contract page$/, async () => {
     await listingAssertions.checkItemIsDisplayed(maintenanceGuaranteeData.beneficiaryName);
     await listingAssertions.checkItemIsDisplayed(maintenanceGuaranteeData.projectName);
     await listingAssertions.checkCounterFor(maintenanceGuaranteeData.projectName, "1");
+    await contractAssertions.checkContractUrl();
 
     await listingAssertions.checkGuaranteeDateOpenedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.maintenanceStartDate);
     await listingAssertions.checkGuaranteeDateClosedFor(maintenanceGuaranteeData.beneficiaryName, maintenanceGuaranteeData.maintenanceEndDate);
@@ -355,6 +360,7 @@ When(/^Guarantee status is accepted/, async () => {
 });
 
 When(/^guarantee is approved on start page listing$/, async () => {
+    await searchFunctions.openStartPageAndSearch(guaranteeWebApiData[0].beneficiaryName);
     await listingPage.clickViewGuaranteeLinkFor(guaranteeWebApiData[0].beneficiaryName);
 
     await listingAssertions.checkDownloadPdfButtonIsDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
@@ -397,9 +403,25 @@ When(/^Guarantee status is cancelled/, async () => {
 });
 
 When(/^guarantee is cancelled on start page listing$/, async () => {
+    await searchFunctions.openStartPageAndSearch(guaranteeWebApiData[0].beneficiaryName);
     await listingPage.clickViewGuaranteeLinkFor(guaranteeWebApiData[0].beneficiaryName);
 
     await listingAssertions.checkEditGuaranteeLinkIsNotDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
     await listingAssertions.checkDownloadPdfButtonIsNotDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
     await listingAssertions.checkDownloadPdfIsNotPossibleToDownloadMessageIsDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
+});
+
+When(/^User rejects guarantee/, async () => {
+    await searchFunctions.openStartPageAndSearch(guaranteeWebApiData[0].beneficiaryName);
+    await listingAssertions.checkItemIsDisplayed(guaranteeWebApiData[0].beneficiaryName);
+    await listingPage.clickEditGuaranteeLinkFor(guaranteeWebApiData[0].beneficiaryName);
+
+    await guaranteePage.clickRejectButton();
+    await generalControls.hideToasts();
+});
+
+When(/^guarantee is rejected on contract page/, async () => {
+    // await listingAssertions.checkGuaranteeStatusFor(guaranteeWebApiData[0].beneficiaryName, "Rejected");
+    await listingAssertions.checkGuaranteeStatusFor("Johnny McHollister", "Rejected");
+    await contractAssertions.checkContractUrl();
 });

@@ -21,7 +21,7 @@ Feature: Approve guarantee
     When Guarantee status is valid
     Then guarantee is approved on start page listing
 
-  Scenario: Valid guarantee
+  Scenario: Expired guarantee
     When Guarantee status is expired
     Then guarantee is approved on start page listing
 
