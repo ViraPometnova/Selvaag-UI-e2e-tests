@@ -16,5 +16,6 @@ export class GuaranteeTypeFunctions {
         await manageGuaranteeTypesPage.setDocumentTemplateId(guaranteeType.documentTemplateId);
         await manageGuaranteeTypesPage.setLetterTemplateId(guaranteeType.letterTemplateId);
         await manageGuaranteeTypesPage.setAgreementId(guaranteeType.agreementId);
+        await manageGuaranteeTypesPage.setApprovalLetterTemplateId(guaranteeType.approvalTemplateId);
     }
 }

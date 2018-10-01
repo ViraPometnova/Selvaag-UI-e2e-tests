@@ -38,12 +38,12 @@ export class WordingAssertions {
     }
 
     public async checkPerformanceAmount(performanceAmount: string, count: number) {
-        assert.equal(await wording.getElementsAmountContain(AmountParser.stringToNumber(performanceAmount)), count,
+        assert.equal(await wording.getElementsAmountContain(AmountParser.stringToNumberWithSpaceDelimiter(performanceAmount)), count,
             `Performance amount ${performanceAmount} should be present ${count} time(s)`);
     }
 
     public async checkMaintenanceAmountEqualTo(maintenanceAmount: string, count: number) {
-        assert.equal(await wording.getElementsAmountContain(AmountParser.stringToNumber(maintenanceAmount)), count,
+        assert.equal(await wording.getElementsAmountContain(AmountParser.stringToNumberWithSpaceDelimiter(maintenanceAmount)), count,
             `Maintenance amount ${maintenanceAmount} should be present ${count} time(s)`);
     }
 

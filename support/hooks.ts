@@ -2,7 +2,7 @@ const {BeforeAll, After, Status, setDefaultTimeout} = require("cucumber");
 import {browser} from "protractor";
 import {config} from "../config/config";
 
-BeforeAll({timeout: 10 * 1000}, async () => {
+BeforeAll({timeout: 50 * 1000}, async () => {
     setDefaultTimeout(120 * 1000);
     await browser.get(config.baseUrl);
 });

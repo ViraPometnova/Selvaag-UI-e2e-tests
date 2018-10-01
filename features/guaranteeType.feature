@@ -13,6 +13,7 @@ Feature: Guarantee type
     And clears document template id
     And clears letter template id
     And clears agreement id
+    And clears approval letter template id
     And clicks on top zero coordinates
     Then guarantee type name validation message is shown
     And fixed premium validation message is shown
@@ -22,14 +23,15 @@ Feature: Guarantee type
     And document template id validation message is shown
     And letter template id validation message is shown
     And agreement id validation message is shown
+    And approval letter template id validation message is shown
 
 
   Scenario: Create guarantee type
     Given User is on Manage guarantee types page
     And performs new guarantee type creation
     And fills guarantee type card with values
-      | name     | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
-      | Combined | 4200         | true           | 5                     | 60           | true           | 3                     | CDTID              | CLTID            | 1398        | true    |
+      | name     | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | approvalTemplateId | agreementId | enabled |
+      | Combined | 4200         | true           | 5                     | 60           | true           | 3                     | CDTID              | CLTID            | CATID              | 1398        | true    |
     When User submits changes
     Then guarantee type is present in Guarantee Types list
     And User opens guarantee type to edit
@@ -38,12 +40,12 @@ Feature: Guarantee type
   Scenario: Edit guarantee type
     Given User is on Manage guarantee types page
     And Guarantee type is created with values
-      | name        | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
-      | Maintenance | 4200         | true           | 5                     | 60           | false          | 0                     | MDTID              | MLTID            | 1376        | true    |
+      | name              | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | enabled |
+      | Maintenance Vault | 4200         | true           | 5                     | 60           | false          | 0                     | true    |
     And User opens guarantee type to edit
     And edits guarantee type data
-      | name           | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
-      | MaintenanceNew | 5678         | false          | 0                     | 37           | true           | 48                    | MNDTID             | MNLTID           | 1377        | false   |
+      | name                 | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | approvalTemplateId | agreementId | enabled |
+      | MaintenanceNew Vault | 5678         | false          | 0                     | 37           | true           | 48                    | MNDTID             | MNLTID           | MNATID             | 1377        | false   |
     When User submits changes
     Then old guarantee type is not created
     And edited guarantee type is created
@@ -57,8 +59,8 @@ Feature: Guarantee type
       | name     | address                 | city      | zip   | number | organisationName |
       | Contract | 1297, Massachusetts Ave | Arlington | 02476 | HG     | Organisation     |
     And Guarantee type is created with values
-      | name     | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId | letterTemplateId | agreementId | enabled |
-      | Advanced | 2400         | false          | 0                     | 0            | true           | 10                    | ADTID              | ALTID            | 1405        | true    |
+      | name          | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | enabled |
+      | Advanced Pool | 2400         | false          | 0                     | 0            | true           | 10                    | true    |
     And performs new guarantee creation
     And guarantee type is able to be selected on New Guarantee page
     And User is on Manage guarantee types page

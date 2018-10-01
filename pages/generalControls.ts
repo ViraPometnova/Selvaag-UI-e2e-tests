@@ -24,11 +24,11 @@ export class GeneralControls {
     }
 
     public clickOnTopZeroCoordinates() {
-        return browser.driver.actions().mouseMove(this.routerElement).click().perform();
+        return browser.actions().mouseMove(this.routerElement).click().perform();
     }
 
     public clickOnBottomZeroCoordinates() {
-        return browser.driver.actions().mouseMove(this.toastElement).click().perform();
+        return browser.actions().mouseMove(this.toastElement).click().perform();
     }
 
     public hideToasts() {

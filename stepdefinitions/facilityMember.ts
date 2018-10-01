@@ -67,7 +67,7 @@ When(/^Organisation is created with values$/, async (table: TableDefinition) => 
     await webService.createFacility(organisationData[0].facilityName);
     await webService.createFacilityMember(organisationData[0]);
     await webServiceAssertions.checkFacilityMemberIsCreated(organisationData[0].name);
-    await browser.driver.sleep(10000); //    wait for backend date to be updated
+    await browser.sleep(10000); //    wait for backend date to be updated
 });
 
 When(/^opens new contract page$/, async () => {

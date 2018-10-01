@@ -311,7 +311,7 @@ When(/^Guarantee is created with values$/, async (table: TableDefinition) => {
 
     await webService.createGuarantee(guaranteeWebApiData[0]);
     await webServiceAssertions.checkGuaranteeIsCreated(guaranteeWebApiData[0]);
-    await browser.driver.sleep(10000); //    wait for backend date to be updated
+    await browser.sleep(10000); //    wait for backend date to be updated
     await searchFunctions.openStartPageAndSearch(guaranteeWebApiData[0].beneficiaryName);
     await listingAssertions.checkItemIsDisplayed(guaranteeWebApiData[0].beneficiaryName);
 });

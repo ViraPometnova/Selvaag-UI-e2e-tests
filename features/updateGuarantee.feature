@@ -9,11 +9,11 @@ Feature: Update guarantee
       | name         | address  | city       | zip   | organisationName |
       | Purple Snake | Greenway | Dream town | 00001 | Maroon Spider    |
     And Guarantee type is created with values
-      | name          | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
-      | Combined Type | 4200         | true           | 5                     | 60           | true           | 3                     | DTLw180905105119T4-HONUM00000 | DTLw180214174409S11ARNUM00946 | 1398        | true    |
+      | name           | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | enabled |
+      | Combined Punch | 4200         | true           | 5                     | 60           | true           | 3                     | true    |
     And Guarantee is created with values
-      | unitNumber | beneficiaryName | address | city | zip | contractAmount | startDate        | endDate          | approveNow | contractName | organisationName | guaranteeType |
-      | 61/17      | To be updated   | Address | City | Zip | 61700          | today + 1 months | today + 6 months | False      | Purple Snake | Maroon Spider    | Combined Type |
+      | unitNumber | beneficiaryName | address | city | zip | contractAmount | startDate        | endDate          | approveNow | contractName | organisationName | guaranteeType  |
+      | 61/17      | To be updated   | Address | City | Zip | 61700          | today + 1 months | today + 6 months | False      | Purple Snake | Maroon Spider    | Combined Punch |
     And Guarantee status is draft
     And guarantee is able to be edited
     And fills guarantee card with values
