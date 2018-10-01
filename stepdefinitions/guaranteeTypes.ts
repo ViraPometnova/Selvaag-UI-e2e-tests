@@ -141,6 +141,7 @@ Then(/^guarantee type is present on Edit Guarantee Type page$/, async () => {
     await guaranteeTypesAssertions.checkDocumentTemplateIdOnGuaranteeTypePageEqualTo(guaranteeTypeData[0].documentTemplateId);
     await guaranteeTypesAssertions.checkLetterTemplateIdOnGuaranteeTypePageEqualTo(guaranteeTypeData[0].letterTemplateId);
     await guaranteeTypesAssertions.checkAgreementIdOnGuaranteeTypePageEqualTo(guaranteeTypeData[0].agreementId);
+    await guaranteeTypesAssertions.checkApprovalLetterTemplateIdOnGuaranteeTypePageEqualTo(guaranteeTypeData[0].approvalTemplateId);
 });
 
 When(/^Guarantee type is created with values$/, async (table: TableDefinition) => {
@@ -150,7 +151,7 @@ When(/^Guarantee type is created with values$/, async (table: TableDefinition) =
     await webService.createGuaranteeType(guaranteeTypeData[0]);
     await browser.refresh();
     await webServiceAssertions.checkGuaranteeTypeIsCreated(guaranteeTypeData[0].name);
-    await browser.driver.sleep(10000); //    wait for backend date to be updated
+    await browser.sleep(10000); //    wait for backend date to be updated
 });
 
 When(/^edits guarantee type data$/, async (table: TableDefinition) => {
@@ -171,4 +172,12 @@ When(/^old guarantee type is not created$/, async () => {
 When(/^selects guarantee type$/, async () => {
     await header.hideHeader();
     await guaranteePage.selectGuaranteeType(guaranteeTypeData[0].name);
+});
+
+When(/^clears approval letter template id$/, async () => {
+    await manageGuaranteeTypesPage.clearApprovalLetterTemplateId();
+});
+
+Then(/^approval letter template id validation message is shown$/, async () => {
+    await guaranteeTypesAssertions.checkApprovalLetterTemplateIdValidationMessageIsShown();
 });

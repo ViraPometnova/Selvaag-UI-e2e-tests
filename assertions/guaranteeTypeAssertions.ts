@@ -150,6 +150,10 @@ export class GuaranteeTypeAssertions {
         assert.equal(await manageGuaranteeTypesPage.getAgreementId(), agreementId, `Agreement id is not equal to ${agreementId}`);
     }
 
+    public async checkApprovalLetterTemplateIdOnGuaranteeTypePageEqualTo(approvalTemplateId: string) {
+        assert.equal(await manageGuaranteeTypesPage.getApprovalLetterTemplateId(), approvalTemplateId, `Approval template id is not equal to ${approvalTemplateId}`);
+    }
+
     public async checkGuaranteeTypeIsPresentInGuaranteeTypesList(guaranteeType) {
         await this.checkGuaranteeTypeIsCreated(guaranteeType.name);
         await this.checkGuaranteeTypeEnabledInGuaranteeTypesListEqualTo(guaranteeType.name, guaranteeType.enabled);
@@ -159,5 +163,9 @@ export class GuaranteeTypeAssertions {
         await this.checkMonthsAmountInGuaranteeTypesListEqualTo(guaranteeType.name, guaranteeType.monthsAmount);
         await this.checkHasPerformanceInGuaranteeTypesListEqualTo(guaranteeType.name, guaranteeType.hasPerformance);
         await this.checkPerformancePercentageInGuaranteeTypesListEqualTo(guaranteeType.name, guaranteeType.performancePercentage);
+    }
+
+    public async checkApprovalLetterTemplateIdValidationMessageIsShown() {
+        assert.isTrue(await manageGuaranteeTypesPage.isApprovalLetterTemplateIdFeedbackDisplayed(), "Validation message is not displayed");
     }
 }

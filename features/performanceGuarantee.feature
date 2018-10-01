@@ -9,8 +9,8 @@ Feature: Performance guarantee
       | name             | address            | city   | zip   | number | organisationName  |
       | Jupiter Barbaric | 78, Calle Gran Vía | Madrid | 28013 | TRI    | Pointless Lantern |
     And Guarantee type is created with values
-      | name             | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
-      | Performance Type | 2400         | false          | 0                     | 0            | true           | 10                    | DTLw180905105249T4-HONUM00000 | DTLw180214174551S11ARNUM00728 | 1405        | true    |
+      | name              | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | enabled |
+      | Performance Block | 2400         | false          | 0                     | 0            | true           | 10                    | true    |
     And performs new guarantee creation
     And selects guarantee type
     And fills guarantee card with values

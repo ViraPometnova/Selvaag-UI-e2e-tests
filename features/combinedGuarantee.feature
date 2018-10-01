@@ -9,8 +9,8 @@ Feature: Combined guarantee
       | name        | address          | city      | zip  | organisationName |
       | Alien Heart | U11, Princes Hwy | Ulladulla | 2539 | Flaming Drill    |
     And Guarantee type is created with values
-      | name          | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | documentTemplateId            | letterTemplateId              | agreementId | enabled |
-      | Combined Type | 4200         | true           | 5                     | 60           | true           | 3                     | DTLw180905105119T4-HONUM00000 | DTLw180214174409S11ARNUM00946 | 1398        | true    |
+      | name            | fixedPremium | hasMaintenance | maintenancePercentage | monthsAmount | hasPerformance | performancePercentage | enabled |
+      | Combined Secret | 4200         | true           | 5                     | 60           | true           | 3                     | true    |
     And performs new guarantee creation
     And selects guarantee type
     And fills guarantee card with values

@@ -25,6 +25,8 @@ export class ManageGuaranteeTypesPage {
     private documentTemplateIdFeedback: any;
     private letterTemplateIdFeedback: any;
     private agreementIdFeedback: any;
+    private approvalLetterTemplateIdInput: any;
+    private approvalLetterTemplateIdFeedback: any;
 
     constructor() {
         this.nameInput = $("#nameInput");
@@ -52,10 +54,13 @@ export class ManageGuaranteeTypesPage {
             "Performance Percentage is required."));
         this.documentTemplateIdFeedback = element(by.cssContainingText(".form-control-feedback",
             "Document Template Id is required."));
-        this.letterTemplateIdFeedback = element(by.cssContainingText(".form-control-feedback",
-            "Letter Template Id is required."));
+        this.letterTemplateIdFeedback = element.all(by.cssContainingText(".form-control-feedback",
+            "Letter Template Id is required.")).get(0);
         this.agreementIdFeedback = element(by.cssContainingText(".form-control-feedback",
             "Agreement Id is required."));
+        this.approvalLetterTemplateIdInput = $("#approvalLetterTemplateIdInput");
+        this.approvalLetterTemplateIdFeedback = element(by.cssContainingText(".form-control-feedback",
+            "Approval Letter Template Id is required."));
     }
 
     public isNameFeedbackDisplayed() {
@@ -277,5 +282,21 @@ export class ManageGuaranteeTypesPage {
 
     public isHasPerformanceCheckboxSelected() {
         return this.hasPerformanceCheckbox.isSelected();
+    }
+
+    public setApprovalLetterTemplateId(id: string) {
+        return this.approvalLetterTemplateIdInput.clearAndSendKeys(id);
+    }
+
+    public getApprovalLetterTemplateId() {
+        return this.approvalLetterTemplateIdInput.getValue();
+    }
+
+    public clearApprovalLetterTemplateId() {
+        return this.approvalLetterTemplateIdInput.clear();
+    }
+
+    public isApprovalLetterTemplateIdFeedbackDisplayed() {
+        return this.approvalLetterTemplateIdFeedback.isWebElementDisplayed();
     }
 }

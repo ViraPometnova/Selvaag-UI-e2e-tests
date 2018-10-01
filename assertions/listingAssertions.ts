@@ -103,7 +103,7 @@ export class ListingAssertions {
         const contractAmount = await listingPage.getContractAmountFromViewGuarantee(guaranteeData.beneficiaryName);
         assert.equal(await listingPage.getTypeFromViewGuarantee(guaranteeData.beneficiaryName), guaranteeData.guaranteeType,
             `Guarantee type is not equal to ${guaranteeData.guaranteeType}`);
-        assert.include(AmountParser.stringToNumber(contractAmount), AmountParser.stringToNumber(guaranteeData.contractAmount),
+        assert.include(AmountParser.stringToNumberWithSpaceDelimiter(contractAmount), AmountParser.stringToNumberWithSpaceDelimiter(guaranteeData.contractAmount),
             `Contract amount does not include ${guaranteeData.contractAmount}`);
     }
 
@@ -115,7 +115,7 @@ export class ListingAssertions {
             `Performance end date is not equal to ${guaranteeData.performanceEndDate}`);
         assert.equal(await listingPage.getPerformancePercentageFromViewGuarantee(guaranteeData.beneficiaryName), guaranteeData.performancePercentage,
             `Performance percentage is not equal to ${guaranteeData.performancePercentage}`);
-        assert.include(AmountParser.stringToNumber(performanceAmount), AmountParser.stringToNumber(guaranteeData.performanceAmount),
+        assert.include(AmountParser.stringToNumberWithSpaceDelimiter(performanceAmount), AmountParser.stringToNumberWithSpaceDelimiter(guaranteeData.performanceAmount),
             `Performance amount does not include ${guaranteeData.performanceAmount}`);
     }
 
@@ -127,7 +127,7 @@ export class ListingAssertions {
             `Maintenance end date is not equal to ${guaranteeData.maintenanceEndDate}`);
         assert.equal(await listingPage.getMaintenancePercentageFromViewGuarantee(guaranteeData.beneficiaryName), guaranteeData.maintenancePercentage,
             `Maintenance percentage is not equal to ${guaranteeData.maintenanceEndDate}`);
-        assert.include(AmountParser.stringToNumber(maintenanceAmount), AmountParser.stringToNumber(guaranteeData.maintenanceAmount),
+        assert.include(AmountParser.stringToNumberWithSpaceDelimiter(maintenanceAmount), AmountParser.stringToNumberWithSpaceDelimiter(guaranteeData.maintenanceAmount),
             `Maintenance amount does not include ${guaranteeData.maintenanceAmount}`);
     }
 

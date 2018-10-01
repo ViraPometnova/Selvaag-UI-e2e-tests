@@ -2,6 +2,7 @@ import * as WebRequest from "web-request";
 import {config} from "../../config/config";
 import {DateParser} from "../dateParser";
 import {AccessToken} from "./accessToken";
+import {GuaranteeTypeId} from "../../test-data/GuaranteeTypeId";
 
 const baseUrl = config.baseUrl + "v1/",
     facilityUrl = baseUrl + "facility",
@@ -90,15 +91,17 @@ export class WebService {
     }
 
     public async createGuaranteeType(guaranteeType) {
-        const auth = await accessToken.getAuthOption();
+        const auth = await accessToken.getAuthOption(),
+            documentTemplateId = await this.getDocumentTemplateIdBy(guaranteeType.name);
         return await WebRequest.post(guaranteeTypesUrl,
             {
                 json: {
-                    documentTemplateId: guaranteeType.documentTemplateId,
+                    approvalLetterTemplateId: GuaranteeTypeId.ApprovalLetterTemplate,
+                    documentTemplateId,
                     enabled: guaranteeType.enabled,
                     fixedPremium: guaranteeType.fixedPremium,
-                    i2iAgreementId: guaranteeType.agreementId,
-                    letterTemplateId: guaranteeType.letterTemplateId,
+                    i2iAgreementId: GuaranteeTypeId.Agreement,
+                    letterTemplateId: GuaranteeTypeId.LetterTemplate,
                     maintenancePercentage: guaranteeType.maintenancePercentage,
                     maintenancePeriodInMonths: guaranteeType.monthsAmount,
                     name: guaranteeType.name,
@@ -221,5 +224,13 @@ export class WebService {
             content = await JSON.parse(guaranteeTypes.content),
             guid = content.filter((item) => item.name === guaranteeType).map((item) => item.guid);
         return guid[0];
+    }
+
+    private async getDocumentTemplateIdBy(guaranteeTypeName: string) {
+        return guaranteeTypeName.indexOf("Combined") !== -1
+            ? GuaranteeTypeId.CombinedDocumentTemplate
+            : (guaranteeTypeName.indexOf("Maintenance") !== -1
+                ? GuaranteeTypeId.MaintenanceDocumentTemplate
+                : GuaranteeTypeId.PerformanceDocumentTemplate);
     }
 }

@@ -42,7 +42,7 @@ When(/^Contract is created with values$/, async (table: TableDefinition) => {
 
     await webService.createContract(contractData[0]);
     await webServiceAssertions.checkContractIsCreated(contractData[0].organisationName, contractData[0].name);
-    await browser.driver.sleep(7000); //    wait for backend date to be updated
+    await browser.sleep(7000); //    wait for backend date to be updated
 });
 
 Then(/^User opens contract page$/, async () => {
