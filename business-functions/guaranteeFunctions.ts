@@ -3,6 +3,7 @@ import {GeneralControls} from "../pages/generalControls";
 import {GuaranteePage} from "../pages/guarantee";
 import {ListingPage} from "../pages/listing";
 import {DateParser} from "../support/dateParser";
+import {browser} from "protractor";
 
 const guaranteePage = new GuaranteePage(),
     addressForm = new AddressForm(),
@@ -84,6 +85,7 @@ export class GuaranteeFunctions {
         await guaranteePage.clickSubmitAndApproveButton();
         await guaranteePage.clickYesButton();
         await generalControls.hideToasts();
+        await browser.refresh();
     }
 
     private async getContractAmount(guaranteeData) {

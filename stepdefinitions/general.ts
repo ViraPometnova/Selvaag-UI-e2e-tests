@@ -11,6 +11,7 @@ When(/^User cancels changes$/, async () => {
 When(/^User submits changes$/, async () => {
     await generalControls.clickSubmitButton();
     await generalControls.hideToasts();
+    await browser.refresh();
 });
 
 When(/^clicks on top zero coordinates$/, async () => {

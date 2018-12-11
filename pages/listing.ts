@@ -244,6 +244,11 @@ export class ListingPage {
         return this.getNotPossibleToDownloadMessageFor(itemName).isWebElementDisplayed();
     }
 
+    public async getApplicationMadeByUserNameFromViewGuarantee(itemName: string) {
+        const applicationInformation = await this.splitApplicationInformationFor(itemName);
+        return applicationInformation[2];
+    }
+
     private getMaintenanceDetailsElementFor(itemName: string) {
         return element(by.cssContainingText(".item-card-details", itemName)).$(".maintenance");
     }
@@ -386,5 +391,18 @@ export class ListingPage {
     private getNotPossibleToDownloadMessageFor(itemName: string) {
         const itemDetails = this.getItemCardDetailsFor(itemName);
         return itemDetails.all(by.cssContainingText("div", "You are not be able to download BUL PDF, because guarantee is cancelled.")).first();
+    }
+
+    private async splitApplicationInformationFor(itemName) {
+        const beneficiaryDetails = await this.getApplicationInformationTextFor((itemName));
+        return beneficiaryDetails.split("\n");
+    }
+
+    private getApplicationInformationTextFor(itemName: string) {
+        return this.getApplicationInformationElementFor(itemName).getText();
+    }
+
+    private getApplicationInformationElementFor(itemName: string) {
+        return this.getItemCardDetailsFor(itemName).$(".application-information");
     }
 }

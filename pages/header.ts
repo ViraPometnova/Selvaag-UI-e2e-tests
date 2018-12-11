@@ -6,6 +6,7 @@ export class Header {
     private adminLink: any;
     private logoutLink: any;
     private header: any;
+    private adminDropdown: any;
 
     constructor() {
         this.userIcon = $(".user-icon");
@@ -13,6 +14,7 @@ export class Header {
         this.adminLink = element(by.cssContainingText(".dropdown-item", "admin"));
         this.logoutLink = element(by.cssContainingText(".dropdown-item", "log out"));
         this.header = $("app-header");
+        this.adminDropdown = $(".dropdown-toggle");
     }
 
     public isUserIconPresent() {
@@ -33,5 +35,10 @@ export class Header {
 
     public hideHeader() {
         return browser.executeScript("arguments[0].style.display = 'none';", this.header.getWebElement());
+    }
+
+    public async getUserName() {
+        const userName = await this.adminDropdown.getText();
+        return userName.trim();
     }
 }

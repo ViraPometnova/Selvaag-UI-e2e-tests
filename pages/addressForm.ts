@@ -32,15 +32,18 @@ export class AddressForm {
         return this.addressLine3Input.sendKeys(zip);
     }
 
-    public clearAddressLine1() {
+    public async clearAddressLine1() {
+        await this.addressLine1Input.sendKeys("");
         return this.addressLine1Input.clear();
     }
 
-    public clearAddressLine2() {
+    public async clearAddressLine2() {
+        await this.addressLine2Input.sendKeys("");
         return this.addressLine2Input.clear();
     }
 
-    public clearAddressLine3() {
+    public async clearAddressLine3() {
+        await this.addressLine3Input.sendKeys("");
         return this.addressLine3Input.clear();
     }
 

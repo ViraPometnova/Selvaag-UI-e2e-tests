@@ -1,7 +1,7 @@
 export enum GuaranteeTypeId {
-    CombinedDocumentTemplate = "DTLw180928123953T4-HONUM00000",
-    MaintenanceDocumentTemplate = "DTLw180928124204T4-HONUM00002",
-    PerformanceDocumentTemplate = "DTLw180928124035T4-HONUM00000",
+    CombinedDocumentTemplate = "DTLw181211122534T9-HONUM00002",
+    MaintenanceDocumentTemplate = "DTLw181211122735T9-HONUM00006",
+    PerformanceDocumentTemplate = "DTLw181211122709T9-HONUM00004",
     LetterTemplate = "LTID",
     ApprovalLetterTemplate = "ATID",
     Agreement = "1111",

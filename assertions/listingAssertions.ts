@@ -2,10 +2,11 @@ import {browser} from "protractor";
 import {config} from "../config/config";
 import {ListingPage} from "../pages/listing";
 import {AmountParser} from "../support/amountParser";
-import {DateParser} from "../support/dateParser";
+import {Header} from "../pages/header";
 
 const assert = require("chai").assert,
-    listingPage = new ListingPage();
+    listingPage = new ListingPage(),
+    header = new Header();
 
 export class ListingAssertions {
 
@@ -165,5 +166,10 @@ export class ListingAssertions {
 
     public async checkDownloadPdfIsNotPossibleToDownloadMessageIsDisplayedFor(itemName: string) {
         assert.isTrue(await listingPage.isNotPossibleToDownloadMessageDisplayedFor(itemName), "You are not be able to download BUL PDF message is not displayed");
+    }
+
+     public async checkApplicationMadeByEqualsToLoggedInUser(itemName: string) {
+        assert.equal(await listingPage.getApplicationMadeByUserNameFromViewGuarantee(itemName), await header.getUserName(),
+            `Guarantee is not made by logged in user`);
     }
 }

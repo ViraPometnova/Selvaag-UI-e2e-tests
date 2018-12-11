@@ -37,11 +37,13 @@ export class ManageFacilityMembersPage {
         return this.organisationNumberInput.clearAndSendKeys(organisationNumber);
     }
 
-    public clearOrganisationNameInput() {
+    public async clearOrganisationNameInput() {
+        await this.organisationNameInput.sendKeys("");
         return this.organisationNameInput.clear();
     }
 
-    public clearOrganisationNumberInput() {
+    public async clearOrganisationNumberInput() {
+        await this.organisationNumberInput.sendKeys("");
         return this.organisationNumberInput.clear();
     }
 

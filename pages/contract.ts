@@ -21,7 +21,8 @@ export class ContractPage {
         return this.projectNameInput.clearAndSendKeys(name);
     }
 
-    public clearProjectName() {
+    public async clearProjectName() {
+        await this.projectNameInput.sendKeys("");
         return this.projectNameInput.clear();
     }
 

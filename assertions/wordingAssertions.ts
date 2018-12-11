@@ -14,7 +14,6 @@ export class WordingAssertions {
     }
 
     public async checkBeneficiaryDetails(guaranteeData) {
-        assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.unitNumber), `Unit number should be present on draft wording`);
         assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.beneficiaryName), `Beneficiary name should be present on draft wording`);
         assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.beneficiaryAddress), `Beneficiary address should be present on draft wording`);
         assert.isTrue(await wording.isTextPresentOnWording(guaranteeData.beneficiaryCity), `Beneficiary city should be present on draft wording`);

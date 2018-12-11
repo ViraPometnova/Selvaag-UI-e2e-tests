@@ -116,7 +116,8 @@ export class ManageGuaranteeTypesPage {
         return this.nameInput.clearAndSendKeys(name);
     }
 
-    public clearGuaranteeTypeNameInput() {
+    public async clearGuaranteeTypeNameInput() {
+        await this.nameInput.sendKeys("");
         return this.nameInput.clear();
     }
 
@@ -236,7 +237,8 @@ export class ManageGuaranteeTypesPage {
         return this.documentTemplateIdInput.clearAndSendKeys(id);
     }
 
-    public clearDocumentTemplateIdInput() {
+    public async clearDocumentTemplateIdInput() {
+        await this.documentTemplateIdInput.sendKeys("");
         return this.documentTemplateIdInput.clear();
     }
 
@@ -248,7 +250,8 @@ export class ManageGuaranteeTypesPage {
         return this.letterTemplateIdInput.clearAndSendKeys(id);
     }
 
-    public clearLetterTemplateIdInput() {
+    public async clearLetterTemplateIdInput() {
+        await this.letterTemplateIdInput.sendKeys("");
         return this.letterTemplateIdInput.clear();
     }
 
@@ -260,7 +263,8 @@ export class ManageGuaranteeTypesPage {
         return this.agreementIdInput.clearAndSendKeys(id);
     }
 
-    public clearAgreementIdInput() {
+    public async clearAgreementIdInput() {
+        await this.agreementIdInput.sendKeys("");
         return this.agreementIdInput.clear();
     }
 
@@ -292,7 +296,8 @@ export class ManageGuaranteeTypesPage {
         return this.approvalLetterTemplateIdInput.getValue();
     }
 
-    public clearApprovalLetterTemplateId() {
+    public async clearApprovalLetterTemplateId() {
+        await this.approvalLetterTemplateIdInput.sendKeys("");
         return this.approvalLetterTemplateIdInput.clear();
     }
 

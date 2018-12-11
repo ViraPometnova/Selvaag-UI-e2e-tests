@@ -27,7 +27,7 @@ Feature: Guarantee card validation
     Given User is on new guarantee page
     And selects guarantee type
     When sets performance start date <startDate>
-    And clicks on bottom zero coordinates
+    And clicks on top zero coordinates
     Then performance start date is set
 
     Examples:
@@ -40,7 +40,7 @@ Feature: Guarantee card validation
     Given User is on new guarantee page
     And selects guarantee type
     When sets performance start date <startDate>
-    And clicks on bottom zero coordinates
+    And clicks on top zero coordinates
     Then performance start date is not set
 
     Examples:
@@ -53,7 +53,7 @@ Feature: Guarantee card validation
     And selects guarantee type
     When sets performance start date <startDate>
     And sets performance end date <endDate>
-    And clicks on bottom zero coordinates
+    And clicks on top zero coordinates
     Then performance end date is set
 
     Examples:
@@ -66,7 +66,7 @@ Feature: Guarantee card validation
     And selects guarantee type
     When sets performance start date <startDate>
     And sets performance end date <endDate>
-    And clicks on bottom zero coordinates
+    And clicks on top zero coordinates
     Then performance end date is not set
 
     Examples:

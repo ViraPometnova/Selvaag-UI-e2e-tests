@@ -155,6 +155,7 @@ Then(/^combined guarantee is present on contract page$/, async () => {
 
     await listingPage.clickViewGuaranteeLinkFor(combinedGuaranteeData.beneficiaryName);
     await listingAssertions.checkBeneficiaryDetailsOnViewGuarantee(combinedGuaranteeData);
+    await listingAssertions.checkApplicationMadeByEqualsToLoggedInUser(combinedGuaranteeData.beneficiaryName);
     await listingAssertions.checkGuaranteeDetailsOnViewGuarantee(combinedGuaranteeData);
     await listingAssertions.checkPerformanceDetailsOnViewGuarantee(combinedGuaranteeData);
     await listingAssertions.checkMaintenanceDetailsOnViewGuarantee(combinedGuaranteeData);
@@ -202,6 +203,7 @@ Then(/^performance guarantee is present on contract page$/, async () => {
 
     await listingPage.clickViewGuaranteeLinkFor(performanceGuaranteeData.beneficiaryName);
     await listingAssertions.checkBeneficiaryDetailsOnViewGuarantee(performanceGuaranteeData);
+    await listingAssertions.checkApplicationMadeByEqualsToLoggedInUser(performanceGuaranteeData.beneficiaryName);
     await listingAssertions.checkGuaranteeDetailsOnViewGuarantee(performanceGuaranteeData);
     await listingAssertions.checkPerformanceDetailsOnViewGuarantee(performanceGuaranteeData);
 });
@@ -269,6 +271,7 @@ Then(/^maintenance guarantee is present on contract page$/, async () => {
 
     await listingPage.clickViewGuaranteeLinkFor(maintenanceGuaranteeData.beneficiaryName);
     await listingAssertions.checkBeneficiaryDetailsOnViewGuarantee(maintenanceGuaranteeData);
+    await listingAssertions.checkApplicationMadeByEqualsToLoggedInUser(maintenanceGuaranteeData.beneficiaryName);
     await listingAssertions.checkGuaranteeDetailsOnViewGuarantee(maintenanceGuaranteeData);
     await listingAssertions.checkMaintenanceDetailsOnViewGuarantee(maintenanceGuaranteeData);
 });

@@ -2,15 +2,16 @@ import {browser, Config} from "protractor";
 import {Reporter} from "../support/reporter";
 
 const jsonReports = process.cwd() + "/reports/json";
+const report = require("cucumber-html-report");
 
 export const config: Config = {
 
-    seleniumAddress: "http://127.0.0.1:4444/wd/hub",
+    // seleniumAddress: "http://127.0.0.1:4444/wd/hub",
 
     SELENIUM_PROMISE_MANAGER: false,
 
     // baseUrl: "http://84.17.193.234:16451/NordicG.Bul.Guarantee/", // ARNSAAS test env
-    baseUrl: "http://t4-host-i1/NordicG.Bul.Guarantee/", // Infinity test env
+    baseUrl: "http://t9-host-i1:8081/", // Infinity test env
 
     directConnect: true,
     noGlobals: true,
@@ -18,27 +19,37 @@ export const config: Config = {
 
     capabilities: {
         browserName: "chrome",
+        chromeOptions: {
+            args: ["disable-infobars"],
+        },
+        metadata: {
+            browser: {
+                name: "chrome",
+                version: "70",
+            },
+        },
     },
 
     framework: "custom",
     frameworkPath: require.resolve("protractor-cucumber-framework"),
 
     specs:
-    // [
-    //     "../../features/facility.feature",
-    //     "../../features/facilityMember.feature",
-    //     "../../features/contract.feature",
-    //     "../../features/guaranteeType.feature",
-    //     "../../features/guaranteeCardValidation.feature",
-    //     "../../features/combinedGuarantee.feature",
-    //     "../../features/performanceGuarantee.feature",
-    //     "../../features/maintenanceGuarantee.feature",
-    //     "../../features/login.feature",
-    //     "../../features/updateGuarantee.feature",
-    //     "../../features/approveGuarantee.feature",
-    //     "../../features/cancelGuarantee.feature"], // Uncomment to run all scenarios
+        // [
+        //     "../../features/login.feature",
+        //     "../../features/facility.feature",
+        //     "../../features/facilityMember.feature",
+        //     "../../features/contract.feature",
+        //     "../../features/guaranteeType.feature",
+        //     "../../features/guaranteeCardValidation.feature",
+        //     "../../features/combinedGuarantee.feature",
+        //     "../../features/performanceGuarantee.feature",
+        //     "../../features/maintenanceGuarantee.feature",
+        //     "../../features/updateGuarantee.feature",
+        //     "../../features/approveGuarantee.feature",
+        //     "../../features/cancelGuarantee.feature"
+        // ], // Uncomment to run all scenarios
 
-        ["../../features/updateGuarantee.feature"], // Uncomment to run separate test
+    ["../../features/contract.feature"], // Uncomment to run separate test
 
     onPrepare: () => {
         browser.waitForAngularEnabled(false);
@@ -55,7 +66,15 @@ export const config: Config = {
         strict: true,
     },
 
-    // onComplete: () => {
-    //     Reporter.createHTMLReport();
-    // },
+    onComplete: () => {
+         // Reporter.createHTMLReport();
+        report.create({
+            source: "./reports/json/cucumber_report.json",      // source json
+            dest: "./reports",                   // target directory (will create if not exists)
+            name: "report.html",                 // report file name (will be index.html if not exists)
+            partialsDir: "./partials",                  // your custom mustache partials directory (uses default if no custom template is specified, or empty when there is template but no partials)
+            dateformat: "YYYY MM DD",                  // default is YYYY-MM-DD hh:mm:ss
+            maxScreenshots: 10,                           // Max number of screenshots to save (default is 1000)
+        });
+    },
 };
