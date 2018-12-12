@@ -63,7 +63,7 @@ ElementFinder.prototype.clearAndSendKeys = function (text: string) {
 
 ElementFinder.prototype.isWebElementDisplayed = function () {
     const self = this;
-    return browser.wait(EC.visibilityOf(self), 5000)
+    return browser.wait(EC.visibilityOf(self), 3000)
         .then(() => true, () => false);
 };
 

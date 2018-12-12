@@ -21,4 +21,14 @@ export class SearchFunctions {
         await listingAssertions.checkStartPageIsOpened();
         await this.search(pattern);
     }
+
+    public async selectOrganisationName(organisationName: string) {
+        await search.clickOrganisationNameDropButton();
+        await search.selectOrganisationName(organisationName);
+    }
+
+    public async selectProjectName(projectName: string) {
+        await search.clickProjectNameDropButton();
+        await search.selectProjectName(projectName);
+    }
 }
