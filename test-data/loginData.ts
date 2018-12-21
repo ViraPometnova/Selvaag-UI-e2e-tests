@@ -1,4 +1,6 @@
 export const credentials = {
-    username: "admin",
-    password: "admin",
+    adminUsername: "admin",
+    adminPassword: "admin",
+    userUsername: "test",
+    userPassword: "test",
 };

@@ -1,7 +1,7 @@
 Feature: Update guarantee
 
   Scenario: Update draft guarantee
-    Given User is logged in
+    Given User is logged in as admin
     And Organisation is created with values
       | facilityName    | name          | number | address  | city     | zip   | enabled |
       | Sienna Nitrogen | Maroon Spider | GTI    | Broadway | New York | 00000 | true    |

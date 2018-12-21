@@ -34,22 +34,24 @@ export const config: Config = {
     frameworkPath: require.resolve("protractor-cucumber-framework"),
 
     specs:
-        // [
-        //     "../../features/login.feature",
-        //     "../../features/facility.feature",
-        //     "../../features/facilityMember.feature",
-        //     "../../features/contract.feature",
-        //     "../../features/guaranteeType.feature",
-        //     "../../features/guaranteeCardValidation.feature",
-        //     "../../features/combinedGuarantee.feature",
-        //     "../../features/performanceGuarantee.feature",
-        //     "../../features/maintenanceGuarantee.feature",
-        //     "../../features/updateGuarantee.feature",
-        //     "../../features/approveGuarantee.feature",
-        //     "../../features/cancelGuarantee.feature"
-        // ], // Uncomment to run all scenarios
+    // [
+    //     "../../features/login.feature",
+    // "../../features/advancedSearch.feature",
+    //     "../../features/facility.feature",
+    //     "../../features/facilityMember.feature",
+    //     "../../features/contract.feature",
+    //     "../../features/guaranteeType.feature",
+    //     "../../features/guaranteeCardValidation.feature",
+    //     "../../features/combinedGuarantee.feature",
+    //     "../../features/performanceGuarantee.feature",
+    //     "../../features/maintenanceGuarantee.feature",
+    //     "../../features/updateGuarantee.feature",
+    //     "../../features/approveGuarantee.feature",
+    //     "../../features/cancelGuarantee.feature",
+    //     "../../features/editGuaranteeByOtherUser.feature"
+    // ], // Uncomment to run all scenarios
 
-    ["../../features/contract.feature"], // Uncomment to run separate test
+        ["../../features/editGuaranteeByOtherUser.feature"], // Uncomment to run separate test
 
     onPrepare: () => {
         browser.waitForAngularEnabled(false);
@@ -67,7 +69,7 @@ export const config: Config = {
     },
 
     onComplete: () => {
-         // Reporter.createHTMLReport();
+        // Reporter.createHTMLReport();
         report.create({
             source: "./reports/json/cucumber_report.json",      // source json
             dest: "./reports",                   // target directory (will create if not exists)

@@ -1,7 +1,7 @@
 Feature: Facility
 
   Scenario: Facility is not created
-    Given User is logged in
+    Given User is logged in as admin
     And opens admin page
     And opens Facility manager
     And performs new Facility creation

@@ -1,7 +1,7 @@
 Feature: Performance guarantee
 
   Scenario: Create Performance guarantee
-    Given User is logged in
+    Given User is logged in as admin
     And Organisation is created with values
       | facilityName   | name              | number | address                    | city      | zip   | enabled |
       | Endless Oyster | Pointless Lantern | SKY    | 7821, Atlantic Ave, Queens | Woodhaven | 11421 | true    |

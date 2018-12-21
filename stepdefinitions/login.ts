@@ -41,6 +41,10 @@ When(/^User is logged in with (.*?) and (.*?)$/, async (username: string, passwo
     await LoginFunctions.clearSessionAndLogin(username, password);
 });
 
-When(/^User is logged in$/, async () => {
-    await LoginFunctions.clearSessionAndLogin(credentials.username, credentials.password);
+When(/^User is logged in as admin$/, async () => {
+    await LoginFunctions.clearSessionAndLogin(credentials.adminUsername, credentials.adminPassword);
+});
+
+When(/^User is logged in as not admin$/, async () => {
+    await LoginFunctions.clearSessionAndLogin(credentials.userUsername, credentials.userPassword);
 });

@@ -1,6 +1,7 @@
 import {TableDefinition} from "cucumber";
 import moment = require("moment");
 import {browser} from "protractor";
+import {ContractAssertions} from "../assertions/contractAssertions";
 import {GuaranteeAssertions} from "../assertions/guaranteeAssertions";
 import {ListingAssertions} from "../assertions/listingAssertions";
 import {WebServiceAssertions} from "../assertions/webServiceAssertions";
@@ -15,7 +16,6 @@ import {CurrentRun} from "../support/currentRun";
 import {DateParser} from "../support/dateParser";
 import {WebService} from "../support/rest/webService";
 import {GuaranteeStatus} from "../test-data/GuaranteeStatus";
-import {ContractAssertions} from "../assertions/contractAssertions";
 
 const {Then, When} = require("cucumber"),
     guaranteePage = new GuaranteePage(),
@@ -113,7 +113,7 @@ Then(/^fills guarantee card with values$/, async (table: TableDefinition) => {
 
 When(/^goes to combined preview draft wording$/, async () => {
     combinedGuaranteeData = await guaranteeFunctions.getCombinedGuaranteeDataFromCard();
-
+    await generalControls.clickOnBottomZeroCoordinates();
     await guaranteePage.clickPreviewDraftButton();
     await wordingAssertions.checkDraftWordingIsPresent();
     await wording.waitPageToLoadData();
@@ -155,7 +155,6 @@ Then(/^combined guarantee is present on contract page$/, async () => {
 
     await listingPage.clickViewGuaranteeLinkFor(combinedGuaranteeData.beneficiaryName);
     await listingAssertions.checkBeneficiaryDetailsOnViewGuarantee(combinedGuaranteeData);
-    await listingAssertions.checkApplicationMadeByEqualsToLoggedInUser(combinedGuaranteeData.beneficiaryName);
     await listingAssertions.checkGuaranteeDetailsOnViewGuarantee(combinedGuaranteeData);
     await listingAssertions.checkPerformanceDetailsOnViewGuarantee(combinedGuaranteeData);
     await listingAssertions.checkMaintenanceDetailsOnViewGuarantee(combinedGuaranteeData);
@@ -203,7 +202,6 @@ Then(/^performance guarantee is present on contract page$/, async () => {
 
     await listingPage.clickViewGuaranteeLinkFor(performanceGuaranteeData.beneficiaryName);
     await listingAssertions.checkBeneficiaryDetailsOnViewGuarantee(performanceGuaranteeData);
-    await listingAssertions.checkApplicationMadeByEqualsToLoggedInUser(performanceGuaranteeData.beneficiaryName);
     await listingAssertions.checkGuaranteeDetailsOnViewGuarantee(performanceGuaranteeData);
     await listingAssertions.checkPerformanceDetailsOnViewGuarantee(performanceGuaranteeData);
 });
@@ -271,7 +269,6 @@ Then(/^maintenance guarantee is present on contract page$/, async () => {
 
     await listingPage.clickViewGuaranteeLinkFor(maintenanceGuaranteeData.beneficiaryName);
     await listingAssertions.checkBeneficiaryDetailsOnViewGuarantee(maintenanceGuaranteeData);
-    await listingAssertions.checkApplicationMadeByEqualsToLoggedInUser(maintenanceGuaranteeData.beneficiaryName);
     await listingAssertions.checkGuaranteeDetailsOnViewGuarantee(maintenanceGuaranteeData);
     await listingAssertions.checkMaintenanceDetailsOnViewGuarantee(maintenanceGuaranteeData);
 });
@@ -387,7 +384,7 @@ When(/^Guarantee status is expired/, async () => {
     await listingAssertions.checkTimerIsNotDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
 });
 
-When(/^Guarantee status is rejected/, async () => {
+Then(/^Guarantee status is rejected/, async () => {
     await webService.setGuaranteeStatus(guaranteeWebApiData[0], GuaranteeStatus.Rejected);
     await browser.refresh(); // Refresh page to update guarantee status in UI
 
@@ -396,7 +393,7 @@ When(/^Guarantee status is rejected/, async () => {
     await listingAssertions.checkTimerIsNotDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
 });
 
-When(/^Guarantee status is cancelled/, async () => {
+Then(/^Guarantee status is cancelled/, async () => {
     await webService.setGuaranteeStatus(guaranteeWebApiData[0], GuaranteeStatus.Cancelled);
     await browser.refresh(); // Refresh page to update guarantee status in UI
 
@@ -405,7 +402,7 @@ When(/^Guarantee status is cancelled/, async () => {
     await listingAssertions.checkTimerIsNotDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
 });
 
-When(/^guarantee is cancelled on start page listing$/, async () => {
+Then(/^guarantee is cancelled on start page listing$/, async () => {
     await searchFunctions.openStartPageAndSearch(guaranteeWebApiData[0].beneficiaryName);
     await listingPage.clickViewGuaranteeLinkFor(guaranteeWebApiData[0].beneficiaryName);
 
@@ -414,7 +411,7 @@ When(/^guarantee is cancelled on start page listing$/, async () => {
     await listingAssertions.checkDownloadPdfIsNotPossibleToDownloadMessageIsDisplayedFor(guaranteeWebApiData[0].beneficiaryName);
 });
 
-When(/^User rejects guarantee/, async () => {
+Then(/^User rejects guarantee/, async () => {
     await searchFunctions.openStartPageAndSearch(guaranteeWebApiData[0].beneficiaryName);
     await listingAssertions.checkItemIsDisplayed(guaranteeWebApiData[0].beneficiaryName);
     await listingPage.clickEditGuaranteeLinkFor(guaranteeWebApiData[0].beneficiaryName);
@@ -423,8 +420,41 @@ When(/^User rejects guarantee/, async () => {
     await generalControls.hideToasts();
 });
 
-When(/^guarantee is rejected on contract page/, async () => {
+Then(/^guarantee is rejected on contract page/, async () => {
     // await listingAssertions.checkGuaranteeStatusFor(guaranteeWebApiData[0].beneficiaryName, "Rejected");
     await listingAssertions.checkGuaranteeStatusFor("Johnny McHollister", "Rejected");
     await contractAssertions.checkContractUrl();
+});
+
+When(/^guarantee is created by (.*?)$/, async (userName: string) => {
+    await searchFunctions.openStartPageAndSearch(guaranteeWebApiData[0].beneficiaryName);
+    await listingPage.clickViewGuaranteeLinkFor(guaranteeWebApiData[0].beneficiaryName);
+    await listingAssertions.checkApplicationMadeByUser(guaranteeWebApiData[0].beneficiaryName, userName);
+});
+
+When(/^opens guarantee to edit (.*?)$/, async (beneficiaryName: string) => {
+    await searchFunctions.openStartPageAndSearch(CurrentRun.uniqueName(beneficiaryName));
+    await listingPage.clickEditGuaranteeLinkFor(CurrentRun.uniqueName(beneficiaryName));
+});
+
+Then(/^initial user modified guarantee/, async () => {
+    await searchFunctions.openStartPageAndSearch(guaranteeWebApiData[0].beneficiaryName);
+    await listingPage.clickViewGuaranteeLinkFor(guaranteeWebApiData[0].beneficiaryName);
+    await listingAssertions.checkApplicationModifiedByRecordIsNotDisplayed(guaranteeWebApiData[0].beneficiaryName);
+});
+
+Then(/^guarantee is modified by (.*?)$/, async (userName: string) => {
+    await searchFunctions.openStartPageAndSearch(guaranteeWebApiData[0].beneficiaryName);
+    await listingPage.clickViewGuaranteeLinkFor(guaranteeWebApiData[0].beneficiaryName);
+    await listingAssertions.checkApplicationModifiedByUser(guaranteeWebApiData[0].beneficiaryName, userName);
+});
+
+When(/^User updates guarantee with values$/, async (table: TableDefinition) => {
+    guaranteeWebApiData = await table.hashes();
+    await CurrentRun.uniquePerTestRun(guaranteeWebApiData);
+
+    await webService.updateGuarantee(guaranteeWebApiData[0]);
+    await webServiceAssertions.checkGuaranteeIsCreated(guaranteeWebApiData[0]);
+    await browser.sleep(10000); //    wait for backend date to be updated
+    await browser.refresh();
 });

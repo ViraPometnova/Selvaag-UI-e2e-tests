@@ -168,8 +168,17 @@ export class ListingAssertions {
         assert.isTrue(await listingPage.isNotPossibleToDownloadMessageDisplayedFor(itemName), "You are not be able to download BUL PDF message is not displayed");
     }
 
-     public async checkApplicationMadeByEqualsToLoggedInUser(itemName: string) {
-        assert.equal(await listingPage.getApplicationMadeByUserNameFromViewGuarantee(itemName), await header.getUserName(),
-            `Guarantee is not made by logged in user`);
+    public async checkApplicationMadeByUser(itemName: string, userName: string) {
+        assert.equal(await listingPage.getApplicationMadeByUserNameFromViewGuarantee(itemName), userName,
+            `Guarantee is not made by ${userName} user`);
+    }
+
+    public async checkApplicationModifiedByRecordIsNotDisplayed(itemName: string) {
+        assert.isFalse(await listingPage.isApplicationModifiedByRecordPresent(itemName), "Change made by record is present");
+    }
+
+    public async checkApplicationModifiedByUser(itemName: string, userName: string) {
+        assert.equal(await listingPage.getApplicationModifiedByUserNameFromViewGuarantee(itemName), userName,
+            `Guarantee is not modified by ${userName} user`);
     }
 }

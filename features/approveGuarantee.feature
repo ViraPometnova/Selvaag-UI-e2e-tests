@@ -1,7 +1,7 @@
 Feature: Approve guarantee
 
   Scenario: Accepted guarantee
-    Given User is logged in
+    Given User is logged in as admin
     And Organisation is created with values
       | facilityName    | name         | number | address  | city     | zip   | enabled |
       | Purple Tucutucu | Black Desman | GTI    | Broadway | New York | 00000 | true    |

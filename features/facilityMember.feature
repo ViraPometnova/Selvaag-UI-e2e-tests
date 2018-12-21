@@ -1,7 +1,7 @@
 Feature: Facility Member
 
   Scenario: Facility member card validation
-    Given User is logged in
+    Given User is logged in as admin
     And opens admin page
     And opens Facility members manager
     And performs new Facility member creation

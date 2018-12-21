@@ -1,7 +1,7 @@
 Feature: Combined guarantee
 
   Scenario: Create Combined guarantee
-    Given User is logged in
+    Given User is logged in as admin
     And Organisation is created with values
       | facilityName | name          | number | address       | city          | zip   | enabled |
       | New Breeze   | Flaming Drill | RA     | Thadvai, NH65 | Eklashkhanpet | 50233 | true    |
