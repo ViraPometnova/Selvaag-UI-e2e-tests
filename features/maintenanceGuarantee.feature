@@ -1,7 +1,7 @@
 Feature: Maintenance guarantee
 
   Scenario: Create Maintenance guarantee
-    Given User is logged in
+    Given User is logged in as admin
     And Organisation is created with values
       | facilityName   | name           | number | address           | city   | zip   | enabled |
       | Liquid Morning | Brave Electron | FD     | 776B, Boylston St | Boston | 02199 | true    |

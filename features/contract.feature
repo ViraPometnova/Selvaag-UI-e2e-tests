@@ -1,7 +1,7 @@
 Feature: Contract
 
   Scenario: Validation contract card
-    Given User is logged in
+    Given User is logged in as admin
     And Organisation is created with values
       | facilityName | name    | number | address                  | city     | zip   | enabled |
       | Facility     | Svartis | ON     | 1255, 5th Ave, Manhattan | New York | 10029 | true    |

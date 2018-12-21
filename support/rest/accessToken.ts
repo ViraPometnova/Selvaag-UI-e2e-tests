@@ -5,17 +5,17 @@ const baseUrl = config.baseUrl + "v1/";
 
 export class AccessToken {
 
-    public async getAuthOption() {
-        const accessToken = await this.getAccessToken();
-        return  {bearer: accessToken, sendImmediately: true};
+    public async getAuthOption(username?: string, password?: string) {
+        const accessToken = await this.getAccessToken(username, password);
+        return {bearer: accessToken, sendImmediately: true};
     }
 
-    private async getAccessToken() {
+    private async getAccessToken(username?: string, password?: string) {
         const response = await WebRequest.post(baseUrl + "" +
             "token",
             {
                 json: {
-                    username: "admin", password: "admin", grant_type: "password",
+                    username: username || "admin", password: password || "admin", grant_type: "password",
                 },
             });
         return response.content["tokens"]["access_token"];

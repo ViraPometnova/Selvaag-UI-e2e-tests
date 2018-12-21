@@ -36,6 +36,7 @@ export const config: Config = {
     specs:
     // [
     //     "../../features/login.feature",
+    // "../../features/advancedSearch.feature",
     //     "../../features/facility.feature",
     //     "../../features/facilityMember.feature",
     //     "../../features/contract.feature",
@@ -46,10 +47,11 @@ export const config: Config = {
     //     "../../features/maintenanceGuarantee.feature",
     //     "../../features/updateGuarantee.feature",
     //     "../../features/approveGuarantee.feature",
-    //     "../../features/cancelGuarantee.feature"
+    //     "../../features/cancelGuarantee.feature",
+    //     "../../features/editGuaranteeByOtherUser.feature"
     // ], // Uncomment to run all scenarios
 
-        ["../../features/advancedSearch.feature"], // Uncomment to run separate test
+        ["../../features/editGuaranteeByOtherUser.feature"], // Uncomment to run separate test
 
     onPrepare: () => {
         browser.waitForAngularEnabled(false);

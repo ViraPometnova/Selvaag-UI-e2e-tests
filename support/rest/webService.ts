@@ -197,6 +197,42 @@ export class WebService {
             });
     }
 
+    public async updateGuarantee(guarantee) {
+        const auth = await accessToken.getAuthOption(guarantee.username, guarantee.password),
+            guid = await this.getGuaranteeGuid(guarantee),
+            contractGuid = await this.getContractGuidFor(guarantee.organisationName, guarantee.contractName),
+            facilityMemberGuid = await this.getFacilityMemberGuidFor(guarantee.organisationName),
+            guaranteeTypeGuid = await this.getGuaranteeTypeGuidFor(guarantee.guaranteeType),
+            endDate = await DateParser.textToDate(guarantee.endDate),
+            startDate = await DateParser.textToDate(guarantee.startDate),
+            sqlEndDate = await DateParser.dateToSqlFormat(endDate),
+            sqlStartDate = await DateParser.dateToSqlFormat(startDate);
+        try {
+            await WebRequest.put(guaranteeUrl,
+                {
+                    json: {
+                        guid,
+                        approveNow: guarantee.approveNow,
+                        beneficiaryAddressLine1: guarantee.address,
+                        beneficiaryAddressLine2: guarantee.city,
+                        beneficiaryAddressLine3: guarantee.zip,
+                        beneficiaryName: guarantee.beneficiaryName,
+                        contractAmount: guarantee.contractAmount,
+                        contractGuid,
+                        endDate: sqlEndDate,
+                        facilityMemberGuid,
+                        guaranteeTypeGuid,
+                        startDate: sqlStartDate,
+                        unitNumber: guarantee.unitNumber,
+                    },
+                    auth,
+                    throwResponseError: true,
+                });
+        } catch (e) {
+            return await JSON.stringify(e);
+        }
+    }
+
     private async getFacilityGuidFor(facilityName: string) {
         const facilities = await this.getFacilities(),
             content = await JSON.parse(facilities.content),

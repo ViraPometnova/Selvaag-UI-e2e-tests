@@ -249,6 +249,16 @@ export class ListingPage {
         return applicationInformation[2];
     }
 
+    public async getApplicationModifiedByUserNameFromViewGuarantee(itemName: string) {
+        const applicationInformation = await this.splitApplicationInformationFor(itemName);
+        return applicationInformation[4];
+    }
+
+    public async isApplicationModifiedByRecordPresent(itemName: string) {
+        const applicationInformation = await this.splitApplicationInformationFor(itemName);
+        return applicationInformation[3] !== undefined;
+    }
+
     private getMaintenanceDetailsElementFor(itemName: string) {
         return element(by.cssContainingText(".item-card-details", itemName)).$(".maintenance");
     }

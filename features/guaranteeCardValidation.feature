@@ -1,7 +1,7 @@
 Feature: Guarantee card validation
 
   Scenario: Guarantee card empty inputs
-    Given User is logged in
+    Given User is logged in as admin
     And Organisation is created with values
       | facilityName    | name           | number | address                    | city   | zip   | enabled |
       | White Tombstone | Strong Lobster | ON     | 45, Paseo de la Castellana | Madrid | 28046 | true    |

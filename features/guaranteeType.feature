@@ -1,7 +1,7 @@
 Feature: Guarantee type
 
   Scenario: Validation guarantee type card
-    Given User is logged in
+    Given User is logged in as admin
     And opens admin page
     And opens Manage guarantee types page
     And performs new guarantee type creation

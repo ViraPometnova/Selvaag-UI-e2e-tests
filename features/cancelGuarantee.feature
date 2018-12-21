@@ -1,7 +1,7 @@
 Feature: Cancel guarantee
 
   Scenario: Manually rejected guarantee
-    Given User is logged in
+    Given User is logged in as admin
     And Organisation is created with values
       | facilityName    | name        | number | address  | city     | zip   | enabled |
       | Fuschia Davinci | Green Slate | GTI    | Broadway | New York | 00000 | true    |
